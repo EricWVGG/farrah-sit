@@ -1,0 +1,38 @@
+:root {
+  // mobile
+  --header-height: 88px;
+
+  --spaceXS: 8px;
+  --spaceS: 20px;
+  --spaceM: 28px;
+  --spaceL: 36px;
+  --spaceXL: 48px;
+  --spaceXXL: 60px;
+  --spaceXXXL: 100px;
+
+  @media only screen and (min-width: 744px) {
+    // tablet
+    --header-height: 9.011vw;
+
+    --spaceXS: calc(12 / 1720 * 100vw);
+    --spaceS: calc(24 / 1720 * 100vw);
+    --spaceM: calc(36 / 1720 * 100vw);
+    --spaceL: calc(48 / 1720 * 100vw);
+    --spaceXL: calc(64 / 1720 * 100vw);
+    --spaceXXL: calc(75 / 1720 * 100vw);
+    --spaceXXXL: calc(150 / 1720 * 100vw);
+  }
+
+  //   @media only screen and (min-width: 1720px) {
+  //     // desktop
+  //     --header-height: 155px;
+  //
+  //     --spaceXS: 12px;
+  //     --spaceS: 24px;
+  //     --spaceM: 36px;
+  //     --spaceL: 48px;
+  //     --spaceXL: 64px;
+  //     --spaceXXL: 75px;
+  //     --spaceXXXL: 150px;
+  //   }
+}
