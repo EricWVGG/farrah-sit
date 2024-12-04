@@ -7,7 +7,7 @@ import '@theme/stylesheets/pageMargin.scss'
 import '@theme/stylesheets/main.scss'
 import '@theme/stylesheets/typography.scss'
 import { robinson } from '@theme'
-import { Header, RightPanel, ProjectIndex } from '@ui'
+import { Header, AboutPanel, ProjectIndex } from '@ui'
 import { getPage, getProjectIndex } from '@query'
 
 export const metadata: Metadata = {
@@ -43,7 +43,7 @@ export default async function RootLayout({
       <body className={robinson.variable}>
         <Header />
         {children}
-        <RightPanel content={aboutContent} />
+        <AboutPanel content={aboutContent} />
         <ProjectIndex sortedProjects={sortedProjects} />
       </body>
     </html>

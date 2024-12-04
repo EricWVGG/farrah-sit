@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { useShallow } from 'zustand/react/shallow'
 import { useLayout } from '@lib'
 
-export const RightPanel = ({
+export const AboutPanel = ({
   content,
 }: {
   content: Sanity.PageQueryResult
@@ -65,11 +65,9 @@ const Wrapper = styled.section`
   max-width: 600px;
   min-height: calc(100dvh - 120px);
 
-  transition: transform 0.25s ease-in-out;
-  @media only screen and (min-width: 1000px) {
-    max-width: 940px;
-    right: -870px;
-  }
+  transition: transform 1.25s ease-in-out;
+  right: -870px;
+  max-width: 940px;
   &.active {
     z-index: var(--layer-popout);
     transform: translateX(-870px);
@@ -89,7 +87,7 @@ const ToggleOn = styled.div`
 const Content = styled.article`
   padding: 80px;
   img {
-    max-width: 100%;
+    max-width: 400px;
     height: auto;
   }
 

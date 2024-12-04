@@ -8,7 +8,6 @@ import { notFound } from 'next/navigation'
 export default async function Home() {
   const page = await getPage({ slug: SLUG })
   if (!page) return notFound()
-  console.log('page', page)
   return <Page page={page} />
 }
 

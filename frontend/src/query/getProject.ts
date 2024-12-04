@@ -8,8 +8,8 @@ export const projectQuery = defineQuery(`
     metadata,
     copy,
     projectType,
-    images[] -> ${imageFragment},
-    tearsheet -> ${fileFragment}
+    images[] ${imageFragment},
+    tearsheet ${fileFragment}
   }
 `)
 

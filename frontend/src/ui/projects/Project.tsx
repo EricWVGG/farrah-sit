@@ -12,10 +12,14 @@ export const Project = ({
       <TitleColumn>
         <Title>{project.metadata?.title}</Title>
       </TitleColumn>
-      <Slideshow />
+      <Slideshow images={project.images} />
       <Description>
         <p>{project.metadata?.description}</p>
-        <ReadMore href="">Read more…</ReadMore>
+        <ReadMore
+          href={`/${project.projectType}/${project.metadata.slug.current}`}
+        >
+          Read more…
+        </ReadMore>
       </Description>
     </Wrapper>
   )
@@ -27,8 +31,10 @@ const Wrapper = styled.li`
   grid-template-rows: auto;
 
   grid-template-areas: 'slideshow' 'title' 'description';
+  gap: 30px;
+
   @media only screen and (min-width: 1024px) {
-    gap: 20px 30px;
+    gap: 15px 30px;
     grid-template-columns: 1fr 45vw;
     grid-template-rows: auto;
     grid-template-areas: 'title slideshow' 'title description';
@@ -47,9 +53,10 @@ const TitleColumn = styled.div`
 const Title = styled.h3`
   position: sticky;
   top: 120px;
-  padding-bottom: 1.4em;
 
   @media only screen and (min-width: 1024px) {
+    padding-bottom: 1.4em;
+
     text-align: right;
   }
   font-size: var(--typeSizeL);

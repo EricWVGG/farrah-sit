@@ -9,11 +9,16 @@ export const Projects = ({
       {projects?.map((project) => (
         <Project key={project._id} project={project} />
       ))}
+      {projects?.map((project) => (
+        <Project key={`${project._id}-2`} project={project} />
+      ))}
     </Wrapper>
   )
 }
 
 const Wrapper = styled.section`
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 60px;

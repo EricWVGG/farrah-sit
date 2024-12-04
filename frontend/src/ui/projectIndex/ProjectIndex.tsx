@@ -83,10 +83,8 @@ const Wrapper = styled.section`
   padding: 80px 80px;
   box-shadow: 20px 20px 0 rgb(225, 225, 225);
 
-  transition: transform 0.25s ease-in-out;
-  @media only screen and (min-width: 1000px) {
-    left: -500px;
-  }
+  transition: transform 1.25s ease-in-out;
+  left: -500px;
   &.active {
     z-index: var(--layer-popout);
     transform: translateX(500px);

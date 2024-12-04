@@ -6,6 +6,8 @@ const nextConfig: NextConfig = {
     silenceDeprecations: ['legacy-js-api'],
   },
   images: {
+    loader: 'custom',
+    loaderFile: './src/lib/imageKitLoader.ts',
     remotePatterns: [
       {
         protocol: 'https',

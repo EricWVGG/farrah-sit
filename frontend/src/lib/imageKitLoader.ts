@@ -16,7 +16,7 @@ export const cdnUrl = (src?: string) => {
     ? `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}`
     : `https://cdn.sanity.io/files/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}`
   const newUrl = isImage
-    ? `https://ik.imagekit.io/${process.env.NEXT_PUBLIC_IMAGEKIT_ID}/{{transforms}}`
+    ? `https://ik.imagekit.io/${process.env.NEXT_PUBLIC_IMAGEKIT_ID}/images/{{transforms}}`
     : `https://ik.imagekit.io/${process.env.NEXT_PUBLIC_IMAGEKIT_ID}/files`
   return src.replace(sourceURL, newUrl)
 }
@@ -53,3 +53,5 @@ const injectFriendlyFilename = (path: string, friendlyFilename?: string) => {
     `${friendlyFilename}.${extension}`,
   ].join('/')
 }
+
+export default imageKitLoader

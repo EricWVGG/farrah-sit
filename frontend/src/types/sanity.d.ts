@@ -357,7 +357,7 @@ export type MetadataQueryResult = {
 
 // Source: ../frontend/src/query/getPage.ts
 // Variable: pageQuery
-// Query: *[_type == 'page' && metadata.slug.current == $slug][0]{    metadata {      ...,      poster {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }}    },    copy,    projects[] -> {      _id,      metadata {        title,        description,        slug {          current        }      }    },  }
+// Query: *[_type == 'page' && metadata.slug.current == $slug][0]{    metadata {      ...,      poster {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }}    },    copy,    projects[] -> {      _id,      projectType,      images[] {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }},      metadata {        title,        description,        slug {          current        }      }    },  }
 export type PageQueryResult = {
   metadata: {
     _type: 'metadata'
@@ -399,6 +399,21 @@ export type PageQueryResult = {
   }> | null
   projects: Array<{
     _id: string
+    projectType: 'collaboration' | 'lighting' | 'sculpture'
+    images: Array<{
+      asset: {
+        metadata: {
+          lqip: string | null
+          blurHash: string | null
+          dimensions: SanityImageDimensions | null
+        } | null
+        url: string | null
+      } | null
+      hotspot?: SanityImageHotspot
+      crop?: SanityImageCrop
+      _type: 'image'
+      _key: string
+    }>
     metadata: {
       title: string
       description: string | null
@@ -411,7 +426,7 @@ export type PageQueryResult = {
 
 // Source: ../frontend/src/query/getProject.ts
 // Variable: projectQuery
-// Query: *[_type == 'project' && metadata.slug.current == $slug][0]{    metadata,    copy,    projectType,    images[] -> {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }},    tearsheet -> {  ...,  asset-> {    url  }}  }
+// Query: *[_type == 'project' && metadata.slug.current == $slug][0]{    metadata,    copy,    projectType,    images[] {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }},    tearsheet {  ...,  asset-> {    url  }}  }
 export type ProjectQueryResult = {
   metadata: Metadata
   copy: Array<{
@@ -433,8 +448,26 @@ export type ProjectQueryResult = {
     _key: string
   }>
   projectType: 'collaboration' | 'lighting' | 'sculpture'
-  images: Array<null>
-  tearsheet: null
+  images: Array<{
+    asset: {
+      metadata: {
+        lqip: string | null
+        blurHash: string | null
+        dimensions: SanityImageDimensions | null
+      } | null
+      url: string | null
+    } | null
+    hotspot?: SanityImageHotspot
+    crop?: SanityImageCrop
+    _type: 'image'
+    _key: string
+  }>
+  tearsheet: {
+    asset: {
+      url: string | null
+    } | null
+    _type: 'file'
+  } | null
 } | null
 
 // Source: ../frontend/src/query/getProjectIndex.ts
@@ -478,8 +511,8 @@ import '@sanity/client'
 declare module '@sanity/client' {
   interface SanityQueries {
     "\n  *[(_type == 'page' || _type == 'projectV2') && metadata.slug.current == $slug][0]{\n    metadata {\n      ...,\n      poster \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    }\n  }\n": MetadataQueryResult
-    "\n  *[_type == 'page' && metadata.slug.current == $slug][0]{\n    metadata {\n      ...,\n      poster \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    },\n    copy,\n    projects[] -> {\n      _id,\n      metadata {\n        title,\n        description,\n        slug {\n          current\n        }\n      }\n    },\n  }\n": PageQueryResult
-    "\n  *[_type == 'project' && metadata.slug.current == $slug][0]{\n    metadata,\n    copy,\n    projectType,\n    images[] -> \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n    tearsheet -> \n{\n  ...,\n  asset-> {\n    url\n  }\n}\n\n  }\n": ProjectQueryResult
+    "\n  *[_type == 'page' && metadata.slug.current == $slug][0]{\n    metadata {\n      ...,\n      poster \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    },\n    copy,\n    projects[] -> {\n      _id,\n      projectType,\n      images[] \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n      metadata {\n        title,\n        description,\n        slug {\n          current\n        }\n      }\n    },\n  }\n": PageQueryResult
+    "\n  *[_type == 'project' && metadata.slug.current == $slug][0]{\n    metadata,\n    copy,\n    projectType,\n    images[] \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n    tearsheet \n{\n  ...,\n  asset-> {\n    url\n  }\n}\n\n  }\n": ProjectQueryResult
     "\n  *[_type == 'project']{\n    _id,\n    projectType,\n    metadata {\n      title,\n      description,\n      slug {\n        current\n      }\n    }\n  }\n": ProjectIndexQueryResult
     "\n  *[_type == 'siteSettings' && title == 'Farrah Sit'][0]{\n    title,\n    description,\n    shareImage \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n  }\n": SiteSettingsQueryResult
   }

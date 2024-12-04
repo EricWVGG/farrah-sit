@@ -12,6 +12,8 @@ export const pageQuery = defineQuery(`
     copy,
     projects[] -> {
       _id,
+      projectType,
+      images[] ${imageFragment},
       metadata {
         title,
         description,

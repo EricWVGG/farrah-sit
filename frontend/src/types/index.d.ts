@@ -3,7 +3,8 @@ export interface PageParameters {
 }
 
 export interface ProjectPageParams {
-  params: { projectType: string; slug?: string }
+  projectType: string
+  slug?: string
 }
 
 export type SlugParams = { slug?: string }

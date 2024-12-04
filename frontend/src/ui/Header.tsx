@@ -2,26 +2,35 @@
 
 import { styled } from '@linaria/react'
 import { usePathname } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useShallow } from 'zustand/react/shallow'
 import { useLayout } from '@lib'
 import Link from 'next/link'
 
 export const Header = () => {
-  const [toggleAbout] = useLayout(useShallow((state) => [state.toggleAbout]))
+  const [toggleAbout, toggleActive] = useLayout(
+    useShallow((state) => [state.toggleAbout, state.toggleActive]),
+  )
   // todo: siteName click should toggle nav if mobile
 
   const pathname = usePathname()
 
+  const router = useRouter()
+
+  const aboutOrHome = () => {
+    if (pathname === '/') {
+      toggleAbout()
+    } else {
+      router.push('/')
+    }
+  }
+
   return (
     <Wrapper>
-      <Sitename onClick={() => toggleAbout()}>Farrah Sit</Sitename>
+      <Sitename onClick={aboutOrHome}>Farrah Sit</Sitename>
       <Navigation>
         <ul>
-          <li>
-            <Link href="/" className={pathname === '/' ? 'active' : ''}>
-              New
-            </Link>
-          </li>
+          <li onClick={toggleActive}>Index</li>
           <li>
             <Link href="/" className={pathname === '/lighting' ? 'active' : ''}>
               Lighting
@@ -43,7 +52,7 @@ export const Header = () => {
               Collaborations
             </Link>
           </li>
-          <li className="mobileOnly">About</li>
+          <li onClick={() => toggleAbout()}>About</li>
         </ul>
       </Navigation>
     </Wrapper>
@@ -54,6 +63,7 @@ const Sitename = styled.div`
   font-size: var(--typeSizeL);
   line-height: var(--typeLineL);
   text-transform: uppercase;
+  cursor: pointer;
 `
 
 const Wrapper = styled.header`
@@ -90,9 +100,9 @@ const Navigation = styled.nav`
       display: flex;
       flex-direction: row;
       gap: 2vw;
-    }
-    li.mobileOnly {
-      display: none;
+      li {
+        cursor: pointer;
+      }
     }
   }
 
