@@ -1,4 +1,4 @@
-import { defineField, defineType } from 'sanity'
+import {defineField, defineType} from 'sanity'
 
 export const metadata = defineType({
   name: 'metadata',
@@ -25,7 +25,12 @@ export const metadata = defineType({
       description: 'Description copy for search engines and social shares.',
       rows: 3,
       validation: (Rule) => Rule.max(160).warning(),
-      hidden: ({ document }) => document?._type === 'event',
+      hidden: ({document}) => document?._type === 'event',
+    }),
+    defineField({
+      name: 'poster',
+      type: 'image',
+      description: 'Share image (iMessages, Facebook, Twitter, etc.)',
     }),
     defineField({
       name: 'noIndex',

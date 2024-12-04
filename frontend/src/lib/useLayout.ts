@@ -8,6 +8,10 @@ interface LayoutState {
   setNavActive: (a?: boolean) => void
   toggleActive: () => void
 
+  aboutActive: boolean
+  setAboutActive: (a?: boolean) => void
+  toggleAbout: () => void
+
   compressionLevel: number
   setCompressionLevel: (n: number) => void
 }
@@ -18,6 +22,10 @@ const createNavState: StateCreator<LayoutState> = (set) => ({
   navActive: false,
   setNavActive: (navActive) => set({ navActive }),
   toggleActive: () => set((state) => ({ navActive: !state.navActive })),
+
+  aboutActive: false,
+  setAboutActive: (aboutActive) => set({ aboutActive }),
+  toggleAbout: () => set((state) => ({ aboutActive: !state.aboutActive })),
 
   compressionLevel: 80,
   setCompressionLevel: (compressionLevel) => set({ compressionLevel }),

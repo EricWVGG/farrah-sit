@@ -4,7 +4,6 @@ html {
   scroll-behavior: smooth;
   --scrollbarWidth: 0px;
   overflow-x: hidden;
-  background: black;
 }
 
 html.no-js .loadable {
@@ -21,17 +20,14 @@ body {
   -ms-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-family: var(--basis);
-  font-weight: 500;
+  font-family: var(--robinson);
+  font-weight: 300;
   font-style: normal;
-  font-size: var(--typeSizeM);
-  line-height: var(--typeLineM);
-  letter-spacing: var(--typeLeadingM);
-  transition: background-color 0.25s linear, color 0.25s linear;
+  font-size: 1.6rem;
   -webkit-tap-highlight-color: rgba(255, 255, 0, 0);
-  color: white;
+  background-color: var(--white);
+  color: var(--tundora);
   overflow-x: clip;
-  background: var(--ebony-clay);
 }
 
 html,
@@ -67,8 +63,8 @@ p {
 }
 
 a {
+  position: relative;
   cursor: pointer;
-  color: white;
   font: inherit;
   text-decoration: none;
   text-underline-offset: 0.2em;
@@ -76,7 +72,18 @@ a {
 }
 
 a:hover {
-  opacity: 0.8;
+  &:after {
+    content: ' ';
+    display: block;
+    height: 3px;
+    width: 100%;
+    position: absolute;
+    bottom: -10px;
+    left: 0px;
+    background-image: url('/squiggle.svg');
+    background-repeat: repeat-x;
+    background-size: auto 2px;
+  }
 }
 
 blockquote {
@@ -94,7 +101,7 @@ strong del {
 }
 
 hr {
-  background-color: rgba(var(--border-light));
+  background-color: black;
   box-sizing: content-box;
   margin: 0;
   padding: 0;
@@ -114,9 +121,6 @@ hr {
 }
 
 ::selection {
-  background-color: rgb(var(--accent-primary));
-  color: rgb(var(--text-inv-primary));
-  text-shadow: 1px 1px rgba(var(--accent-quaternary));
 }
 
 .media {

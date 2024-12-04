@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity'
+import {defineType, defineField} from 'sanity'
 
 export const page = defineType({
   name: 'page',
@@ -8,12 +8,22 @@ export const page = defineType({
     defineField({
       name: 'metadata',
       type: 'metadata',
+      validation: (rule) => rule.required(),
+    }),
+
+    defineField({
+      name: 'copy',
+      title: 'Content',
+      description: 'Optional',
+      type: 'richText',
+      hidden: ({parent}) => parent.metadata?.slug.current !== 'about',
     }),
 
     defineField({
       name: 'projects',
       type: 'array',
-      of: [{ type: 'reference', to: [{ type: 'project' }] }],
+      of: [{type: 'reference', to: [{type: 'project'}]}],
+      hidden: ({parent}) => parent.metadata?.slug.current === 'about',
     }),
   ],
 

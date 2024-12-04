@@ -1,7 +1,6 @@
 import { defineQuery } from 'groq'
 import { fetchFromSanity } from '@lib'
 import { type SlugParams } from '@types'
-import { modulesFragment } from './modulesFragment'
 import { imageFragment } from './fragments'
 
 export const pageQuery = defineQuery(`
@@ -10,28 +9,17 @@ export const pageQuery = defineQuery(`
       ...,
       poster ${imageFragment}
     },
-    pageType,
-    gridGapX,
-    gridGapY,
-    gridGapXMobile,
-    gridGapYMobile,
-    slideshowInterval,
-    
-    modules[] ${modulesFragment},
-    
-    subPage -> {
+    copy,
+    projects[] -> {
+      _id,
       metadata {
+        title,
+        description,
         slug {
           current
         }
       }
     },
-    segueToSubPage,
-    subPageHeader,
-    
-    colorCycle[] {
-      hex
-    }
   }
 `)
 

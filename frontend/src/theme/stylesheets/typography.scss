@@ -1,25 +1,10 @@
-// these values must reflect ../typography.ts
-
 :root {
-  --typeSizeS: 1.2rem;
-  --typeLineS: 2.4rem;
-  --typeLeadingS: 0.02em;
+  --typeSizeS: 1rem;
+  --typeLineS: 1.8rem;
 
-  --typeSizeM: 1.55rem;
-  --typeLineM: 2.6rem;
-  --typeLeadingM: 0.03em;
+  --typeSizeM: 1.4rem;
+  --typeLineM: 2.8rem;
 
-  --typeSizeL: 2.5rem;
-  --typeLineL: 3.5rem;
-  --typeLeadingL: 0.03em;
-
-  --typeSizeXL: 2.5rem;
-  --typeLineXL: 3.5rem;
-  --typeLeadingXL: 0.03em;
-
-  @media only screen and (min-width: 744px) {
-    --typeSizeXL: 4rem;
-    --typeLineXL: 5rem;
-    --typeLeadingXL: 0.03em;
-  }
+  --typeSizeL: 2.2rem;
+  --typeLineL: 2.8rem;
 }

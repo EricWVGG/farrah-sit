@@ -1,7 +1,7 @@
 import { cdnUrl } from '@lib'
 import { processUrl } from './processUrl'
 import type { Metadata } from 'next'
-import { BASE_URL } from '@const'
+import { BASE_URL, DEFAULT_SITE_TITLE } from '@const'
 
 export const processMetadata = (
   data: Sanity.MetadataQueryResult,
@@ -16,7 +16,7 @@ export const processMetadata = (
 
   const title = [
     metadata?.title,
-    siteSettings?.title || `Michael Freimuth`,
+    siteSettings?.title || DEFAULT_SITE_TITLE,
   ].join(' ✗ ')
 
   return {

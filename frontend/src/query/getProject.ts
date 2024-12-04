@@ -2,28 +2,14 @@ import { defineQuery } from 'groq'
 import { fetchFromSanity } from '@lib'
 import { type SlugParams } from '@types'
 import { imageFragment, fileFragment } from './fragments'
-import { modulesFragment } from './modulesFragment'
 
 export const projectQuery = defineQuery(`
-  *[_type == 'projectV2' && metadata.slug.current == $slug][0]{
-    projectType,
+  *[_type == 'project' && metadata.slug.current == $slug][0]{
     metadata,
-    banner {
-      type,
-      image ${imageFragment},
-      mobileImage ${imageFragment},
-      video ${fileFragment},
-      mobileVideo ${fileFragment},
-    },
-    customBackgroundColor {
-      hex
-    },
-    gridGapX,
-    gridGapY,
-    gridGapXMobile,
-    gridGapYMobile,
-    modules[] ${modulesFragment},
-    segueToMore
+    copy,
+    projectType,
+    images[] -> ${imageFragment},
+    tearsheet -> ${fileFragment}
   }
 `)
 

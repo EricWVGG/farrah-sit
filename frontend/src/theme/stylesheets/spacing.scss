@@ -11,7 +11,6 @@
   --spaceXXXL: 100px;
 
   @media only screen and (min-width: 744px) {
-    // tablet
     --header-height: 9.011vw;
 
     --spaceXS: calc(12 / 1720 * 100vw);
@@ -22,17 +21,4 @@
     --spaceXXL: calc(75 / 1720 * 100vw);
     --spaceXXXL: calc(150 / 1720 * 100vw);
   }
-
-  //   @media only screen and (min-width: 1720px) {
-  //     // desktop
-  //     --header-height: 155px;
-  //
-  //     --spaceXS: 12px;
-  //     --spaceS: 24px;
-  //     --spaceM: 36px;
-  //     --spaceL: 48px;
-  //     --spaceXL: 64px;
-  //     --spaceXXL: 75px;
-  //     --spaceXXXL: 150px;
-  //   }
 }

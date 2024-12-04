@@ -8,4 +8,9 @@ export interface ProjectPageParams {
 
 export type SlugParams = { slug?: string }
 
+// note: member of array
+declare global {
+  type Member<A> = A extends readonly (infer T)[] ? T : never
+}
+
 export * from './sanity-groq'
