@@ -51,7 +51,7 @@ export const ProjectIndex = ({
             <li key={`project-type-${i}`}>
               <ProjectType>{projectType}</ProjectType>
               <ul>
-                {sortedProjects[projectType as keyof SortedProjects]
+                {sortedProjects[projectType as keyof typeof sortedProjects]
                   .sort((a, b) =>
                     a.metadata.title < b.metadata.title ? -1 : 1,
                   )

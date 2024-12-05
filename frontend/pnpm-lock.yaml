@@ -29,6 +29,9 @@ importers:
       '@portabletext/to-html':
         specifier: ^2.0.13
         version: 2.0.13
+      '@portabletext/types':
+        specifier: ^2.0.13
+        version: 2.0.13
       '@sanity/block-tools':
         specifier: ^3.52.2
         version: 3.65.0(debug@4.3.7)

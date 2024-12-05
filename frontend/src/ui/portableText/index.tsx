@@ -1,5 +1,5 @@
-export { TypeL, TypeM } from './Text'
+export { TypeL, TypeM, TypeS, TypeXL } from './Text'
 
-export { copyRenderers, Color } from './copyRenderers'
+export { copyRenderers } from './copyRenderers'
 
 export { RichText } from './RichText'

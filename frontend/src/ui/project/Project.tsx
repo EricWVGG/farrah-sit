@@ -25,17 +25,11 @@ export const Project = ({
 
         <div>
           <Data>
-            lg: 76" l x 67" w x 86" h<br />
             193cm l x 170cm w x 218cm h<br />
-            sm: 38" l x 33" w x 50" h<br />
             96cm l x 84cm w x 127cm h catalog
           </Data>
-          <P>
-            <a href="/">Tearsheet</a>
-          </P>
-          <P>
-            <a href="/">Catalog</a>
-          </P>
+          <P>Tearsheet</P>
+          <P>Catalog</P>
         </div>
 
         {images.map((image, i) =>
@@ -107,23 +101,6 @@ const Data = styled.div`
 `
 
 const P = styled.p`
-  font-size: var(--typeSizeM);
-  line-height: var(--typeLineM);
-`
-
-const Inquire = styled.div`
-  position: relative;
-  margin-top: 2em;
-  padding-top: 2em;
-  max-width: 50px;
-  &:before {
-    position: absolute;
-    top: 0;
-    right: 0;
-    height: 1px;
-    width: 50px;
-    background: black;
-  }
   font-size: var(--typeSizeM);
   line-height: var(--typeLineM);
 `

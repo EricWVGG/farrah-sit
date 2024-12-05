@@ -4,7 +4,7 @@ import { type SlugParams } from '@types'
 import { imageFragment } from './fragments'
 
 export const metadataQuery = defineQuery(`
-  *[(_type == 'page' || _type == 'projectV2') && metadata.slug.current == $slug][0]{
+  *[(_type == 'page' || _type == 'project') && metadata.slug.current == $slug][0]{
     metadata {
       ...,
       poster ${imageFragment}

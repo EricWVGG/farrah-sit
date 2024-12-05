@@ -2,6 +2,9 @@
   "name": "farrah-sit",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": ">=22.11.0 <23"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -16,6 +19,7 @@
     "@parcel/watcher": "^2.4.1",
     "@portabletext/react": "^3.1.0",
     "@portabletext/to-html": "^2.0.13",
+    "@portabletext/types": "^2.0.13",
     "@sanity/block-tools": "^3.52.2",
     "@sanity/image-url": "^1.0.2",
     "@sanity/preview-kit": "^5.1.0",

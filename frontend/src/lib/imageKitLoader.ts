@@ -22,7 +22,7 @@ export const cdnUrl = (src?: string) => {
 }
 
 export const imageKitLoader = (
-  { src, width, quality, seoFilename, ...rest }: IImageKitLoader,
+  { src, width, quality, seoFilename }: IImageKitLoader,
   options?: ImageKitLoaderOptions,
 ) => {
   const fixedFilename = cdnUrl(src) || src
