@@ -34,6 +34,14 @@ export async function generateMetadata(props: {
   }
 }
 
+export async function generateStaticParams() {
+  return [
+    { projectType: 'lighting' },
+    { projectType: 'collaboration' },
+    { projectType: 'objects' },
+  ]
+}
+
 export function generateViewport() {
   return {
     themeColor: 'var(--white)',
