@@ -21,6 +21,7 @@ export const Slide = ({
         alt="derp"
         width={image.asset?.metadata?.dimensions?.width!}
         height={image.asset?.metadata?.dimensions?.height!}
+        style={{ aspectRatio: image.asset?.metadata?.dimensions?.aspectRatio }}
       />
     </Wrapper>
   )

@@ -14,12 +14,15 @@ export const Project = ({
       </TitleColumn>
       <Slideshow images={project.images} />
       <Description>
-        <ReadMore
-          href={`/${project.projectType}/${project.metadata.slug.current}`}
-        >
-          Details
-        </ReadMore>
-        <p>{project.metadata?.description}</p>
+        <p>
+          {project.metadata?.description} [
+          <Link
+            href={`/${project.projectType}/${project.metadata.slug.current}`}
+          >
+            details
+          </Link>
+          ]
+        </p>
       </Description>
     </Wrapper>
   )
@@ -69,11 +72,4 @@ const Description = styled.article`
     font-size: var(--typeSizeM);
     line-height: var(--typeLineM);
   }
-`
-
-const ReadMore = styled(Link)`
-  display: inline-block;
-  font-size: var(--typeSizeM);
-  line-height: var(--typeLineM);
-  float: right;
 `

@@ -15,8 +15,16 @@ export const Slideshow = ({
     else if (activeSlide > images.length - 1) activeSlide = 0
     setActive(activeSlide)
   }
+  const minAspectRatio =
+    images?.reduce((n, image) => {
+      const r = image.asset?.metadata?.dimensions?.aspectRatio
+      if (!r || r < 1) return n
+      if (r < n) return r
+      return n
+    }, 9999) || 1
+  const aspectRatio = minAspectRatio < 1 ? 1 : minAspectRatio
   return !images ? null : (
-    <Wrapper>
+    <Wrapper style={{ aspectRatio }}>
       {images.map((image, i) => (
         <Slide
           key={image._key}
@@ -34,10 +42,25 @@ export const Slideshow = ({
   )
 }
 
-const Shifter = styled.div`
+const Wrapper = styled.ul`
+  position: relative;
+  width: 100%;
+
+  grid-area: slideshow;
+
+  img {
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+  }
+`
+
+const Shifter = styled.button`
   position: absolute;
   z-index: 100;
   left: 0;
+  display: block;
   width: 60%;
   height: 100%;
   left: -10%;
@@ -47,17 +70,4 @@ const Shifter = styled.div`
     right: -10%;
   }
   cursor: pointer;
-`
-
-const Wrapper = styled.ul`
-  position: relative;
-  width: 100%;
-  aspect-ratio: 1.5;
-
-  grid-area: slideshow;
-
-  img {
-    height: 100%;
-    width: auto;
-  }
 `
