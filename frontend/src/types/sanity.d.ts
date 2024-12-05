@@ -109,7 +109,7 @@ export type Project = {
   _updatedAt: string
   _rev: string
   metadata: Metadata
-  projectType: 'lighting' | 'sculpture' | 'collaboration'
+  projectType: 'lighting' | 'objects' | 'collaboration'
   copy: Array<{
     children?: Array<{
       marks?: Array<string>
@@ -418,7 +418,7 @@ export type PageQueryResult = {
   }> | null
   projects: Array<{
     _id: string
-    projectType: 'collaboration' | 'lighting' | 'sculpture'
+    projectType: 'collaboration' | 'lighting' | 'objects'
     images: Array<{
       asset: {
         metadata: {
@@ -466,7 +466,7 @@ export type ProjectQueryResult = {
     _type: 'block'
     _key: string
   }>
-  projectType: 'collaboration' | 'lighting' | 'sculpture'
+  projectType: 'collaboration' | 'lighting' | 'objects'
   images: Array<{
     asset: {
       metadata: {
@@ -494,7 +494,7 @@ export type ProjectQueryResult = {
 // Query: *[_type == 'project']{    _id,    projectType,    metadata {      title,      description,      slug {        current      }    }  }
 export type ProjectIndexQueryResult = Array<{
   _id: string
-  projectType: 'collaboration' | 'lighting' | 'sculpture'
+  projectType: 'collaboration' | 'lighting' | 'objects'
   metadata: {
     title: string
     description: string | null
