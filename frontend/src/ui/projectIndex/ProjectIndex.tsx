@@ -5,19 +5,42 @@ import { Onionskin } from '@ui'
 import { useShallow } from 'zustand/react/shallow'
 import { useLayout } from '@lib'
 import Link from 'next/link'
-
-type SortedProjects = Record<
-  'lighting' | 'sculpture' | 'collaboration',
-  Sanity.ProjectIndexQueryResult
->
+import { useEffect } from 'react'
+import { useScrollLock } from 'usehooks-ts'
 
 export const ProjectIndex = ({
-  sortedProjects,
+  projects,
 }: {
-  sortedProjects: SortedProjects
+  projects: Sanity.ProjectIndexQueryResult
 }) => {
   const [indexActive, setIndexActive] = useLayout(
     useShallow((state) => [state.indexActive, state.setIndexActive]),
+  )
+
+  const { lock, unlock } = useScrollLock({
+    autoLock: false,
+    lockTarget:
+      typeof window !== 'undefined' ? document.documentElement : undefined,
+  })
+
+  useEffect(() => {
+    if (indexActive) {
+      lock()
+    } else {
+      unlock()
+    }
+  }, [indexActive])
+
+  const sortedProjects = projects.reduce(
+    (acc, project) => {
+      acc[project.projectType].push(project)
+      return acc
+    },
+    {
+      collaboration: [] as Sanity.ProjectIndexQueryResult,
+      lighting: [] as Sanity.ProjectIndexQueryResult,
+      sculpture: [] as Sanity.ProjectIndexQueryResult,
+    },
   )
 
   return !sortedProjects ? null : (
@@ -61,9 +84,10 @@ const Wrapper = styled.section`
   z-index: var(--layer-project-index);
   top: var(--header-height);
   left: 0;
-  min-height: calc(100dvh - var(--header-height));
+  height: calc(100dvh - var(--header-height));
   width: 100%;
   max-width: 580px;
+  overflow-y: auto;
 
   padding: 80px 80px;
   box-shadow: 20px 20px 0 rgb(225, 225, 225);

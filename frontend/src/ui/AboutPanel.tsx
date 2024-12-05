@@ -5,7 +5,7 @@ import { RichText, Onionskin } from '@ui'
 import Image from 'next/image'
 import { useShallow } from 'zustand/react/shallow'
 import { useLayout } from '@lib'
-import { useIsClient, useScrollLock } from 'usehooks-ts'
+import { useScrollLock } from 'usehooks-ts'
 import { useEffect } from 'react'
 
 export const AboutPanel = ({

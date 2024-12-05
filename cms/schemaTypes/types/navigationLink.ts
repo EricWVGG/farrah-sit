@@ -1,4 +1,4 @@
-import { defineType, defineField } from 'sanity'
+import {defineType, defineField} from 'sanity'
 
 export const navigationLink = defineType({
   name: 'navigationLink',
@@ -34,24 +34,16 @@ export const navigationLink = defineType({
     defineField({
       name: 'destination',
       type: 'reference',
-      to: [{ type: 'page' }, { type: 'project' }],
+      to: [{type: 'page'}, {type: 'project'}],
       // validation: (Rule) => Rule.required(),
-      hidden: ({ parent }) =>
-        !!parent?.linkType && parent.linkType === 'external',
+      hidden: ({parent}) => !!parent?.linkType && parent.linkType === 'external',
     }),
 
     defineField({
       name: 'externalUrl',
       title: 'URL',
       type: 'string',
-      hidden: ({ parent }) =>
-        !!parent?.linkType && parent.linkType !== 'external',
-    }),
-
-    defineField({
-      name: 'url',
-      type: 'string',
-      hidden: true,
+      hidden: ({parent}) => !!parent?.linkType && parent.linkType !== 'external',
     }),
   ],
 })

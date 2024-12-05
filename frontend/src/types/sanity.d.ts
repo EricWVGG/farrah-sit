@@ -100,7 +100,6 @@ export type NavigationLink = {
         [internalGroqTypeReferenceTo]?: 'project'
       }
   externalUrl?: string
-  url?: string
 }
 
 export type Project = {
@@ -355,6 +354,26 @@ export type MetadataQueryResult = {
   }
 } | null
 
+// Source: ../frontend/src/query/getNavigation.ts
+// Variable: navigationQuery
+// Query: *[_type == 'navigation' && name == $name][0]{    links[] {      ...,      label,      externalUrl,      destination -> {        metadata {          slug {            current          }        }      }    }  }
+export type NavigationQueryResult = {
+  links: Array<{
+    _key: string
+    _type: 'navigationLink'
+    label: string | null
+    linkType?: 'external' | 'internal'
+    destination: {
+      metadata: {
+        slug: {
+          current: string
+        }
+      }
+    } | null
+    externalUrl: string | null
+  }> | null
+} | null
+
 // Source: ../frontend/src/query/getPage.ts
 // Variable: pageQuery
 // Query: *[_type == 'page' && metadata.slug.current == $slug][0]{    metadata {      ...,      poster {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }}    },    copy,    projects[] -> {      _id,      projectType,      images[] {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }},      metadata {        title,        description,        slug {          current        }      }    },  }
@@ -511,6 +530,7 @@ import '@sanity/client'
 declare module '@sanity/client' {
   interface SanityQueries {
     "\n  *[(_type == 'page' || _type == 'projectV2') && metadata.slug.current == $slug][0]{\n    metadata {\n      ...,\n      poster \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    }\n  }\n": MetadataQueryResult
+    "\n  *[_type == 'navigation' && name == $name][0]{\n    links[] {\n      ...,\n      label,\n      externalUrl,\n      destination -> {\n        metadata {\n          slug {\n            current\n          }\n        }\n      }\n    }\n  }\n": NavigationQueryResult
     "\n  *[_type == 'page' && metadata.slug.current == $slug][0]{\n    metadata {\n      ...,\n      poster \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    },\n    copy,\n    projects[] -> {\n      _id,\n      projectType,\n      images[] \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n      metadata {\n        title,\n        description,\n        slug {\n          current\n        }\n      }\n    },\n  }\n": PageQueryResult
     "\n  *[_type == 'project' && metadata.slug.current == $slug][0]{\n    metadata,\n    copy,\n    projectType,\n    images[] \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n    tearsheet \n{\n  ...,\n  asset-> {\n    url\n  }\n}\n\n  }\n": ProjectQueryResult
     "\n  *[_type == 'project']{\n    _id,\n    projectType,\n    metadata {\n      title,\n      description,\n      slug {\n        current\n      }\n    }\n  }\n": ProjectIndexQueryResult

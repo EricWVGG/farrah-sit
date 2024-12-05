@@ -12,9 +12,9 @@ import { notFound } from 'next/navigation'
 export default async function ProjectPage(props: {
   params: Promise<ProjectPageParams>
 }) {
-  const { slug } = await props.params
+  const { slug, projectType } = await props.params
   const project = await getProject({ slug })
-  if (!project) return notFound()
+  if (!project || project.projectType !== projectType) return notFound()
   return <Project {...project} />
 }
 

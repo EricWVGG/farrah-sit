@@ -8,13 +8,16 @@ import { useLayout } from '@lib'
 import { MenuButton } from '@ui'
 import Link from 'next/link'
 
-export const Header = () => {
-  const [toggleAbout, toggleIndex, navActive, toggleNav] = useLayout(
+export const Header = ({
+  navigation,
+}: {
+  navigation: Sanity.NavigationQueryResult
+}) => {
+  const [toggleAbout, toggleIndex, indexActive] = useLayout(
     useShallow((state) => [
       state.toggleAbout,
       state.toggleIndex,
-      state.navActive,
-      state.toggleNav,
+      state.indexActive,
     ]),
   )
   // todo: siteName click should toggle nav if mobile
@@ -34,34 +37,27 @@ export const Header = () => {
   return (
     <Wrapper>
       <Sitename onClick={aboutOrHome}>Farrah Sit</Sitename>
-      <Navigation className={navActive ? 'active' : ''}>
+      <Navigation>
         <ul>
           <li onClick={toggleIndex}>Index</li>
-          <li>
-            <Link href="/" className={pathname === '/lighting' ? 'active' : ''}>
-              Lighting
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/"
-              className={pathname === '/sculpture' ? 'active' : ''}
-            >
-              Sculpture
-            </Link>
-          </li>
-          <li>
-            <Link
-              href="/"
-              className={pathname === '/collaborations' ? 'active' : ''}
-            >
-              Collaborations
-            </Link>
-          </li>
+          {navigation?.links?.map((item) => (
+            <li key={item._key}>
+              <Link
+                href={`/${item.destination?.metadata.slug.current}`}
+                className={
+                  pathname === `/${item.destination?.metadata.slug.current}`
+                    ? 'active'
+                    : ''
+                }
+              >
+                {item.label}
+              </Link>
+            </li>
+          ))}
           <li onClick={() => toggleAbout()}>About</li>
         </ul>
       </Navigation>
-      <MenuButton onClick={toggleNav} active={navActive} />
+      <MenuButton onClick={toggleIndex} active={indexActive} />
     </Wrapper>
   )
 }
@@ -112,39 +108,9 @@ const Wrapper = styled.header`
 `
 
 const Navigation = styled.nav`
-  @media only screen and (max-width: 1023px) {
-    position: fixed;
-    z-index: var(--mobile-nav);
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100dvh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    padding-top: var(--header-height);
-
-    gap: 30px;
-
-    ul {
-      display: contents;
-    }
-
-    font-size: var(--typeSizeXL);
-    line-height: var(--typeLineXL);
-
-    opacity: 0;
-    transition: opacity 1s ease-in-out, backdrop-filter 1.5s ease-in-out;
-    background: rgba(255, 255, 255, 0.85);
-    pointer-events: none;
-    &.active {
-      opacity: 1;
-      backdrop-filter: blur(15px);
-      pointer-events: all;
-    }
-  }
+  display: none;
   @media only screen and (min-width: 1024px) {
+    display: block;
     ul {
       display: flex;
       flex-direction: row;

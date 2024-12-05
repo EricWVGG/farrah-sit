@@ -1,13 +1,11 @@
 :root {
   --layer-footer: 1;
   --layer-onionskin: 2;
-  --layer-header: 3;
   --layer-about: 4;
   --layer-project-index: 5;
   --layer-popout-onionskin: 6;
   --layer-popout: 7;
-  --mobile-nav: 8;
-  --mobile-nav-options: 9;
+  --layer-header: 8;
 }
 
 @media only screen and (min-width: 1024px) {

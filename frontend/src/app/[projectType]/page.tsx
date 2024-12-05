@@ -2,17 +2,23 @@ import { processMetadata } from '@lib'
 import { Page } from '@ui'
 import { BASE_URL, DEFAULT_SITE_TITLE } from '@const'
 import { getPage, getMetadata, getSiteSettings } from '@query'
-import { SLUG } from './'
 import { notFound } from 'next/navigation'
+import { ProjectPageParams } from '@types'
 
-export default async function Home() {
-  const page = await getPage({ slug: SLUG })
+export default async function Home(props: {
+  params: Promise<ProjectPageParams>
+}) {
+  const { projectType } = await props.params
+  const page = await getPage({ slug: projectType })
   if (!page) return notFound()
   return <Page page={page} />
 }
 
-export async function generateMetadata() {
-  const metadataResult = await getMetadata({ slug: SLUG })
+export async function generateMetadata(props: {
+  params: Promise<ProjectPageParams>
+}) {
+  const { projectType } = await props.params
+  const metadataResult = await getMetadata({ slug: projectType })
   const siteSettings = await getSiteSettings()
   const metadata = processMetadata(metadataResult, siteSettings, 'page')
   return {

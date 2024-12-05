@@ -8,17 +8,12 @@ import '@theme/stylesheets/main.scss'
 import '@theme/stylesheets/typography.scss'
 import { robinson } from '@theme'
 import { Header, AboutPanel, ProjectIndex } from '@ui'
-import { getPage, getProjectIndex } from '@query'
+import { getPage, getProjectIndex, getNavigation } from '@query'
 
 export const metadata: Metadata = {
   title: 'Farrah Sit',
   description: 'todo',
 }
-
-type SortedProjects = Record<
-  'lighting' | 'sculpture' | 'collaboration',
-  Sanity.ProjectIndexQueryResult
->
 
 export default async function RootLayout({
   children,
@@ -27,24 +22,14 @@ export default async function RootLayout({
 }>) {
   const aboutContent = await getPage({ slug: 'about' })
   const projects = await getProjectIndex()
-  const sortedProjects: SortedProjects = projects.reduce(
-    (acc, project) => {
-      acc[project.projectType].push(project)
-      return acc
-    },
-    {
-      collaboration: [] as Sanity.ProjectIndexQueryResult,
-      lighting: [] as Sanity.ProjectIndexQueryResult,
-      sculpture: [] as Sanity.ProjectIndexQueryResult,
-    },
-  )
+  const navigation = await getNavigation({ name: 'Header' })
   return (
     <html lang="en">
       <body className={robinson.variable}>
-        <Header />
+        <Header navigation={navigation} />
         {children}
         <AboutPanel content={aboutContent} />
-        <ProjectIndex sortedProjects={sortedProjects} />
+        <ProjectIndex projects={projects} />
       </body>
     </html>
   )
