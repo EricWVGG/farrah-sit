@@ -1,9 +1,23 @@
 :root {
   --layer-footer: 1;
   --layer-onionskin: 2;
-  --layer-about: 3;
-  --layer-project-index: 4;
-  --layer-header: 5;
+  --layer-header: 3;
+  --layer-about: 4;
+  --layer-project-index: 5;
   --layer-popout-onionskin: 6;
   --layer-popout: 7;
+  --mobile-nav: 8;
+  --mobile-nav-options: 9;
+}
+
+@media only screen and (min-width: 1024px) {
+  :root {
+    --layer-footer: 1;
+    --layer-onionskin: 2;
+    --layer-about: 3;
+    --layer-project-index: 4;
+    --layer-popout-onionskin: 5;
+    --layer-popout: 6;
+    --layer-header: 7;
+  }
 }

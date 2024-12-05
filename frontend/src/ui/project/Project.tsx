@@ -10,19 +10,10 @@ export const Project = ({
   return (
     <Wrapper>
       <TitleColumn>
-        <Title>{metadata?.title}</Title>
-        <Data>
-          lg: 76" l x 67" w x 86" h<br />
-          193cm l x 170cm w x 218cm h<br />
-          sm: 38" l x 33" w x 50" h<br />
-          96cm l x 84cm w x 127cm h catalog
-        </Data>
-        <P>
-          <a href="/">Tearsheet</a>
-        </P>
-        <P>
-          <a href="/">Catalog</a>
-        </P>
+        <div>
+          <Title>{metadata?.title}</Title>
+          <RichText value={copy} />
+        </div>
       </TitleColumn>
       <Description>
         <Image
@@ -33,7 +24,18 @@ export const Project = ({
         />
 
         <div>
-          <RichText value={copy} />
+          <Data>
+            lg: 76" l x 67" w x 86" h<br />
+            193cm l x 170cm w x 218cm h<br />
+            sm: 38" l x 33" w x 50" h<br />
+            96cm l x 84cm w x 127cm h catalog
+          </Data>
+          <P>
+            <a href="/">Tearsheet</a>
+          </P>
+          <P>
+            <a href="/">Catalog</a>
+          </P>
         </div>
 
         {images.map((image, i) =>
@@ -56,14 +58,14 @@ const Wrapper = styled.section`
   display: flex;
   flex-direction: column;
   gap: 30px;
-
-  padding-top: 120px;
-  margin: 0 15vw 15vw 15vw;
+  padding-top: var(--header-height);
+  margin: 0 8vw 100px 8vw;
 
   @media only screen and (min-width: 1024px) {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: stretch;
+    margin: 0 15vw 15vw 15vw;
   }
 
   p {
@@ -72,22 +74,27 @@ const Wrapper = styled.section`
 `
 
 const TitleColumn = styled.div`
-  grid-area: title;
   position: relative;
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
 
-  text-align: right;
+  > div {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    @media only screen and (min-width: 1024px) {
+      position: sticky;
+      top: var(--header-height);
+      text-align: right;
+    }
+  }
+  p {
+    font-size: var(--typeSizeM);
+    line-height: var(--typeLineM);
+  }
 `
 
 const Title = styled.h3`
-  position: sticky;
-  top: 120px;
-
   @media only screen and (min-width: 1024px) {
-    text-align: right;
     margin-bottom: 1em;
   }
   font-size: var(--typeSizeL);
@@ -95,8 +102,8 @@ const Title = styled.h3`
 `
 
 const Data = styled.div`
-  font-size: var(--typeSizeS);
-  line-height: var(--typeLineS);
+  font-size: var(--typeSizeM);
+  line-height: var(--typeLineM);
 `
 
 const P = styled.p`
@@ -104,8 +111,27 @@ const P = styled.p`
   line-height: var(--typeLineM);
 `
 
+const Inquire = styled.div`
+  position: relative;
+  margin-top: 2em;
+  padding-top: 2em;
+  max-width: 50px;
+  &:before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 1px;
+    width: 50px;
+    background: black;
+  }
+  font-size: var(--typeSizeM);
+  line-height: var(--typeLineM);
+`
+
 const Description = styled.article`
   flex: 1;
+  min-width: 45vw;
+
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -114,7 +140,7 @@ const Description = styled.article`
     line-height: var(--typeLineM);
   }
   img {
-    max-width: 100%;
+    width: 100%;
     height: auto;
   }
 `

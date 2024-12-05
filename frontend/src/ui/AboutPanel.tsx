@@ -1,10 +1,12 @@
 'use client'
 
 import { styled } from '@linaria/react'
-import { RichText } from '@ui'
+import { RichText, Onionskin } from '@ui'
 import Image from 'next/image'
 import { useShallow } from 'zustand/react/shallow'
 import { useLayout } from '@lib'
+import { useIsClient, useScrollLock } from 'usehooks-ts'
+import { useEffect } from 'react'
 
 export const AboutPanel = ({
   content,
@@ -15,6 +17,20 @@ export const AboutPanel = ({
     useShallow((state) => [state.aboutActive, state.setAboutActive]),
   )
   const poster = content?.metadata?.poster?.asset
+
+  const { lock, unlock } = useScrollLock({
+    autoLock: false,
+    lockTarget:
+      typeof window !== 'undefined' ? document.documentElement : undefined,
+  })
+
+  useEffect(() => {
+    if (aboutActive) {
+      lock()
+    } else {
+      unlock()
+    }
+  }, [aboutActive])
 
   return !content ? null : (
     <>
@@ -42,35 +58,28 @@ export const AboutPanel = ({
   )
 }
 
-const Onionskin = styled.div`
-  position: fixed;
-  z-index: var(--layer-onionskin);
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100dvh;
-  pointer-events: none;
-  &.active {
-    z-index: var(--layer-popout-onionskin);
-    pointer-events: all;
-  }
-`
-
 const Wrapper = styled.section`
   position: fixed;
   z-index: var(--layer-about);
-  top: 120px;
   bottom: 0;
-  right: 0;
-  max-width: 600px;
-  min-height: calc(100dvh - 120px);
+  right: calc(-1 * 100vw - 20px);
+  max-width: calc(100vw - 20px);
+  height: calc(100dvh - 20px);
+  overflow-y: auto;
 
   transition: transform 1.25s ease-in-out;
-  right: -870px;
-  max-width: 940px;
   &.active {
     z-index: var(--layer-popout);
-    transform: translateX(-870px);
+    transform: translateX(calc(-1 * 100vw - 20px));
+  }
+
+  @media only screen and (min-width: 1024px) {
+    right: -870px;
+    max-width: 940px;
+    min-height: calc(100dvh - var(--header-height));
+    &.active {
+      transform: translateX(-870px);
+    }
   }
 
   background: var(--soft-peach);
@@ -85,27 +94,32 @@ const ToggleOn = styled.div`
 `
 
 const Content = styled.article`
-  padding: 80px;
+  padding: 40px;
   img {
-    max-width: 400px;
+    max-width: 100%;
+    margin-bottom: 1em;
     height: auto;
   }
 
-  @media only screen and (min-width: 1000px) {
+  @media only screen and (min-width: 1024px) {
+    padding: 80px var(--header-height);
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
-    gap: 40px;
+    gap: 80px;
     > * {
       flex: 1;
+    }
+    img {
+      max-width: 300px;
     }
   }
 
   h1 {
     font-size: var(--typeSizeL);
     line-height: var(--typeLineL);
-    margin-top: 1em;
+    margin-top: 3em;
     margin-bottom: 0.5em;
     &:nth-child(1) {
       margin-top: 0;

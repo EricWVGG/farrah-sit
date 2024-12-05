@@ -1,8 +1,7 @@
 'use client'
 
 import { styled } from '@linaria/react'
-import { RichText } from '@ui'
-import Image from 'next/image'
+import { Onionskin } from '@ui'
 import { useShallow } from 'zustand/react/shallow'
 import { useLayout } from '@lib'
 import Link from 'next/link'
@@ -17,13 +16,13 @@ export const ProjectIndex = ({
 }: {
   sortedProjects: SortedProjects
 }) => {
-  const [navActive, setNavActive] = useLayout(
-    useShallow((state) => [state.navActive, state.setNavActive]),
+  const [indexActive, setIndexActive] = useLayout(
+    useShallow((state) => [state.indexActive, state.setIndexActive]),
   )
 
   return !sortedProjects ? null : (
     <>
-      <Wrapper className={navActive ? 'active' : ''}>
+      <Wrapper className={indexActive ? 'active' : ''}>
         <List>
           {Object.keys(sortedProjects).map((projectType, i) => (
             <li key={`project-type-${i}`}>
@@ -47,36 +46,22 @@ export const ProjectIndex = ({
             </li>
           ))}
         </List>
-        <ToggleOn onClick={() => setNavActive(!navActive)} />
+        <ToggleOn onClick={() => setIndexActive(!indexActive)} />
       </Wrapper>
       <Onionskin
-        className={navActive ? 'active' : ''}
-        onClick={() => setNavActive(false)}
+        className={indexActive ? 'active' : ''}
+        onClick={() => setIndexActive(false)}
       />
     </>
   )
 }
 
-const Onionskin = styled.div`
-  position: fixed;
-  z-index: var(--layer-onionskin);
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100dvh;
-  pointer-events: none;
-  &.active {
-    z-index: var(--layer-popout-onionskin);
-    pointer-events: all;
-  }
-`
-
 const Wrapper = styled.section`
   position: fixed;
   z-index: var(--layer-project-index);
-  top: 120px;
+  top: var(--header-height);
   left: 0;
-  min-height: calc(100dvh - 120px);
+  min-height: calc(100dvh - var(--header-height));
   width: 100%;
   max-width: 580px;
 

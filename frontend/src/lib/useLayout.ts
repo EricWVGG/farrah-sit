@@ -4,9 +4,13 @@ interface LayoutState {
   projectType?: string
   setProjectType: (s?: string) => void
 
+  indexActive: boolean
+  setIndexActive: (a?: boolean) => void
+  toggleIndex: () => void
+
   navActive: boolean
   setNavActive: (a?: boolean) => void
-  toggleActive: () => void
+  toggleNav: () => void
 
   aboutActive: boolean
   setAboutActive: (a?: boolean) => void
@@ -19,9 +23,13 @@ interface LayoutState {
 const createNavState: StateCreator<LayoutState> = (set) => ({
   setProjectType: (projectType) => set({ projectType }),
 
+  indexActive: false,
+  setIndexActive: (indexActive) => set({ indexActive }),
+  toggleIndex: () => set((state) => ({ indexActive: !state.indexActive })),
+
   navActive: false,
   setNavActive: (navActive) => set({ navActive }),
-  toggleActive: () => set((state) => ({ navActive: !state.navActive })),
+  toggleNav: () => set((state) => ({ navActive: !state.navActive })),
 
   aboutActive: false,
   setAboutActive: (aboutActive) => set({ aboutActive }),

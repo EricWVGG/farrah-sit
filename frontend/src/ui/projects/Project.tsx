@@ -14,12 +14,12 @@ export const Project = ({
       </TitleColumn>
       <Slideshow images={project.images} />
       <Description>
-        <p>{project.metadata?.description}</p>
         <ReadMore
           href={`/${project.projectType}/${project.metadata.slug.current}`}
         >
-          Read more…
+          Details
         </ReadMore>
+        <p>{project.metadata?.description}</p>
       </Description>
     </Wrapper>
   )
@@ -52,7 +52,7 @@ const TitleColumn = styled.div`
 
 const Title = styled.h3`
   position: sticky;
-  top: 120px;
+  top: var(--header-height);
 
   @media only screen and (min-width: 1024px) {
     padding-bottom: 1.4em;

@@ -9,9 +9,6 @@ export const Projects = ({
       {projects?.map((project) => (
         <Project key={project._id} project={project} />
       ))}
-      {projects?.map((project) => (
-        <Project key={`${project._id}-2`} project={project} />
-      ))}
     </Wrapper>
   )
 }
@@ -21,8 +18,12 @@ const Wrapper = styled.section`
   z-index: 1;
   display: flex;
   flex-direction: column;
-  gap: 60px;
+  gap: 110px;
 
-  padding-top: 120px;
-  margin: 0 15vw 15vw 15vw;
+  padding-top: var(--header-height);
+  margin: 0 8vw 100px 8vw;
+
+  @media only screen and (min-width: 1024px) {
+    margin: 0 15vw 15vw 15vw;
+  }
 `

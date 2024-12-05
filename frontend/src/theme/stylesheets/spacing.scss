@@ -1,6 +1,6 @@
 :root {
   // mobile
-  --header-height: 88px;
+  --header-height: 70px;
 
   --spaceXS: 8px;
   --spaceS: 20px;
@@ -11,7 +11,7 @@
   --spaceXXXL: 100px;
 
   @media only screen and (min-width: 744px) {
-    --header-height: 9.011vw;
+    --header-height: 120px;
 
     --spaceXS: calc(12 / 1720 * 100vw);
     --spaceS: calc(24 / 1720 * 100vw);
