@@ -61,10 +61,10 @@ export const AboutPanel = ({
 const Wrapper = styled.section`
   position: fixed;
   z-index: var(--layer-about);
-  bottom: 0;
+  top: var(--header-height);
   right: calc(-1 * 100vw - 20px);
   max-width: calc(100vw - 20px);
-  height: calc(100dvh - 20px);
+  height: calc(100dvh - var(--header-height));
   overflow-y: auto;
 
   transition: transform 1.25s ease-in-out;
@@ -76,7 +76,6 @@ const Wrapper = styled.section`
   @media only screen and (min-width: 1024px) {
     right: -870px;
     max-width: 940px;
-    min-height: calc(100dvh - var(--header-height));
     &.active {
       transform: translateX(-870px);
     }
