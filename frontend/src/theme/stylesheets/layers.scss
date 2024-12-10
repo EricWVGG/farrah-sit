@@ -6,6 +6,7 @@
   --layer-popout-onionskin: 6;
   --layer-popout: 7;
   --layer-header: 8;
+  --layer-splash: 9;
 }
 
 @media only screen and (min-width: 1024px) {
@@ -16,6 +17,7 @@
     --layer-project-index: 4;
     --layer-popout-onionskin: 5;
     --layer-popout: 6;
-    --layer-header: 7;
+    --layer-header: 8;
+    --layer-splash: 9;
   }
 }

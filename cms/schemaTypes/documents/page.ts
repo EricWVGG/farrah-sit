@@ -23,7 +23,7 @@ export const page = defineType({
       name: 'projects',
       type: 'array',
       of: [{type: 'reference', to: [{type: 'project'}]}],
-      hidden: ({parent}) => parent.metadata?.slug.current === 'about',
+      hidden: ({parent}) => ['home', 'about'].includes(parent.metadata?.slug.current),
     }),
   ],
 

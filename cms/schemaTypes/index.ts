@@ -1,6 +1,6 @@
-import { navigation, page, project, siteSettings } from './documents'
+import {navigation, page, project, siteSettings} from './documents'
 
-import { richText, metadata, navigationLink } from './types'
+import {richText, metadata, navigationLink} from './types'
 
 export const schemaTypes = [
   richText,

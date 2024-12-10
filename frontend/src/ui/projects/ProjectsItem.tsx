@@ -2,7 +2,7 @@ import { styled } from '@linaria/react'
 import Link from 'next/link'
 import { Slideshow } from '@ui'
 
-export const Project = ({
+export const ProjectsItem = ({
   project,
 }: {
   project: Member<NonNullable<Sanity.PageQueryResult>['projects']>

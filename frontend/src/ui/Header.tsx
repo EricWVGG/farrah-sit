@@ -35,7 +35,7 @@ export const Header = ({
   }
 
   return (
-    <Wrapper className={pathname === '/' ? '' : 'initialized'}>
+    <Wrapper className={pathname === '/' ? 'initialized' : 'initialized'}>
       <Sitename onClick={aboutOrHome}>Farrah Sit</Sitename>
       <Navigation>
         <ul>

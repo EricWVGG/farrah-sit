@@ -1,5 +1,6 @@
 import { defineQuery } from 'groq'
 import { fetchFromSanity } from '@lib'
+import { imageFragment } from './fragments'
 
 export const navigationQuery = defineQuery(`
   *[_type == 'navigation' && name == $name][0]{
@@ -13,7 +14,8 @@ export const navigationQuery = defineQuery(`
             current
           }
         }
-      }
+      },
+      images[] ${imageFragment}
     }
   }
 `)

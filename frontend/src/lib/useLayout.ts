@@ -18,6 +18,9 @@ interface LayoutState {
 
   compressionLevel: number
   setCompressionLevel: (n: number) => void
+
+  transitioning: boolean
+  setTransitioning: (b: boolean) => void
 }
 
 const createNavState: StateCreator<LayoutState> = (set) => ({
@@ -37,6 +40,9 @@ const createNavState: StateCreator<LayoutState> = (set) => ({
 
   compressionLevel: 80,
   setCompressionLevel: (compressionLevel) => set({ compressionLevel }),
+
+  transitioning: true,
+  setTransitioning: (transitioning: boolean) => set({ transitioning }),
 })
 
 export default create<LayoutState>(createNavState)

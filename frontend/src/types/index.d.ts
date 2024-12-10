@@ -9,9 +9,24 @@ export interface ProjectPageParams {
 
 export type SlugParams = { slug?: string }
 
-// note: member of array
 declare global {
+  // note: member of array
   type Member<A> = A extends readonly (infer T)[] ? T : never
+
+  type ImageFragment = {
+    asset: {
+      metadata: {
+        lqip: string | null
+        blurHash: string | null
+        dimensions: Sanity.SanityImageDimensions | null
+      } | null
+      url: string | null
+    } | null
+    hotspot?: Sanity.SanityImageHotspot
+    crop?: Sanity.SanityImageCrop
+    _type: 'image'
+    _key: string
+  }
 }
 
 export * from './sanity-groq'

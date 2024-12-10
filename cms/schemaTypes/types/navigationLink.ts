@@ -45,5 +45,12 @@ export const navigationLink = defineType({
       type: 'string',
       hidden: ({parent}) => !!parent?.linkType && parent.linkType !== 'external',
     }),
+
+    defineField({
+      name: 'images',
+      type: 'array',
+      of: [{type: 'image'}],
+      hidden: ({document}) => document?.name !== 'Splash',
+    }),
   ],
 })

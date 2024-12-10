@@ -1,5 +1,5 @@
 import { styled } from '@linaria/react'
-import { Project } from './Project'
+import { ProjectsItem } from './ProjectsItem'
 
 export const Projects = ({
   projects,
@@ -7,7 +7,7 @@ export const Projects = ({
   return (
     <Wrapper>
       {projects?.map((project) => (
-        <Project key={project._id} project={project} />
+        <ProjectsItem key={project._id} project={project} />
       ))}
     </Wrapper>
   )
