@@ -7,6 +7,7 @@ import { useLayout } from '@lib'
 import Link from 'next/link'
 import { useEffect } from 'react'
 import { useScrollLock } from 'usehooks-ts'
+import { usePathname } from 'next/navigation'
 
 export const ProjectIndex = ({
   projects,
@@ -43,9 +44,16 @@ export const ProjectIndex = ({
     },
   )
 
+  const pathname = usePathname()
+
   return !sortedProjects ? null : (
     <>
-      <Wrapper className={indexActive ? 'active' : ''}>
+      <Wrapper
+        className={`
+          ${indexActive ? 'active' : ''}
+          ${pathname !== '/' ? 'initialized' : ''}
+        `}
+      >
         <List>
           {Object.keys(sortedProjects).map((projectType, i) => (
             <li key={`project-type-${i}`}>
@@ -93,10 +101,13 @@ const Wrapper = styled.section`
   box-shadow: 20px 20px 0 rgb(225, 225, 225);
 
   transition: transform 1.25s ease-in-out;
-  left: -500px;
+  left: -600px;
+  &.initialized {
+    transform: translateX(80px);
+  }
   &.active {
     z-index: var(--layer-popout);
-    transform: translateX(500px);
+    transform: translateX(600px);
   }
 
   background: var(--concrete);

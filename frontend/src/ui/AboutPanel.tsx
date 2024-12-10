@@ -7,6 +7,7 @@ import { useShallow } from 'zustand/react/shallow'
 import { useLayout } from '@lib'
 import { useScrollLock } from 'usehooks-ts'
 import { useEffect } from 'react'
+import { usePathname } from 'next/navigation'
 
 export const AboutPanel = ({
   content,
@@ -32,9 +33,16 @@ export const AboutPanel = ({
     }
   }, [aboutActive])
 
+  const pathname = usePathname()
+
   return !content ? null : (
     <>
-      <Wrapper className={aboutActive ? 'active' : ''}>
+      <Wrapper
+        className={`
+          ${aboutActive ? 'active' : ''}
+          ${pathname !== '/' ? 'initialized' : ''}
+        `}
+      >
         <Content>
           {poster && (
             <Image
@@ -74,8 +82,11 @@ const Wrapper = styled.section`
   }
 
   @media only screen and (min-width: 1024px) {
-    right: -870px;
+    right: -940px;
     max-width: 940px;
+    &.initialized {
+      transform: translateX(-70px);
+    }
     &.active {
       transform: translateX(-870px);
     }

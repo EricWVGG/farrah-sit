@@ -1,5 +1,5 @@
 import { processMetadata } from '@lib'
-import { Page } from '@ui'
+import { Splash } from '@ui'
 import { BASE_URL, DEFAULT_SITE_TITLE } from '@const'
 import { getPage, getMetadata, getSiteSettings } from '@query'
 import { SLUG } from './'
@@ -8,7 +8,7 @@ import { notFound } from 'next/navigation'
 export default async function Home() {
   const page = await getPage({ slug: SLUG })
   if (!page) return notFound()
-  return <Page page={page} />
+  return <Splash page={page} />
 }
 
 export async function generateMetadata() {

@@ -35,7 +35,7 @@ export const Header = ({
   }
 
   return (
-    <Wrapper>
+    <Wrapper className={pathname === '/' ? '' : 'initialized'}>
       <Sitename onClick={aboutOrHome}>Farrah Sit</Sitename>
       <Navigation>
         <ul>
@@ -89,6 +89,11 @@ const Wrapper = styled.header`
   @media only screen and (min-width: 1024px) {
     justify-content: space-between;
     padding: 0 75px;
+    transition: transform 1s ease-in-out;
+    transform: translateY(calc(-1 * var(--header-height)));
+    &.initialized {
+      transform: translateY(0);
+    }
   }
 
   background: white;

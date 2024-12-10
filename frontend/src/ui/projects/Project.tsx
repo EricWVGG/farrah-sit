@@ -58,8 +58,6 @@ const Title = styled.h3`
   top: var(--header-height);
 
   @media only screen and (min-width: 1024px) {
-    padding-bottom: 1.4em;
-
     text-align: right;
   }
   font-size: var(--typeSizeL);
