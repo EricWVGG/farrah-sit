@@ -41,7 +41,7 @@ export const Header = ({
   return (
     <Wrapper className={pathname === '/' ? 'initialized' : 'initialized'}>
       <Sitename onClick={aboutOrHome}>Farrah Sit</Sitename>
-      <Navigation>
+      <Navigation className={pathname === '/' ? 'hidden' : ''}>
         <ul>
           <li onClick={toggleIndex}>Index</li>
           {navigation?.links?.map((item) => (
@@ -133,4 +133,9 @@ const Navigation = styled.nav`
     line-height: var(--typeLineM);
   }
   text-transform: lowercase;
+
+  transition: opacity 1s ease-in-out;
+  &.hidden {
+    opacity: 0;
+  }
 `
