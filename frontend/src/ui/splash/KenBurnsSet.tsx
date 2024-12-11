@@ -2,7 +2,7 @@
 
 import { styled } from '@linaria/react'
 import { KenBurnsSlide } from './KenBurnsSlide'
-import { useIncrement } from '@lib'
+import { useIncrement, useTransit } from '@lib'
 import { useInterval } from 'usehooks-ts'
 import Link from 'next/link'
 
@@ -20,10 +20,13 @@ export const KenBurnsSet = ({
 
   useInterval(() => inc(), Math.random() * 7000 + 10000)
 
+  const transit = useTransit()
+
   return !images ? null : (
     <>
       <TextLink
         href={`/${destination?.metadata.slug.current}`}
+        onClick={transit}
         style={{
           order: order % 2 === 0 ? order - 1 : order,
           alignItems: order % 2 === 0 ? 'flex-end' : 'flex-start',
