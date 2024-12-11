@@ -115,6 +115,6 @@ const Images = styled.article`
   &.hidden {
     transition: transform 0.5s ease-in-out, opacity 0.45s ease-in-out;
     opacity: 0;
-    transform: translateY(-25vh);
+    transform: translateY(25vh);
   }
 `
