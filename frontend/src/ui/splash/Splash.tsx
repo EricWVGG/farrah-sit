@@ -60,10 +60,9 @@ const Wrapper = styled.main`
   top: var(--header-height);
 
   width: 100%;
-  max-width: calc(100vh + 180px);
   height: calc(100dvh - var(--header-height));
   gap: 30px;
-  padding: 50px 75px;
+  padding: 60px 30px;
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -72,6 +71,8 @@ const Wrapper = styled.main`
   @media only screen and (min-width: 501px) {
     top: 0;
     height: 100dvh;
+    max-width: calc(100vh + 180px);
+    padding: 50px 75px;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
   }
