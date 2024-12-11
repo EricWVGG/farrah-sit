@@ -1,12 +1,11 @@
 'use client'
 
 import { styled } from '@linaria/react'
-import { PropsWithChildren, useEffect, MouseEventHandler } from 'react'
+import { PropsWithChildren, useEffect } from 'react'
 import { KenBurnsSet } from './KenBurnsSet'
 import Link from 'next/link'
-import { useLayout } from '@lib'
+import { useLayout, useTransit } from '@lib'
 import { useShallow } from 'zustand/react/shallow'
-import { useRouter } from 'next/navigation'
 
 interface PageProps extends PropsWithChildren {
   page: Sanity.PageQueryResult
@@ -21,14 +20,7 @@ export const Splash = ({ navigation, ...props }: PageProps) => {
 
   useEffect(() => setTransitioning(false), [])
 
-  const { push } = useRouter()
-
-  const transit: MouseEventHandler<HTMLAnchorElement> = (e) => {
-    e.preventDefault()
-    const destination = (e.target as HTMLAnchorElement).href
-    setTransitioning(true)
-    setTimeout(() => push(destination), 1500)
-  }
+  const transit = useTransit()
 
   return (
     <Wrapper {...props}>
@@ -65,6 +57,7 @@ const Wrapper = styled.main`
   top: var(--header-height);
 
   width: 100%;
+  max-width: calc(100vh + 180px);
   height: calc(100dvh - var(--header-height));
   gap: 30px;
   padding: 50px 75px;

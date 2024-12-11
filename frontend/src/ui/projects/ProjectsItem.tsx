@@ -1,12 +1,17 @@
+'use client'
+
 import { styled } from '@linaria/react'
 import Link from 'next/link'
 import { Slideshow } from '@ui'
+import { useTransit } from '@lib'
 
 export const ProjectsItem = ({
   project,
 }: {
   project: Member<NonNullable<Sanity.PageQueryResult>['projects']>
 }) => {
+  const transit = useTransit()
+
   return !project ? null : (
     <Wrapper>
       <TitleColumn>
@@ -17,6 +22,7 @@ export const ProjectsItem = ({
         <p>
           {project.metadata?.description} [
           <Link
+            onClick={transit}
             href={`/${project.projectType}/${project.metadata.slug.current}`}
           >
             details

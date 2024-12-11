@@ -4,7 +4,7 @@ import { styled } from '@linaria/react'
 import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 import { useShallow } from 'zustand/react/shallow'
-import { useLayout } from '@lib'
+import { useLayout, useTransit } from '@lib'
 import { MenuButton } from '@ui'
 import Link from 'next/link'
 
@@ -13,14 +13,17 @@ export const Header = ({
 }: {
   navigation: Sanity.NavigationQueryResult
 }) => {
-  const [toggleAbout, toggleIndex, indexActive] = useLayout(
+  const [toggleAbout, toggleIndex, indexActive, setTransitioning] = useLayout(
     useShallow((state) => [
       state.toggleAbout,
       state.toggleIndex,
       state.indexActive,
+      state.setTransitioning,
     ]),
   )
   // todo: siteName click should toggle nav if mobile
+
+  const transit = useTransit()
 
   const pathname = usePathname()
 
@@ -30,7 +33,8 @@ export const Header = ({
     if (pathname === '/') {
       toggleAbout()
     } else {
-      router.push('/')
+      setTransitioning(true)
+      setTimeout(() => router.push('/'), 1500)
     }
   }
 
@@ -43,6 +47,7 @@ export const Header = ({
           {navigation?.links?.map((item) => (
             <li key={item._key}>
               <Link
+                onClick={transit}
                 href={`/${item.destination?.metadata.slug.current}`}
                 className={
                   pathname === `/${item.destination?.metadata.slug.current}`

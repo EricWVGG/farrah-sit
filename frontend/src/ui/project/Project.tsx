@@ -1,49 +1,42 @@
+'use client'
+
 import { styled } from '@linaria/react'
 import Image from 'next/image'
 import { RichText } from '@ui'
+import { useEffect } from 'react'
+import { useLayout } from '@lib'
+import { useShallow } from 'zustand/react/shallow'
 
 export const Project = ({
   metadata,
   images,
   copy,
 }: NonNullable<Sanity.ProjectQueryResult>) => {
+  const [transitioning, setTransitioning] = useLayout(
+    useShallow((state) => [state.transitioning, state.setTransitioning]),
+  )
+
+  useEffect(() => setTransitioning(false), [])
+
   return (
     <Wrapper>
-      <TitleColumn>
+      <TitleColumn className={transitioning ? 'hidden' : ''}>
         <div>
           <Title>{metadata?.title}</Title>
           <RichText value={copy} />
         </div>
       </TitleColumn>
-      <Description>
-        <Image
-          src={images[0]?.asset?.url!}
-          alt="derp"
-          width={images[0]?.asset?.metadata?.dimensions?.width!}
-          height={images[0]?.asset?.metadata?.dimensions?.height!}
-        />
-
-        <div>
-          <Data>
-            193cm l x 170cm w x 218cm h<br />
-            96cm l x 84cm w x 127cm h catalog
-          </Data>
-          <P>Tearsheet</P>
-          <P>Catalog</P>
-        </div>
-
-        {images.map((image, i) =>
-          i === 0 ? null : (
-            <Image
-              key={`image-${i}`}
-              src={image.asset?.url!}
-              alt="derp"
-              width={image.asset?.metadata?.dimensions?.width!}
-              height={image.asset?.metadata?.dimensions?.height!}
-            />
-          ),
-        )}
-      </Description>
+      <Images className={transitioning ? 'hidden' : ''}>
+        {images.map((image, i) => (
+          <Image
+            key={`image-${i}`}
+            src={image.asset?.url!}
+            alt="derp"
+            width={image.asset?.metadata?.dimensions?.width!}
+            height={image.asset?.metadata?.dimensions?.height!}
+          />
+        ))}
+      </Images>
     </Wrapper>
   )
 }
@@ -85,6 +78,13 @@ const TitleColumn = styled.div`
     font-size: var(--typeSizeM);
     line-height: var(--typeLineM);
   }
+
+  transition: transform 1.45s ease-in-out, opacity 1.4s ease-in-out;
+  &.hidden {
+    transition: transform 0.5s ease-in-out, opacity 0.45s ease-in-out;
+    opacity: 0;
+    transform: translateX(-25vw);
+  }
 `
 
 const Title = styled.h3`
@@ -95,17 +95,7 @@ const Title = styled.h3`
   line-height: var(--typeLineL);
 `
 
-const Data = styled.div`
-  font-size: var(--typeSizeM);
-  line-height: var(--typeLineM);
-`
-
-const P = styled.p`
-  font-size: var(--typeSizeM);
-  line-height: var(--typeLineM);
-`
-
-const Description = styled.article`
+const Images = styled.article`
   flex: 1;
   min-width: 45vw;
 
@@ -119,5 +109,12 @@ const Description = styled.article`
   img {
     width: 100%;
     height: auto;
+  }
+
+  transition: transform 1.45s ease-in-out, opacity 1.4s ease-in-out;
+  &.hidden {
+    transition: transform 0.5s ease-in-out, opacity 0.45s ease-in-out;
+    opacity: 0;
+    transform: translateY(-25vh);
   }
 `

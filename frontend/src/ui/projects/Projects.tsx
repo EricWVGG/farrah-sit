@@ -1,11 +1,22 @@
+'use client'
+
 import { styled } from '@linaria/react'
+import { useEffect } from 'react'
 import { ProjectsItem } from './ProjectsItem'
+import { useLayout } from '@lib'
+import { useShallow } from 'zustand/react/shallow'
 
 export const Projects = ({
   projects,
 }: Pick<NonNullable<Sanity.PageQueryResult>, 'projects'>) => {
+  const [transitioning, setTransitioning] = useLayout(
+    useShallow((state) => [state.transitioning, state.setTransitioning]),
+  )
+
+  useEffect(() => setTransitioning(false), [])
+
   return (
-    <Wrapper>
+    <Wrapper className={transitioning ? 'hidden' : ''}>
       {projects?.map((project) => (
         <ProjectsItem key={project._id} project={project} />
       ))}
@@ -25,5 +36,12 @@ const Wrapper = styled.section`
 
   @media only screen and (min-width: 1024px) {
     margin: 0 15vw 15vw 15vw;
+  }
+
+  transition: transform 1.45s ease-in-out, opacity 1.4s ease-in-out;
+  &.hidden {
+    transition: transform 0.5s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 0;
+    transform: translateY(-25vh);
   }
 `
