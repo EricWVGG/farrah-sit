@@ -1,7 +1,7 @@
 'use client'
 
 import { styled } from '@linaria/react'
-import { useEffect } from 'react'
+import { useTimeout } from 'usehooks-ts'
 import { ProjectsItem } from './ProjectsItem'
 import { useLayout } from '@lib'
 import { useShallow } from 'zustand/react/shallow'
@@ -13,7 +13,7 @@ export const Projects = ({
     useShallow((state) => [state.transitioning, state.setTransitioning]),
   )
 
-  useEffect(() => setTransitioning(false), [])
+  useTimeout(() => setTransitioning(false), 500)
 
   return (
     <Wrapper className={transitioning ? 'hidden' : ''}>

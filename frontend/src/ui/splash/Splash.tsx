@@ -1,7 +1,7 @@
 'use client'
 
 import { styled } from '@linaria/react'
-import { PropsWithChildren, useEffect } from 'react'
+import { PropsWithChildren } from 'react'
 import { KenBurnsSet } from './KenBurnsSet'
 import Link from 'next/link'
 import { useLayout, useTransit } from '@lib'

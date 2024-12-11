@@ -3,7 +3,7 @@
 import { styled } from '@linaria/react'
 import Image from 'next/image'
 import { RichText } from '@ui'
-import { useEffect } from 'react'
+import { useTimeout } from 'usehooks-ts'
 import { useLayout } from '@lib'
 import { useShallow } from 'zustand/react/shallow'
 
@@ -16,7 +16,7 @@ export const Project = ({
     useShallow((state) => [state.transitioning, state.setTransitioning]),
   )
 
-  useEffect(() => setTransitioning(false), [])
+  useTimeout(() => setTransitioning(false), 500)
 
   return (
     <Wrapper>
