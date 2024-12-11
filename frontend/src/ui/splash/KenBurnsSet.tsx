@@ -27,7 +27,9 @@ export const KenBurnsSet = ({
         style={{
           order: order % 2 === 0 ? order - 1 : order,
           alignItems: order % 2 === 0 ? 'flex-end' : 'flex-start',
+          opacity: className === 'active' ? 1 : 0,
         }}
+        className={className}
       >
         {label}
       </TextLink>
@@ -37,6 +39,14 @@ export const KenBurnsSet = ({
         order={order}
         style={{
           order: order % 2 === 0 ? order : order - 1,
+          transform:
+            className !== 'active' && order === 0
+              ? 'translateY(-50vh)'
+              : className !== 'active' && order === 1
+              ? 'translateX(-50vw)'
+              : className !== 'active'
+              ? 'translateY(50vh)'
+              : '',
         }}
       >
         {images.map((image, i) => (
@@ -59,6 +69,7 @@ const TextLink = styled(Link)`
   @media only screen and (min-width: 501px) {
     display: none;
   }
+  transition: opacity 0.7s 0.7s ease-in-out;
 `
 
 const Wrapper = styled.ul<{ order: number }>`
@@ -67,14 +78,6 @@ const Wrapper = styled.ul<{ order: number }>`
   overflow: hidden;
 
   transition: transform 1.2s ease-in-out;
-  &.hidden {
-    transform: ${(props) =>
-      props.order === 0
-        ? 'translateY(-50vh)'
-        : props.order === 1
-        ? 'translateX(-50vw)'
-        : 'translateY(50vh)'};
-  }
 
   &:after {
     content: ' ';

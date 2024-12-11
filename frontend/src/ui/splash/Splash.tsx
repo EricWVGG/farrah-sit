@@ -25,7 +25,9 @@ export const Splash = ({ navigation, ...props }: PageProps) => {
 
   return (
     <Wrapper {...props}>
-      <TextNav className={transitioning ? 'hidden' : ''}>
+      <TextNav
+        style={{ transform: transitioning ? 'translateX(-25vw)' : 'none' }}
+      >
         <ul>
           {navigation?.links?.map((link) => (
             <li key={link._key}>
@@ -44,7 +46,7 @@ export const Splash = ({ navigation, ...props }: PageProps) => {
           key={link._key}
           {...link}
           order={i}
-          className={transitioning ? 'hidden' : ''}
+          className={transitioning ? '' : 'active'}
         />
       ))}
     </Wrapper>
@@ -87,8 +89,5 @@ const TextNav = styled.div`
       gap: 30px;
     }
     transition: transform 1.45s ease-in-out;
-    &.hidden {
-      transform: translateX(-25vw);
-    }
   }
 `
