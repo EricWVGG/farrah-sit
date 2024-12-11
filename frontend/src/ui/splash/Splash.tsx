@@ -62,7 +62,7 @@ const Wrapper = styled.main`
   width: 100%;
   height: calc(100dvh - var(--header-height));
   gap: 20px 30px;
-  padding: 60px 30px;
+  padding: 15px 30px 60px 30px;
 
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -72,6 +72,7 @@ const Wrapper = styled.main`
     top: 0;
     height: 100dvh;
     max-width: calc(100vh + 180px);
+    gap: 30px;
     padding: 50px 75px;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, 1fr);
