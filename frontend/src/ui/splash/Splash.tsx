@@ -61,7 +61,7 @@ const Wrapper = styled.main`
 
   width: 100%;
   height: calc(100dvh - var(--header-height));
-  gap: 30px;
+  gap: 20px 30px;
   padding: 60px 30px;
 
   display: grid;
