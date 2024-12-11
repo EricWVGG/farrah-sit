@@ -6,6 +6,7 @@ import { KenBurnsSet } from './KenBurnsSet'
 import Link from 'next/link'
 import { useLayout, useTransit } from '@lib'
 import { useShallow } from 'zustand/react/shallow'
+import { useTimeout } from 'usehooks-ts'
 
 interface PageProps extends PropsWithChildren {
   page: Sanity.PageQueryResult
@@ -18,7 +19,7 @@ export const Splash = ({ navigation, ...props }: PageProps) => {
     useShallow((state) => [state.transitioning, state.setTransitioning]),
   )
 
-  useEffect(() => setTransitioning(false), [])
+  useTimeout(() => setTransitioning(false), 500)
 
   const transit = useTransit()
 
