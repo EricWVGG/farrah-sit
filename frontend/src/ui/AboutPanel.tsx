@@ -44,6 +44,9 @@ export const AboutPanel = ({
         `}
       >
         <Content>
+          <div>
+            <RichText value={content.copy} />
+          </div>
           {poster && (
             <Image
               src={poster.url!}
@@ -52,9 +55,6 @@ export const AboutPanel = ({
               alt={content?.metadata?.title}
             />
           )}
-          <div>
-            <RichText value={content.copy} />
-          </div>
         </Content>
         <ToggleOn onClick={() => setAboutActive(!aboutActive)} />
       </Wrapper>
@@ -68,27 +68,34 @@ export const AboutPanel = ({
 
 const Wrapper = styled.section`
   position: fixed;
-  z-index: var(--layer-about);
+  z-index: var(--layer-project-index);
   top: var(--header-height);
-  right: calc(-1 * 100vw - 20px);
-  max-width: calc(100vw - 20px);
+  left: 0;
   height: calc(100dvh - var(--header-height));
+  width: 100%;
+  max-width: calc(100vw - 20px);
   overflow-y: auto;
 
+  box-shadow: 20px 20px 0 rgb(225, 225, 225);
+
   transition: transform 1.25s ease-in-out;
+  left: -600px;
+  &.initialized {
+    transform: translateX(80px);
+  }
   &.active {
     z-index: var(--layer-popout);
-    transform: translateX(calc(-1 * 100vw - 20px));
+    transform: translateX(600px);
   }
 
   @media only screen and (min-width: 1024px) {
-    right: -940px;
     max-width: 940px;
+    left: -940px;
     &.initialized {
-      transform: translateX(-70px);
+      transform: translateX(70px);
     }
     &.active {
-      transform: translateX(-870px);
+      transform: translateX(940px);
     }
   }
 
@@ -97,7 +104,7 @@ const Wrapper = styled.section`
 
 const ToggleOn = styled.div`
   position: absolute;
-  left: 0;
+  right: -20px;
   top: 0;
   width: 70px;
   height: 100%;
@@ -112,7 +119,7 @@ const Content = styled.article`
   }
 
   @media only screen and (min-width: 1024px) {
-    padding: 80px var(--header-height);
+    padding: 80px 120px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;

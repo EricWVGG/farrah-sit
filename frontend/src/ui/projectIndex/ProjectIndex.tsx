@@ -91,23 +91,22 @@ const Wrapper = styled.section`
   position: fixed;
   z-index: var(--layer-project-index);
   top: var(--header-height);
-  left: 0;
+  right: 0;
   height: calc(100dvh - var(--header-height));
   width: 100%;
   max-width: 580px;
   overflow-y: auto;
 
   padding: 80px 80px;
-  box-shadow: 20px 20px 0 rgb(225, 225, 225);
 
   transition: transform 1.25s ease-in-out;
-  left: -600px;
+  right: -600px;
   &.initialized {
-    transform: translateX(80px);
+    transform: translateX(-80px);
   }
   &.active {
     z-index: var(--layer-popout);
-    transform: translateX(600px);
+    transform: translateX(-600px);
   }
 
   background: var(--concrete);
@@ -155,7 +154,7 @@ const Number = styled.span`
 
 const ToggleOn = styled.div`
   position: absolute;
-  right: -20px;
+  left: -20px;
   top: 0;
   width: 70px;
   height: 100%;
