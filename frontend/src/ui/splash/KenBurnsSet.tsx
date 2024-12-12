@@ -37,30 +37,32 @@ export const KenBurnsSet = ({
         {label}
       </TextLink>
 
-      <Wrapper
-        className={className}
-        order={order}
-        style={{
-          order: order % 2 === 0 ? order : order - 1,
-          transform:
-            className !== 'active' && order === 0
-              ? 'translateY(-50vh)'
-              : className !== 'active' && order === 1
-              ? 'translateX(-50vw)'
-              : className !== 'active'
-              ? 'translateY(50vh)'
-              : '',
-        }}
-      >
-        {images.map((image, i) => (
-          <KenBurnsSlide
-            key={image._key}
-            className={i === active ? 'active' : ''}
-            image={image}
-            title="image"
-          />
-        ))}
-      </Wrapper>
+      <BoxLink href={`/${destination?.metadata.slug.current}`}>
+        <Wrapper
+          className={className}
+          order={order}
+          style={{
+            order: order % 2 === 0 ? order : order - 1,
+            transform:
+              className !== 'active' && order === 0
+                ? 'translateY(-50vh)'
+                : className !== 'active' && order === 1
+                ? 'translateX(-50vw)'
+                : className !== 'active'
+                ? 'translateY(50vh)'
+                : '',
+          }}
+        >
+          {images.map((image, i) => (
+            <KenBurnsSlide
+              key={image._key}
+              className={i === active ? 'active' : ''}
+              image={image}
+              title="image"
+            />
+          ))}
+        </Wrapper>
+      </BoxLink>
     </>
   )
 }
@@ -73,6 +75,11 @@ const TextLink = styled(Link)`
     display: none;
   }
   transition: opacity 0.7s 0.7s ease-in-out;
+  color: black;
+`
+
+const BoxLink = styled(Link)`
+  display: contents;
 `
 
 const Wrapper = styled.ul<{ order: number }>`

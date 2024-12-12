@@ -62,16 +62,19 @@ p {
   margin-inline-end: 0px;
 }
 
-a {
+a,
+.textButton {
   position: relative;
   cursor: pointer;
   font: inherit;
   text-decoration: none;
   text-underline-offset: 0.2em;
   transition: color 0.15s ease-in-out;
+  color: black;
 }
 
-a:hover {
+a:hover,
+.textButton:hover {
   &:after {
     content: ' ';
     display: block;

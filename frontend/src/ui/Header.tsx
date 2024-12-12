@@ -43,7 +43,9 @@ export const Header = ({
       <Sitename onClick={aboutOrHome}>Farrah Sit</Sitename>
       <Navigation className={pathname === '/' ? 'hidden' : ''}>
         <ul>
-          <li onClick={toggleIndex}>Index</li>
+          <li onClick={toggleIndex}>
+            <span className="textButton">Index</span>
+          </li>
           {navigation?.links?.map((item) => (
             <li key={item._key}>
               <Link
@@ -59,7 +61,9 @@ export const Header = ({
               </Link>
             </li>
           ))}
-          <li onClick={() => toggleAbout()}>About</li>
+          <li onClick={() => toggleAbout()}>
+            <span className="textButton">About</span>
+          </li>
         </ul>
       </Navigation>
       <MenuButton onClick={toggleIndex} active={indexActive} />

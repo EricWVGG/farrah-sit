@@ -92,4 +92,8 @@ const TextNav = styled.div`
     }
     transition: transform 1.45s ease-in-out;
   }
+
+  a {
+    color: black;
+  }
 `
