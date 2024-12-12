@@ -22,7 +22,8 @@ export const Slideshow = ({
       if (r < n) return r
       return n
     }, 9999) || 1
-  const aspectRatio = minAspectRatio < 1 ? 1 : minAspectRatio
+  const aspectRatio =
+    minAspectRatio < 1 || minAspectRatio === 9999 ? 1 : minAspectRatio
   return !images ? null : (
     <Wrapper style={{ aspectRatio }}>
       {images.map((image, i) => (

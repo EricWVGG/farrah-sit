@@ -18,7 +18,7 @@ export const Slide = ({
       {/*<StyledBlurMask hash={image.asset?.metadata?.blurHash!} />*/}
       <Image
         src={image.asset?.url!}
-        alt="derp"
+        alt={image.asset?.metadata?.dimensions?.aspectRatio?.toString()!}
         width={image.asset?.metadata?.dimensions?.width!}
         height={image.asset?.metadata?.dimensions?.height!}
         style={{ aspectRatio: image.asset?.metadata?.dimensions?.aspectRatio }}

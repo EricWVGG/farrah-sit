@@ -90,12 +90,12 @@ const Wrapper = styled.section`
 
   @media only screen and (min-width: 1024px) {
     max-width: 940px;
-    left: -940px;
+    left: -960px;
     &.initialized {
-      transform: translateX(70px);
+      transform: translateX(90px);
     }
     &.active {
-      transform: translateX(940px);
+      transform: translateX(960px);
     }
   }
 
