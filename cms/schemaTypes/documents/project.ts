@@ -45,6 +45,7 @@ export const project = defineType({
   preview: {
     select: {
       title: 'metadata.title',
+      subtitle: 'projectType',
       media: 'metadata.image',
     },
   },
