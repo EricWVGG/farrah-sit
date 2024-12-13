@@ -52,13 +52,27 @@ export const Slideshow = ({
         )}
       </Slides>
       <Dataline>
-        <div>
-          <Increment onClick={() => shift(-1)}> &lt;</Increment>
-          <Counter>
-            <span>{active + 1}</span> of <span>{images.length}</span>
-          </Counter>
-          <Increment onClick={() => shift(1)}> &gt;</Increment>
-        </div>
+        {images.length > 1 && (
+          <div>
+            <Increment onClick={() => shift(-1)}> &lt;</Increment>
+            <Counter>
+              <span>{active + 1}</span> of <span>{images.length}</span>
+            </Counter>
+            <Increment onClick={() => shift(1)}> &gt;</Increment>
+          </div>
+        )}
+
+        {/* images.length > 1 && (
+          <Dots>
+            {images.map((dot, i) => (
+              <Dot
+                key={`dot-${dot._key}`}
+                className={i === active ? 'filled' : ''}
+                onClick={() => setActive(i)}
+              />
+            ))}
+          </Dots>
+        ) */}
 
         <Link onClick={transit} href={link}>
           Details &gt; &gt;
@@ -68,6 +82,37 @@ export const Slideshow = ({
   )
 }
 
+const Dots = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 3px !important;
+`
+
+const Dot = styled.div`
+  position: relative;
+  height: 10px;
+  aspect-ratio: 1;
+  margin-top: 3px;
+  border: 0.75px solid black;
+  border-radius: 100%;
+  &:after {
+    content: ' ';
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 5px;
+    height: 5px;
+    background: black;
+    border-radius: 100%;
+    transition: transform 0.3s ease-in-out;
+    transform: scale(0);
+  }
+  &.filled:after {
+    transform: scale(1);
+  }
+  cursor: pointer;
+`
+
 const Dataline = styled.div`
   display: flex;
   gap: 30px;
@@ -75,7 +120,8 @@ const Dataline = styled.div`
   margin-top: 0.5em;
   div {
     display: flex;
-    gap: 2px;
+    flex-direction: row;
+    gap: 3px;
   }
 
   font-size: var(--typeSizeS);
