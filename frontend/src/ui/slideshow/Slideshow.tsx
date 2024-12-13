@@ -3,8 +3,8 @@
 import { styled } from '@linaria/react'
 import { useState } from 'react'
 import { Slide } from './Slide'
-import Link from 'next/link'
 import { useTransit } from '@lib'
+import { SlideshowDetails } from './SlideshowDetails'
 
 export const Slideshow = ({
   images,
@@ -13,7 +13,7 @@ export const Slideshow = ({
   link: string
 }) => {
   const [active, setActive] = useState(0)
-  const shift = (direction: number) => {
+  const shiftAction = (direction: number) => {
     if (!images) return
     let activeSlide = active + direction
     if (activeSlide < 0) activeSlide = images.length - 1
@@ -46,107 +46,21 @@ export const Slideshow = ({
         ))}
         {images.length > 1 && (
           <>
-            <Shifter onClick={() => shift(-1)} />
-            <Shifter onClick={() => shift(1)} className="right" />
+            <Shifter onClick={() => shiftAction(-1)} />
+            <Shifter onClick={() => shiftAction(1)} className="right" />
           </>
         )}
       </Slides>
-      <Dataline>
-        {images.length > 1 && (
-          <div>
-            <Increment onClick={() => shift(-1)}> &lt;</Increment>
-            <Counter>
-              <span>{active + 1}</span> of <span>{images.length}</span>
-            </Counter>
-            <Increment onClick={() => shift(1)}> &gt;</Increment>
-          </div>
-        )}
 
-        {/* images.length > 1 && (
-          <Dots>
-            {images.map((dot, i) => (
-              <Dot
-                key={`dot-${dot._key}`}
-                className={i === active ? 'filled' : ''}
-                onClick={() => setActive(i)}
-              />
-            ))}
-          </Dots>
-        ) */}
-
-        <Link onClick={transit} href={link}>
-          Details &gt; &gt;
-        </Link>
-      </Dataline>
+      {images.length > 1 && (
+        <SlideshowDetails
+          {...{ shiftAction, active, link }}
+          count={images.length}
+        />
+      )}
     </Wrapper>
   )
 }
-
-const Dots = styled.div`
-  display: flex;
-  flex-direction: row;
-  gap: 3px !important;
-`
-
-const Dot = styled.div`
-  position: relative;
-  height: 10px;
-  aspect-ratio: 1;
-  margin-top: 3px;
-  border: 0.75px solid black;
-  border-radius: 100%;
-  &:after {
-    content: ' ';
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 5px;
-    height: 5px;
-    background: black;
-    border-radius: 100%;
-    transition: transform 0.3s ease-in-out;
-    transform: scale(0);
-  }
-  &.filled:after {
-    transform: scale(1);
-  }
-  cursor: pointer;
-`
-
-const Dataline = styled.div`
-  display: flex;
-  gap: 30px;
-
-  margin-top: 0.5em;
-  div {
-    display: flex;
-    flex-direction: row;
-    gap: 3px;
-  }
-
-  font-size: var(--typeSizeS);
-  line-height: var(--typeLineS);
-
-  a {
-    color: var(--tundora);
-    &:hover:after {
-      opacity: 0;
-    }
-  }
-`
-
-const Counter = styled.div`
-  span {
-    display: inline-block;
-    width: 10px;
-    text-align: center;
-  }
-`
-
-const Increment = styled.button`
-  appearance: none;
-  cursor: pointer;
-`
 
 const Wrapper = styled.article`
   grid-area: slideshow;
