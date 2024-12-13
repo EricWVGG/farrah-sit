@@ -3,7 +3,6 @@
 import { styled } from '@linaria/react'
 import { useState } from 'react'
 import { Slide } from './Slide'
-import { useTransit } from '@lib'
 import { SlideshowDetails } from './SlideshowDetails'
 
 export const Slideshow = ({
@@ -30,8 +29,6 @@ export const Slideshow = ({
     }, 9999) || 1
   const aspectRatio =
     minAspectRatio < 1 || minAspectRatio === 9999 ? 1 : minAspectRatio
-
-  const transit = useTransit()
 
   return !images ? null : (
     <Wrapper>
