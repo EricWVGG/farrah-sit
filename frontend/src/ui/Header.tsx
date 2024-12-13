@@ -25,6 +25,8 @@ export const Header = ({
   const transit = useTransit()
 
   const pathname = usePathname()
+  const pathParts = pathname.split('/')
+  console.log(pathParts)
 
   // const router = useRouter()
 
@@ -51,7 +53,7 @@ export const Header = ({
                 onClick={transit}
                 href={`/${item.destination?.metadata.slug.current}`}
                 className={
-                  pathname === `/${item.destination?.metadata.slug.current}`
+                  pathParts[1] === item.destination?.metadata.slug.current
                     ? 'active'
                     : ''
                 }

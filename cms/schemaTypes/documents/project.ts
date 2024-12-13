@@ -16,7 +16,7 @@ export const project = defineType({
       name: 'projectType',
       type: 'string',
       options: {
-        list: ['lighting', 'objects', 'collaboration'],
+        list: ['lighting', 'objects', 'collaborations'],
         layout: 'radio',
       },
       validation: (rule) => rule.required(),

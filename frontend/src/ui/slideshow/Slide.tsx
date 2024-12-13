@@ -3,6 +3,7 @@ import Image from 'next/image'
 
 export const Slide = ({
   image,
+  loading,
   className,
 }: {
   image: Member<
@@ -11,6 +12,7 @@ export const Slide = ({
       'images'
     >['images']
   >
+  loading: 'eager' | 'lazy'
   className?: string
 }) => {
   return !image ? null : (
@@ -22,6 +24,7 @@ export const Slide = ({
         width={image.asset?.metadata?.dimensions?.width!}
         height={image.asset?.metadata?.dimensions?.height!}
         style={{ aspectRatio: image.asset?.metadata?.dimensions?.aspectRatio }}
+        loading={loading}
       />
     </Wrapper>
   )

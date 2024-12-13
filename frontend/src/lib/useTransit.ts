@@ -13,7 +13,7 @@ export const useTransit = () => {
     e.preventDefault()
     const destination = (e.target as HTMLAnchorElement).href
     setTransitioning(true)
-    setTimeout(() => push(destination), 1500)
+    setTimeout(() => push(destination), 550)
   }
   return transit
 }

@@ -3,11 +3,15 @@
 import { styled } from '@linaria/react'
 import { useState } from 'react'
 import { Slide } from './Slide'
-import { TypeS } from '@ui'
+import Link from 'next/link'
+import { useTransit } from '@lib'
 
 export const Slideshow = ({
   images,
-}: Partial<Member<NonNullable<Sanity.PageQueryResult>['projects']>>) => {
+  link,
+}: Partial<Member<NonNullable<Sanity.PageQueryResult>['projects']>> & {
+  link: string
+}) => {
   const [active, setActive] = useState(0)
   const shift = (direction: number) => {
     if (!images) return
@@ -16,6 +20,7 @@ export const Slideshow = ({
     else if (activeSlide > images.length - 1) activeSlide = 0
     setActive(activeSlide)
   }
+
   const minAspectRatio =
     images?.reduce((n, image) => {
       const r = image.asset?.metadata?.dimensions?.aspectRatio
@@ -25,6 +30,9 @@ export const Slideshow = ({
     }, 9999) || 1
   const aspectRatio =
     minAspectRatio < 1 || minAspectRatio === 9999 ? 1 : minAspectRatio
+
+  const transit = useTransit()
+
   return !images ? null : (
     <Wrapper>
       <Slides style={{ aspectRatio }}>
@@ -33,6 +41,7 @@ export const Slideshow = ({
             key={image._key}
             className={i === active ? 'active' : ''}
             image={image}
+            loading={i === 0 ? 'eager' : 'lazy'}
           />
         ))}
         {images.length > 1 && (
@@ -43,11 +52,17 @@ export const Slideshow = ({
         )}
       </Slides>
       <Dataline>
-        <Increment onClick={() => shift(-1)}>&lt; &lt;</Increment>
-        <TypeS>
-          {active + 1} of {images.length}
-        </TypeS>
-        <Increment onClick={() => shift(1)}>&gt; &gt;</Increment>
+        <div>
+          <Increment onClick={() => shift(-1)}>&lt; &lt;</Increment>
+          <Counter>
+            <span>{active + 1}</span> of <span>{images.length}</span>
+          </Counter>
+          <Increment onClick={() => shift(1)}>&gt; &gt;</Increment>
+        </div>
+
+        <Link onClick={transit} href={link}>
+          Details
+        </Link>
       </Dataline>
     </Wrapper>
   )
@@ -55,15 +70,35 @@ export const Slideshow = ({
 
 const Dataline = styled.div`
   display: flex;
-  gap: 10px;
+  gap: 30px;
 
   margin-top: 0.5em;
+  div {
+    display: flex;
+    gap: 5px;
+  }
+
+  font-size: var(--typeSizeS);
+  line-height: var(--typeLineS);
+
+  a {
+    color: var(--tundora);
+    &:hover:after {
+      opacity: 0;
+    }
+  }
+`
+
+const Counter = styled.div`
+  span {
+    display: inline-block;
+    width: 10px;
+    text-align: center;
+  }
 `
 
 const Increment = styled.button`
   appearance: none;
-  font-size: var(--typeSizeS);
-  line-height: var(--typeLineS);
   cursor: pointer;
 `
 
@@ -88,13 +123,12 @@ const Shifter = styled.button`
   z-index: 100;
   left: 0;
   display: block;
-  width: 60%;
+  width: 50%;
   height: 100%;
-  left: -10%;
   top: 0;
   &.right {
     left: auto;
-    right: -10%;
+    right: 0;
   }
   cursor: pointer;
 `

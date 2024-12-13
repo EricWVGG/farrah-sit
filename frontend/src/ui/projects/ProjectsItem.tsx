@@ -15,19 +15,26 @@ export const ProjectsItem = ({
   return !project ? null : (
     <Wrapper>
       <TitleColumn>
-        <Title>{project.metadata?.title}</Title>
-      </TitleColumn>
-      <Slideshow images={project.images} />
-      <Description>
-        <p>
-          {project.metadata?.description} [
+        <Title>
           <Link
-            onClick={transit}
             href={`/${project.projectType}/${project.metadata.slug.current}`}
           >
-            details
+            {project.metadata?.title}
           </Link>
-          ]
+        </Title>
+      </TitleColumn>
+      <Slideshow
+        images={project.images}
+        link={`/${project.projectType}/${project.metadata.slug.current}`}
+      />
+      <Description>
+        <p>
+          <Link
+            href={`/${project.projectType}/${project.metadata.slug.current}`}
+          >
+            {' '}
+            {project.metadata?.description}
+          </Link>
         </p>
       </Description>
     </Wrapper>
@@ -68,6 +75,10 @@ const Title = styled.h3`
   }
   font-size: var(--typeSizeL);
   line-height: var(--typeLineL);
+
+  a {
+    color: var(--tundora);
+  }
 `
 
 const Description = styled.article`
@@ -75,5 +86,11 @@ const Description = styled.article`
   p {
     font-size: var(--typeSizeM);
     line-height: var(--typeLineM);
+  }
+  a {
+    color: var(--tundora);
+    &:hover:after {
+      opacity: 0;
+    }
   }
 `

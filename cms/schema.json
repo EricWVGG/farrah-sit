@@ -617,7 +617,7 @@
             },
             {
               "type": "string",
-              "value": "collaboration"
+              "value": "collaborations"
             }
           ]
         },

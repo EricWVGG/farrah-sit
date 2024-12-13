@@ -38,7 +38,7 @@ export const ProjectIndex = ({
       return acc
     },
     {
-      collaboration: [] as Sanity.ProjectIndexQueryResult,
+      collaborations: [] as Sanity.ProjectIndexQueryResult,
       lighting: [] as Sanity.ProjectIndexQueryResult,
       objects: [] as Sanity.ProjectIndexQueryResult,
     },

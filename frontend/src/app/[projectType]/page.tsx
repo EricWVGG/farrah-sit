@@ -37,7 +37,7 @@ export async function generateMetadata(props: {
 export async function generateStaticParams() {
   return [
     { projectType: 'lighting' },
-    { projectType: 'collaboration' },
+    { projectType: 'collaborations' },
     { projectType: 'objects' },
   ]
 }
