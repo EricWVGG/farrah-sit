@@ -89,6 +89,16 @@ const Wrapper = styled.section`
     transform: translateX(620px);
   }
 
+  @media only screen and (min-width: 744px) {
+    max-width: 680px;
+    left: -720px;
+    &.initialized {
+      transform: translateX(40px);
+    }
+    &.active {
+      transform: translateX(720px);
+    }
+  }
   @media only screen and (min-width: 1024px) {
     max-width: 940px;
     left: -960px;
@@ -105,7 +115,7 @@ const Wrapper = styled.section`
 
 const ToggleOn = styled.div`
   position: absolute;
-  right: -20px;
+  right: 0px;
   top: 0;
   width: 70px;
   height: 100%;

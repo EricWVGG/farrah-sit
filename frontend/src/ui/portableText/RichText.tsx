@@ -20,7 +20,7 @@ export const RichText = ({
 const TextWrapper = styled.div`
   display: contents;
   p {
-    margin-bottom: 1em;
+    margin-bottom: 0.5em;
     &:last-of-type {
       margin-bottom: 0;
     }

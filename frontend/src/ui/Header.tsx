@@ -13,11 +13,12 @@ export const Header = ({
 }: {
   navigation: Sanity.NavigationQueryResult
 }) => {
-  const [toggleAbout, toggleIndex, indexActive] = useLayout(
+  const [toggleAbout, toggleIndex, navActive, toggleNav] = useLayout(
     useShallow((state) => [
       state.toggleAbout,
       state.toggleIndex,
-      state.indexActive,
+      state.navActive,
+      state.toggleNav,
     ]),
   )
   // todo: siteName click should toggle nav if mobile
@@ -26,7 +27,6 @@ export const Header = ({
 
   const pathname = usePathname()
   const pathParts = pathname.split('/')
-  console.log(pathParts)
 
   // const router = useRouter()
 
@@ -42,11 +42,16 @@ export const Header = ({
   return (
     <Wrapper className={pathname === '/' ? 'initialized' : 'initialized'}>
       <Sitename onClick={toggleAbout}>Farrah Sit</Sitename>
-      <Navigation className={pathname === '/' ? 'hidden' : ''}>
+      <Navigation
+        className={`
+          ${pathname === '/' ? 'hidden' : ''}
+          ${navActive ? 'active' : ''}
+        `}
+      >
         <ul>
-          <li onClick={toggleIndex}>
+          <IndexButton onClick={toggleIndex}>
             <span className="textButton">Index</span>
-          </li>
+          </IndexButton>
           {navigation?.links?.map((item) => (
             <li key={item._key}>
               <Link
@@ -67,7 +72,7 @@ export const Header = ({
           </li> */}
         </ul>
       </Navigation>
-      <MenuButton onClick={toggleIndex} active={indexActive} />
+      <MenuButton onClick={toggleNav} active={navActive} />
     </Wrapper>
   )
 }
@@ -96,7 +101,7 @@ const Wrapper = styled.header`
   justify-content: center;
   align-items: center;
 
-  @media only screen and (min-width: 1024px) {
+  @media only screen and (min-width: 744px) {
     justify-content: space-between;
     padding: 0 75px;
     transition: transform 1s ease-in-out;
@@ -123,9 +128,40 @@ const Wrapper = styled.header`
 `
 
 const Navigation = styled.nav`
-  display: none;
-  @media only screen and (min-width: 1024px) {
-    display: block;
+  @media only screen and (max-width: 743px) {
+    position: fixed;
+    left: 0;
+    top: var(--header-height);
+    width: 100%;
+    height: calc(100dvh - var(--header-height));
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    ul {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 50px;
+      transition: transform 0.5s ease-in-out;
+      transform: scale(1.2);
+    }
+
+    transition: opacity 0.3s 0.1s ease-in-out;
+    opacity: 0;
+    pointer-events: none;
+    &.active {
+      transition: opacity 0.3s ease-in-out;
+      opacity: 1;
+      pointer-events: all;
+      ul {
+        transform: scale(1);
+      }
+    }
+  }
+  @media only screen and (min-width: 744px) {
     ul {
       display: flex;
       flex-direction: row;
@@ -142,5 +178,12 @@ const Navigation = styled.nav`
   transition: opacity 1s ease-in-out;
   &.hidden {
     opacity: 0;
+  }
+`
+
+const IndexButton = styled.li`
+  display: none;
+  @media only screen and (min-width: 744px) {
+    display: block;
   }
 `

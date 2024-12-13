@@ -17,6 +17,7 @@ export const ProjectsItem = ({
       <TitleColumn>
         <Title>
           <Link
+            onClick={transit}
             href={`/${project.projectType}/${project.metadata.slug.current}`}
           >
             {project.metadata?.title}
@@ -30,9 +31,9 @@ export const ProjectsItem = ({
       <Description>
         <p>
           <Link
+            onClick={transit}
             href={`/${project.projectType}/${project.metadata.slug.current}`}
           >
-            {' '}
             {project.metadata?.description}
           </Link>
         </p>

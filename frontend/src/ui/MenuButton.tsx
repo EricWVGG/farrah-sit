@@ -13,7 +13,7 @@ export const MenuButton = ({
   </Wrapper>
 )
 
-const Wrapper = styled.div`
+const Wrapper = styled.button`
   position: absolute;
   z-index: var(--mobile-nav-options);
   top: 21px;
@@ -22,7 +22,9 @@ const Wrapper = styled.div`
   height: 25px;
   overflow: hidden;
 
-  @media only screen and (min-width: 1024px) {
+  appearance: none;
+
+  @media only screen and (min-width: 744px) {
     display: none;
   }
 `

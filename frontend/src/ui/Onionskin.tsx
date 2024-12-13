@@ -8,10 +8,12 @@ export const Onionskin = styled.div`
   width: 100%;
   height: 100dvh;
   pointer-events: none;
-  transition: backdrop-filter 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+  opacity: 0;
+  background: white;
   &.active {
     z-index: var(--layer-popout-onionskin);
-    backdrop-filter: blur(5px);
+    opacity: 0.25;
     pointer-events: all;
   }
 `

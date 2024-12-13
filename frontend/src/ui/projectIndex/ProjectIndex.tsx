@@ -101,8 +101,12 @@ const Wrapper = styled.section`
 
   transition: transform 1.25s ease-in-out;
   right: -600px;
+
   &.initialized {
-    transform: translateX(-80px);
+    transform: translateX(-40px);
+    @media only screen and (min-width: 1024px) {
+      transform: translateX(-80px);
+    }
   }
   &.active {
     z-index: var(--layer-popout);
@@ -155,12 +159,13 @@ const Number = styled.span`
   background: var(--concrete);
 `
 
-const ToggleOn = styled.div`
+const ToggleOn = styled.button`
   position: absolute;
-  left: -20px;
+  left: -0px;
   top: 0;
   width: 70px;
-  height: 100%;
+  min-height: 100%;
+  appearance: none;
 `
 
 const ProjectType = styled.h2`
