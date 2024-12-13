@@ -21,7 +21,7 @@ export const Splash = ({ navigation, ...props }: PageProps) => {
 
   useTimeout(() => setTransitioning(false), 500)
 
-  const transit = useTransit()
+  const transit = useTransit(1200)
 
   return (
     <Wrapper {...props}>

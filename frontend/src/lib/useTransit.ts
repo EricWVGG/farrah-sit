@@ -5,7 +5,7 @@ import { useLayout } from '@lib'
 // import { useShallow } from 'zustand/react/shallow'
 import { useRouter } from 'next/navigation'
 
-export const useTransit = () => {
+export const useTransit = (TIMEOUT: number = 550) => {
   const { push } = useRouter()
   const setTransitioning = useLayout((state) => state.setTransitioning)
 
@@ -13,7 +13,7 @@ export const useTransit = () => {
     e.preventDefault()
     const destination = (e.target as HTMLAnchorElement).href
     setTransitioning(true)
-    setTimeout(() => push(destination), 550)
+    setTimeout(() => push(destination), TIMEOUT)
   }
   return transit
 }

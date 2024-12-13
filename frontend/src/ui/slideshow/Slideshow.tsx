@@ -53,15 +53,15 @@ export const Slideshow = ({
       </Slides>
       <Dataline>
         <div>
-          <Increment onClick={() => shift(-1)}>&lt; &lt;</Increment>
+          <Increment onClick={() => shift(-1)}> &lt;</Increment>
           <Counter>
             <span>{active + 1}</span> of <span>{images.length}</span>
           </Counter>
-          <Increment onClick={() => shift(1)}>&gt; &gt;</Increment>
+          <Increment onClick={() => shift(1)}> &gt;</Increment>
         </div>
 
         <Link onClick={transit} href={link}>
-          Details
+          Details &gt; &gt;
         </Link>
       </Dataline>
     </Wrapper>
@@ -75,7 +75,7 @@ const Dataline = styled.div`
   margin-top: 0.5em;
   div {
     display: flex;
-    gap: 5px;
+    gap: 2px;
   }
 
   font-size: var(--typeSizeS);
