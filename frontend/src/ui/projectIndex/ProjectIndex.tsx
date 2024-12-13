@@ -120,12 +120,15 @@ const List = styled.ul`
 `
 
 const Item = styled.li`
+  position: relative;
   display: list-item;
   text-align: match-parent;
   font-size: 1.75rem;
-  line-height: 5rem;
+  line-height: 3rem;
+  margin-top: 1.5em;
   a {
     position: relative;
+    z-index: 1;
     display: inline-block;
     padding-right: 0.33em;
     background: var(--concrete);

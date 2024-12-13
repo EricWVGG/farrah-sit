@@ -13,7 +13,7 @@ export const copyRenderers = {
   block: {
     xLarge: (props: PropsWithChildren) => <TypeXL {...props} />,
     large: (props: PropsWithChildren) => <TypeL {...props} />,
-    normal: (props: PropsWithChildren) => <TypeM {...props} />,
+    normal: (props: PropsWithChildren) => <TypeM {...props} as="p" />,
     small: (props: PropsWithChildren) => <TypeS {...props} />,
     // blockquote: (props: PropsWithChildren) => <Blockquote {...props} />,
   },

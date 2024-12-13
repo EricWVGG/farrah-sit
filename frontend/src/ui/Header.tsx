@@ -2,7 +2,7 @@
 
 import { styled } from '@linaria/react'
 import { usePathname } from 'next/navigation'
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 import { useShallow } from 'zustand/react/shallow'
 import { useLayout, useTransit } from '@lib'
 import { MenuButton } from '@ui'
@@ -13,12 +13,11 @@ export const Header = ({
 }: {
   navigation: Sanity.NavigationQueryResult
 }) => {
-  const [toggleAbout, toggleIndex, indexActive, setTransitioning] = useLayout(
+  const [toggleAbout, toggleIndex, indexActive] = useLayout(
     useShallow((state) => [
       state.toggleAbout,
       state.toggleIndex,
       state.indexActive,
-      state.setTransitioning,
     ]),
   )
   // todo: siteName click should toggle nav if mobile
@@ -27,20 +26,20 @@ export const Header = ({
 
   const pathname = usePathname()
 
-  const router = useRouter()
+  // const router = useRouter()
 
-  const aboutOrHome = () => {
-    if (pathname === '/') {
-      toggleAbout()
-    } else {
-      setTransitioning(true)
-      setTimeout(() => router.push('/'), 1500)
-    }
-  }
+  // const aboutOrHome = () => {
+  //   if (pathname === '/') {
+  //     toggleAbout()
+  //   } else {
+  //     setTransitioning(true)
+  //     setTimeout(() => router.push('/'), 1500)
+  //   }
+  // }
 
   return (
     <Wrapper className={pathname === '/' ? 'initialized' : 'initialized'}>
-      <Sitename onClick={aboutOrHome}>Farrah Sit</Sitename>
+      <Sitename onClick={toggleAbout}>Farrah Sit</Sitename>
       <Navigation className={pathname === '/' ? 'hidden' : ''}>
         <ul>
           <li onClick={toggleIndex}>
@@ -61,9 +60,9 @@ export const Header = ({
               </Link>
             </li>
           ))}
-          <li onClick={() => toggleAbout()}>
+          {/* <li onClick={() => toggleAbout()}>
             <span className="textButton">About</span>
-          </li>
+          </li> */}
         </ul>
       </Navigation>
       <MenuButton onClick={toggleIndex} active={indexActive} />

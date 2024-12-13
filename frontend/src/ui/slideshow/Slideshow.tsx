@@ -3,6 +3,7 @@
 import { styled } from '@linaria/react'
 import { useState } from 'react'
 import { Slide } from './Slide'
+import { TypeS } from '@ui'
 
 export const Slideshow = ({
   images,
@@ -25,29 +26,54 @@ export const Slideshow = ({
   const aspectRatio =
     minAspectRatio < 1 || minAspectRatio === 9999 ? 1 : minAspectRatio
   return !images ? null : (
-    <Wrapper style={{ aspectRatio }}>
-      {images.map((image, i) => (
-        <Slide
-          key={image._key}
-          className={i === active ? 'active' : ''}
-          image={image}
-        />
-      ))}
-      {images.length > 1 && (
-        <>
-          <Shifter onClick={() => shift(-1)} />
-          <Shifter onClick={() => shift(1)} className="right" />
-        </>
-      )}
+    <Wrapper>
+      <Slides style={{ aspectRatio }}>
+        {images.map((image, i) => (
+          <Slide
+            key={image._key}
+            className={i === active ? 'active' : ''}
+            image={image}
+          />
+        ))}
+        {images.length > 1 && (
+          <>
+            <Shifter onClick={() => shift(-1)} />
+            <Shifter onClick={() => shift(1)} className="right" />
+          </>
+        )}
+      </Slides>
+      <Dataline>
+        <Increment onClick={() => shift(-1)}>&lt; &lt;</Increment>
+        <TypeS>
+          {active + 1} of {images.length}
+        </TypeS>
+        <Increment onClick={() => shift(1)}>&gt; &gt;</Increment>
+      </Dataline>
     </Wrapper>
   )
 }
 
-const Wrapper = styled.ul`
+const Dataline = styled.div`
+  display: flex;
+  gap: 10px;
+
+  margin-top: 0.5em;
+`
+
+const Increment = styled.button`
+  appearance: none;
+  font-size: var(--typeSizeS);
+  line-height: var(--typeLineS);
+  cursor: pointer;
+`
+
+const Wrapper = styled.article`
+  grid-area: slideshow;
+`
+
+const Slides = styled.ul`
   position: relative;
   width: 100%;
-
-  grid-area: slideshow;
 
   img {
     width: auto;

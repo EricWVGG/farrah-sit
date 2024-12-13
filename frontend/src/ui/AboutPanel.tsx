@@ -74,18 +74,19 @@ const Wrapper = styled.section`
   height: calc(100dvh - var(--header-height));
   width: 100%;
   max-width: calc(100vw - 20px);
-  overflow-y: auto;
+  overflow-x: clip;
+  overflow-y: scroll;
 
   box-shadow: 20px 20px 0 rgb(225, 225, 225);
 
   transition: transform 1.25s ease-in-out;
-  left: -600px;
+  left: -620px;
   &.initialized {
-    transform: translateX(80px);
+    transform: translateX(100px);
   }
   &.active {
     z-index: var(--layer-popout);
-    transform: translateX(600px);
+    transform: translateX(620px);
   }
 
   @media only screen and (min-width: 1024px) {
@@ -119,7 +120,7 @@ const Content = styled.article`
   }
 
   @media only screen and (min-width: 1024px) {
-    padding: 80px 120px;
+    padding: 80px 80px;
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
