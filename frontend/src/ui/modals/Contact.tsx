@@ -90,12 +90,7 @@ export const Contact = () => {
           aria-invalid={errors.message ? 'true' : 'false'}
         />
       </Inputs>
-      <Button
-        buttonStyle="inverted"
-        label="send"
-        invalid={!isValid}
-        type="submit"
-      />
+      <Button label="send" invalid={!isValid} type="submit" />
       <Sent className={sent ? 'active' : ''}>
         <Message>
           <Label>Message Sent!</Label>
