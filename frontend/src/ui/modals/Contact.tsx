@@ -4,10 +4,13 @@ import { styled } from '@linaria/react'
 import { Button, StringControl, TextControl, TypeL } from '@ui'
 import { useState } from 'react'
 import { useForm, type SubmitHandler } from 'react-hook-form'
+import { useLayout } from '@lib'
+// import { useShallow } from 'zustand/react/shallow'
 
 type ContactInputs = {
   name: string
   email: string
+  subject?: string
   message: string
 }
 
@@ -23,6 +26,8 @@ export const Contact = () => {
 
   const [sent, setSent] = useState(false)
 
+  const subject = useLayout((state) => state.subject)
+
   const onSubmit: SubmitHandler<ContactInputs> = async () => {
     alert('coming soon')
     return
@@ -33,7 +38,7 @@ export const Contact = () => {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(getValues()),
+        body: JSON.stringify({ ...getValues(), subject }),
       })
       setSent(true)
     } catch (e) {

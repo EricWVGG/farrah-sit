@@ -7,6 +7,7 @@ import { useTimeout } from 'usehooks-ts'
 import { useLayout } from '@lib'
 import { useShallow } from 'zustand/react/shallow'
 import Link from 'next/link'
+import { useEffect } from 'react'
 
 export const Project = ({
   metadata,
@@ -14,15 +15,22 @@ export const Project = ({
   copy,
   tearsheet,
 }: NonNullable<Sanity.ProjectQueryResult>) => {
-  const [transitioning, setTransitioning, setActiveModal] = useLayout(
-    useShallow((state) => [
-      state.transitioning,
-      state.setTransitioning,
-      state.setActiveModal,
-    ]),
-  )
+  const [transitioning, setTransitioning, setActiveModal, setSubject] =
+    useLayout(
+      useShallow((state) => [
+        state.transitioning,
+        state.setTransitioning,
+        state.setActiveModal,
+        state.setSubject,
+      ]),
+    )
 
   useTimeout(() => setTransitioning(false), 500)
+
+  useEffect(() => {
+    setSubject(`website inquiry: ${metadata.title}`)
+    return () => setSubject(undefined)
+  }, [])
 
   return (
     <Wrapper>
@@ -147,7 +155,7 @@ const Links = styled.ul`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  gap: 15px;
+  gap: 20px;
   li {
     position: relative;
     font-size: var(--typeSizeS);

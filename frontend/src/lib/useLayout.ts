@@ -3,6 +3,9 @@ import { create, StateCreator } from 'zustand'
 type ModalType = 'CONTACT'
 
 interface LayoutState {
+  subject?: string
+  setSubject: (s?: string) => void
+
   activeModal?: ModalType
   setActiveModal: (t?: ModalType) => void
 
@@ -26,6 +29,8 @@ interface LayoutState {
 }
 
 const createNavState: StateCreator<LayoutState> = (set) => ({
+  setSubject: (subject) => set({ subject }),
+
   activeModal: undefined,
   setActiveModal: (activeModal) => set({ activeModal }),
 
