@@ -6,14 +6,20 @@ import { RichText } from '@ui'
 import { useTimeout } from 'usehooks-ts'
 import { useLayout } from '@lib'
 import { useShallow } from 'zustand/react/shallow'
+import Link from 'next/link'
 
 export const Project = ({
   metadata,
   images,
   copy,
+  tearsheet,
 }: NonNullable<Sanity.ProjectQueryResult>) => {
-  const [transitioning, setTransitioning] = useLayout(
-    useShallow((state) => [state.transitioning, state.setTransitioning]),
+  const [transitioning, setTransitioning, setActiveModal] = useLayout(
+    useShallow((state) => [
+      state.transitioning,
+      state.setTransitioning,
+      state.setActiveModal,
+    ]),
   )
 
   useTimeout(() => setTransitioning(false), 500)
@@ -24,6 +30,24 @@ export const Project = ({
         <div>
           <Title>{metadata?.title}</Title>
           <RichText value={copy} />
+          <Links>
+            <li className="textButton" onClick={() => alert('coming soon')}>
+              Specifications
+            </li>
+            {tearsheet?.asset && (
+              <li>
+                <Link href={tearsheet.asset.url!} target="_blank">
+                  Tearsheet
+                </Link>
+              </li>
+            )}
+            <li
+              className="textButton"
+              onClick={() => setActiveModal('CONTACT')}
+            >
+              Inquire
+            </li>
+          </Links>
         </div>
       </TitleColumn>
       <Images className={transitioning ? 'hidden' : ''}>
@@ -116,5 +140,17 @@ const Images = styled.article`
     transition: transform 0.5s ease-in-out, opacity 0.45s ease-in-out;
     opacity: 0;
     transform: translateY(25vh);
+  }
+`
+
+const Links = styled.ul`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  gap: 15px;
+  li {
+    position: relative;
+    font-size: var(--typeSizeS);
+    line-height: var(--typeLineS);
   }
 `

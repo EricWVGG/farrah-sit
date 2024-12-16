@@ -17,7 +17,7 @@ export const processMetadata = (
   const title = [
     metadata?.title,
     siteSettings?.title || DEFAULT_SITE_TITLE,
-  ].join(' ✗ ')
+  ].join(' — by ')
 
   return {
     metadataBase: new URL(BASE_URL),

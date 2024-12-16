@@ -27,6 +27,12 @@ declare global {
     _type: 'image'
     _key: string
   }
+
+  type InputProps<T> = T & {
+    label: string
+    message?: string
+    setValue?: (props: any) => void
+  }
 }
 
 export * from './sanity-groq'

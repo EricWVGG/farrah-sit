@@ -1,8 +1,10 @@
 import { create, StateCreator } from 'zustand'
 
+type ModalType = 'CONTACT'
+
 interface LayoutState {
-  projectType?: string
-  setProjectType: (s?: string) => void
+  activeModal?: ModalType
+  setActiveModal: (t?: ModalType) => void
 
   indexActive: boolean
   setIndexActive: (a?: boolean) => void
@@ -16,33 +18,38 @@ interface LayoutState {
   setAboutActive: (a?: boolean) => void
   toggleAbout: () => void
 
-  compressionLevel: number
-  setCompressionLevel: (n: number) => void
-
   transitioning: boolean
   setTransitioning: (b: boolean) => void
+
+  specsActive: boolean
+  setSpecsActive: (a?: boolean) => void
 }
 
 const createNavState: StateCreator<LayoutState> = (set) => ({
-  setProjectType: (projectType) => set({ projectType }),
+  activeModal: undefined,
+  setActiveModal: (activeModal) => set({ activeModal }),
 
   indexActive: false,
   setIndexActive: (indexActive) => set({ indexActive }),
-  toggleIndex: () => set((state) => ({ indexActive: !state.indexActive })),
+  toggleIndex: () =>
+    set((state) => ({ indexActive: !state.indexActive, specsActive: false })),
 
   navActive: false,
   setNavActive: (navActive) => set({ navActive }),
-  toggleNav: () => set((state) => ({ navActive: !state.navActive })),
+  toggleNav: () =>
+    set((state) => ({ navActive: !state.navActive, specsActive: false })),
 
   aboutActive: false,
   setAboutActive: (aboutActive) => set({ aboutActive }),
-  toggleAbout: () => set((state) => ({ aboutActive: !state.aboutActive })),
-
-  compressionLevel: 80,
-  setCompressionLevel: (compressionLevel) => set({ compressionLevel }),
+  toggleAbout: () =>
+    set((state) => ({ aboutActive: !state.aboutActive, specsActive: false })),
 
   transitioning: true,
-  setTransitioning: (transitioning: boolean) => set({ transitioning }),
+  setTransitioning: (transitioning: boolean) =>
+    set({ transitioning, specsActive: false }),
+
+  specsActive: false,
+  setSpecsActive: (specsActive) => set({ specsActive }),
 })
 
 export default create<LayoutState>(createNavState)

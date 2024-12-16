@@ -7,6 +7,8 @@
   --layer-popout: 7;
   --layer-header: 8;
   --layer-splash: 9;
+  --layer-modals: 10;
+  --modal-close-button: 11;
 }
 
 @media only screen and (min-width: 1024px) {
@@ -19,5 +21,7 @@
     --layer-popout: 6;
     --layer-header: 8;
     --layer-splash: 9;
+    --layer-modals: 10;
+    --modal-close-button: 11;
   }
 }
