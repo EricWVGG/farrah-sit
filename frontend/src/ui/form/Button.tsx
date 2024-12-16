@@ -31,50 +31,35 @@ export const CustomButton = (
     icon,
     children,
     className,
-    target,
     type,
     ...props
   }: IButton,
   forwardRef: ForwardedRef<HTMLButtonElement>,
-) => {
-  const TheButton = (
-    <Wrapper
-      as={!!href ? 'button' : 'button'}
-      noLabel={!label}
-      type={type || 'button'}
-      {...props}
-      className={`
+) => (
+  <Wrapper
+    as={!!href ? 'button' : 'button'}
+    noLabel={!label}
+    type={type || 'button'}
+    {...props}
+    className={`
         ${className}
         ${invalid ? 'invalid' : ''}
         ${circle ? 'circle' : ''}
       `}
-      ref={forwardRef}
-    >
-      {!!leftIcon &&
-        cloneElement(leftIcon, {
-          level: 3,
-        })}
-      {label && <Label>{label}</Label>}
-      {children}
-      {!!icon &&
-        cloneElement(icon, {
-          level: 3,
-        })}
-    </Wrapper>
-  )
-
-  if (!href) return TheButton
-
-  return href.slice(0, 4) === 'http' ? (
-    <ExternalLink href={href} target="_blank" rel="noopener noreferrer">
-      {TheButton}
-    </ExternalLink>
-  ) : (
-    <StyledLink href={href} target={target}>
-      {TheButton}
-    </StyledLink>
-  )
-}
+    ref={forwardRef}
+  >
+    {!!leftIcon &&
+      cloneElement(leftIcon, {
+        level: 3,
+      })}
+    {label && <Label>{label}</Label>}
+    {children}
+    {!!icon &&
+      cloneElement(icon, {
+        level: 3,
+      })}
+  </Wrapper>
+)
 
 /* z-index 9999 ensures the before/after effects always sit above other buttons in a row */
 
@@ -84,22 +69,6 @@ const Label = styled.span`
   white-space: pre-line;
   transition: opacity 0.15s ease-in-out;
   color: inherit;
-`
-
-const ExternalLink = styled.a`
-  display: contents;
-
-  &:hover {
-    z-index: 2;
-  }
-`
-
-const StyledLink = styled(Link)`
-  display: contents;
-
-  &:hover {
-    z-index: 2;
-  }
 `
 
 const Wrapper = styled.button<{ noLabel: boolean }>`

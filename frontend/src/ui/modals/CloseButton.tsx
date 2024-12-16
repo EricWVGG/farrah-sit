@@ -3,13 +3,14 @@ import { styled } from '@linaria/react'
 
 export const CloseButton = (props: any) => {
   return (
-    <CloseLink {...props}>
+    <Wrapper {...props} type="button">
       <Cross />
-    </CloseLink>
+    </Wrapper>
   )
 }
 
-const CloseLink = styled.a`
+const Wrapper = styled.button`
+  appearance: none;
   display: flex;
   justify-content: center;
   align-items: center;

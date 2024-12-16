@@ -249,7 +249,6 @@ export const ButtonWrapper = styled.div`
 `
 
 /*
-
 @media only screen and (min-width: ${breakpoints.tablet}px) {
   top: -24px;
   left: auto;
