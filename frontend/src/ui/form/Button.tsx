@@ -9,13 +9,10 @@ import {
   type ReactElement,
 } from 'react'
 
-type ButtonStyle = 'normal' | 'inverted' | 'text'
-
 export type IButton = ComponentProps<'button'> & {
   as?: keyof JSX.IntrinsicElements
   invalid?: boolean
   processing?: boolean
-  buttonStyle?: ButtonStyle
   circle?: boolean
   label?: string | null
   leftIcon?: ReactElement
@@ -28,7 +25,6 @@ export const CustomButton = (
   {
     invalid,
     href,
-    buttonStyle = 'normal',
     label,
     circle,
     leftIcon,
@@ -49,7 +45,6 @@ export const CustomButton = (
       {...props}
       className={`
         ${className}
-        ${buttonStyle}
         ${invalid ? 'invalid' : ''}
         ${circle ? 'circle' : ''}
       `}
