@@ -1,10 +1,15 @@
 import { styled } from '@linaria/react'
 // import { breakpoints } from '@theme'
 
-export const CloseButton = (props: any) => {
+export const CloseButton = ({
+  active,
+  ...props
+}: Pick<React.HTMLProps<HTMLButtonElement>, 'onClick'> & {
+  active: boolean
+}) => {
   return (
-    <Wrapper {...props} type="button">
-      <Cross />
+    <Wrapper {...props} type="button" className={active ? 'active' : ''}>
+      <Cross className={active ? 'active' : ''} />
     </Wrapper>
   )
 }
@@ -14,70 +19,12 @@ const Wrapper = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--tundora);
 
-  width: 48px;
-  height: 48px;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
-  transform: scale3d(1, 1, 1) translateZ(0);
-  transition: background-color 0.24s linear, color 0.24s linear,
-    transform 0.4s cubic-bezier(0.42, 0.97, 0.52, 1.49);
 
-  &::before,
-  &::after {
-    z-index: 1;
-    display: block;
-    position: absolute;
-    border-radius: 50%;
-    transform: scale3d(1, 1, 1);
-    will-change: transform;
-    opacity: 0;
-    content: '';
-    pointer-events: none;
-  }
-
-  &::before {
-    width: 100%;
-    height: 100%;
-    border: 0.5px solid var(--white);
-    transition: background-color 0.24s linear, transform 0.24s ease,
-      opacity 0.24s linear;
-
-    @keyframes CloseModalButton {
-      0% {
-        opacity: 0;
-        transform: scale3d(1, 1, 1);
-      }
-      50% {
-        opacity: 0.32;
-      }
-      100% {
-        opacity: 0;
-        transform: scale3d(1.6, 1.6, 1);
-      }
-    }
-  }
-
-  &::after {
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    box-shadow: 0 0 0 var(--l5) rgba(var(--error-active), 0.08);
-    transition: opacity 0.24s linear;
-  }
-
-  &:focus,
-  &:active {
-    background-color: rgb(var(--error-active));
-    transform: scale3d(1.08, 1.08, 1);
-    &::after {
-      opacity: 1;
-    }
-    & svg {
-      color: rgb(var(--icon-inv-primary));
-    }
-  }
+  cursor: pointer;
 `
 
 /*
@@ -123,18 +70,23 @@ const Cross = styled.div`
   &::after {
     content: ' ';
     position: absolute;
-    width: 16px;
-    height: 3px;
-    transition: transform 0.24s ease;
-    background-color: var(--white);
+    width: 24px;
+    height: 2px;
+    transition: transform 0.24s 0s ease;
+    transform-origin: center center;
+    background-color: var(--tundora);
   }
 
-  &::before {
-    transform: rotateZ(45deg);
-  }
+  &.active {
+    &::before {
+      transition: transform 0.25s 0.5s ease;
+      transform: rotateZ(45deg);
+    }
 
-  &::after {
-    transform: rotateZ(-45deg);
+    &::after {
+      transition: transform 0.25s 0.5s ease;
+      transform: rotateZ(-45deg);
+    }
   }
 `
 /*

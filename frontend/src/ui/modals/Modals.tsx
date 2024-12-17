@@ -39,7 +39,7 @@ export const Modals = () => {
           <Content>{bufferedActive === 'CONTACT' && <Contact />}</Content>
         </Overflow>
         <ButtonWrapper className={!!activeModal ? 'active' : ''}>
-          <CloseButton onClick={() => closeModal()} />
+          <CloseButton onClick={() => closeModal()} active={!!activeModal} />
         </ButtonWrapper>
       </Modal>
       <Shroud
@@ -71,16 +71,6 @@ export const Wrapper = styled.div`
     pointer-events: all;
   }
 `
-
-/*
-  @media only screen and (min-width: ${breakpoints.tablet}px) {
-  padding: calc(var(--l2) + 12px) calc(var(--l1) * 2);
-}
-
-@media only screen and (min-width: ${breakpoints.laptop}px) {
-  padding: var(--l1) calc(var(--l1) * 2);
-}
-*/
 
 export const Shroud = styled.div`
   position: fixed;
@@ -115,8 +105,14 @@ export const Modal = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100dvw;
+  width: 84vw;
   max-height: 100dvh;
+
+  @media only screen and (min-width: 744px) {
+    max-width: 600px;
+    max-height: 90dvh;
+  }
+
   opacity: 0;
   transform: scale3d(0.88, 0.88, 1) translate3d(0, 0, 0);
   transform-origin: center bottom;
@@ -133,10 +129,6 @@ export const Modal = styled.div`
     transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
     transition: opacity 0.48s linear 0.24s,
       transform 0.48s cubic-bezier(0.25, 1, 0.5, 1) 0.24s;
-  }
-
-  @media only screen and (min-width: 744px) {
-    padding: 100px calc((100vw - 600px) / 2);
   }
 `
 
@@ -166,9 +158,7 @@ export const Overflow = styled.div`
   align-items: center;
   gap: var(--l1);
   background-color: rgb(var(--surface-primary));
-  width: 100%;
-  height: 100dvh;
-  padding: calc(var(--l1) * 2) 24px;
+
   box-shadow: var(--surface-dark-active-shadow);
   overflow-x: hidden;
   overflow-y: auto;
@@ -231,20 +221,20 @@ export const Content = styled.article`
 export const ButtonWrapper = styled.div`
   position: absolute;
   z-index: var(--modal-close-button);
+
+  top: -24px;
+  right: 0px;
+  @media only screen and (min-width: 744px) {
+    right: -24px;
+  }
+
   display: block;
-  top: 24px;
-  right: 24px;
 
   opacity: 0;
-  transform: scale3d(0.05, 0.05, 1);
-  transition: opacity 0.24s linear,
-    transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  transition-delay: 0s;
+  transition: opacity 0.24s linear;
 
   &.active {
     opacity: 1;
-    transform: scale3d(1, 1, 1);
-    transition-delay: 0.6s;
   }
 `
 
