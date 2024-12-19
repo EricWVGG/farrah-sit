@@ -46,6 +46,37 @@ export type Geopoint = {
   alt?: number
 }
 
+export type LabelWithRichText = {
+  _type: 'labelWithRichText'
+  title: string
+  value?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: 'span'
+      _key: string
+    }>
+    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+    listItem?: 'bullet' | 'number'
+    markDefs?: Array<{
+      href?: string
+      _type: 'link'
+      _key: string
+    }>
+    level?: number
+    _type: 'block'
+    _key: string
+  }>
+}
+
+export type Variant = {
+  _type: 'variant'
+  title: string
+  width?: number
+  height?: number
+  depth?: number
+}
+
 export type SiteSettings = {
   _id: string
   _type: 'siteSettings'
@@ -161,6 +192,36 @@ export type Project = {
     }
     _type: 'file'
   }
+  variants?: Array<
+    {
+      _key: string
+    } & Variant
+  >
+  finishes?: Array<string>
+  leadTime?: string
+  freeformData?: Array<
+    {
+      _key: string
+    } & LabelWithRichText
+  >
+  notes?: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: 'span'
+      _key: string
+    }>
+    style?: 'normal' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'blockquote'
+    listItem?: 'bullet' | 'number'
+    markDefs?: Array<{
+      href?: string
+      _type: 'link'
+      _key: string
+    }>
+    level?: number
+    _type: 'block'
+    _key: string
+  }>
 }
 
 export type SanityFileAsset = {
@@ -325,6 +386,8 @@ export type AllSanitySchemaTypes =
   | SanityImagePalette
   | SanityImageDimensions
   | Geopoint
+  | LabelWithRichText
+  | Variant
   | SiteSettings
   | Navigation
   | NavigationLink
@@ -471,7 +534,7 @@ export type PageQueryResult = {
 
 // Source: ../frontend/src/query/getProject.ts
 // Variable: projectQuery
-// Query: *[_type == 'project' && metadata.slug.current == $slug][0]{    metadata,    copy,    projectType,    images[] {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }},    tearsheet {  ...,  asset-> {    url  }}  }
+// Query: *[_type == 'project' && metadata.slug.current == $slug][0]{    metadata,    copy,    projectType,    images[] {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }},    tearsheet {  ...,  asset-> {    url  }},    variants[],    finishes[],    leadTime,    freeformData[],    notes  }
 export type ProjectQueryResult = {
   metadata: Metadata
   copy: Array<{
@@ -513,6 +576,36 @@ export type ProjectQueryResult = {
     } | null
     _type: 'file'
   } | null
+  variants: Array<
+    {
+      _key: string
+    } & Variant
+  > | null
+  finishes: Array<string> | null
+  leadTime: string | null
+  freeformData: Array<
+    {
+      _key: string
+    } & LabelWithRichText
+  > | null
+  notes: Array<{
+    children?: Array<{
+      marks?: Array<string>
+      text?: string
+      _type: 'span'
+      _key: string
+    }>
+    style?: 'blockquote' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'normal'
+    listItem?: 'bullet' | 'number'
+    markDefs?: Array<{
+      href?: string
+      _type: 'link'
+      _key: string
+    }>
+    level?: number
+    _type: 'block'
+    _key: string
+  }> | null
 } | null
 
 // Source: ../frontend/src/query/getProjectIndex.ts
@@ -558,7 +651,7 @@ declare module '@sanity/client' {
     "\n  *[(_type == 'page' || _type == 'project') && metadata.slug.current == $slug][0]{\n    metadata {\n      ...,\n      poster \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    }\n  }\n": MetadataQueryResult
     "\n  *[_type == 'navigation' && name == $name][0]{\n    links[] {\n      ...,\n      label,\n      externalUrl,\n      destination -> {\n        metadata {\n          slug {\n            current\n          }\n        }\n      },\n      images[] \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    }\n  }\n": NavigationQueryResult
     "\n  *[_type == 'page' && metadata.slug.current == $slug][0]{\n    metadata {\n      ...,\n      poster \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    },\n    copy,\n    projects[] -> {\n      _id,\n      projectType,\n      images[] \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n      metadata {\n        title,\n        description,\n        slug {\n          current\n        }\n      }\n    },\n  }\n": PageQueryResult
-    "\n  *[_type == 'project' && metadata.slug.current == $slug][0]{\n    metadata,\n    copy,\n    projectType,\n    images[] \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n    tearsheet \n{\n  ...,\n  asset-> {\n    url\n  }\n}\n\n  }\n": ProjectQueryResult
+    "\n  *[_type == 'project' && metadata.slug.current == $slug][0]{\n    metadata,\n    copy,\n    projectType,\n    images[] \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n    tearsheet \n{\n  ...,\n  asset-> {\n    url\n  }\n}\n,\n    variants[],\n    finishes[],\n    leadTime,\n    freeformData[],\n    notes\n  }\n": ProjectQueryResult
     "\n  *[_type == 'project']{\n    _id,\n    projectType,\n    metadata {\n      title,\n      description,\n      slug {\n        current\n      }\n    }\n  }\n": ProjectIndexQueryResult
     "\n  *[_type == 'siteSettings' && title == 'Farrah Sit'][0]{\n    title,\n    description,\n    shareImage \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n  }\n": SiteSettingsQueryResult
   }

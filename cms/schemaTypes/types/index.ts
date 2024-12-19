@@ -1,3 +1,5 @@
 export {richText} from './richText'
 export {metadata} from './metadata'
 export {navigationLink} from './navigationLink'
+export {variant} from './variant'
+export {labelWithRichText} from './labelWithRichText'

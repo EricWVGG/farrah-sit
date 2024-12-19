@@ -7,69 +7,114 @@ import { useTimeout } from 'usehooks-ts'
 import { useLayout } from '@lib'
 import { useShallow } from 'zustand/react/shallow'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { Specifications } from './'
 
 export const Project = ({
   metadata,
   images,
   copy,
   tearsheet,
+  ...rest
 }: NonNullable<Sanity.ProjectQueryResult>) => {
-  const [transitioning, setTransitioning, setActiveModal, setSubject] =
-    useLayout(
-      useShallow((state) => [
-        state.transitioning,
-        state.setTransitioning,
-        state.setActiveModal,
-        state.setSubject,
-      ]),
-    )
+  const [
+    transitioning,
+    setTransitioning,
+    setActiveModal,
+    setSubject,
+    specsActive,
+    setSpecsActive,
+  ] = useLayout(
+    useShallow((state) => [
+      state.transitioning,
+      state.setTransitioning,
+      state.setActiveModal,
+      state.setSubject,
+      state.specsActive,
+      state.setSpecsActive,
+    ]),
+  )
 
   useTimeout(() => setTransitioning(false), 500)
 
+  const [init, setInit] = useState(false)
+
   useEffect(() => {
     setSubject(`website inquiry: ${metadata.title}`)
-    return () => setSubject(undefined)
+    setInit(true)
+    return () => {
+      setSubject(undefined)
+      setInit(false)
+      setSpecsActive(false)
+    }
   }, [])
 
+  const hasSpecs =
+    !!rest.variants ||
+    !!rest.finishes ||
+    !!rest.leadTime ||
+    !!rest.freeformData ||
+    !!rest.notes
+
   return (
-    <Wrapper>
-      <TitleColumn className={transitioning ? 'hidden' : ''}>
-        <div>
-          <Title>{metadata?.title}</Title>
-          <RichText value={copy} />
-          <Links>
-            <li className="textButton" onClick={() => alert('coming soon')}>
-              Specifications
-            </li>
-            {tearsheet?.asset && (
-              <li>
-                <Link href={tearsheet.asset.url!} target="_blank">
-                  Tearsheet
-                </Link>
+    <>
+      <Wrapper>
+        <TitleColumn className={transitioning ? 'hidden' : ''}>
+          <div>
+            <Title>{metadata?.title}</Title>
+            <RichText value={copy} />
+            <Links>
+              {hasSpecs && (
+                <li
+                  className="textButton"
+                  onClick={() => setSpecsActive(!specsActive)}
+                >
+                  Specifications
+                </li>
+              )}
+              {tearsheet?.asset && (
+                <li>
+                  <Link href={tearsheet.asset.url!} target="_blank">
+                    Tearsheet
+                  </Link>
+                </li>
+              )}
+              <li
+                className="textButton"
+                onClick={() => setActiveModal('CONTACT')}
+              >
+                Inquire
               </li>
-            )}
-            <li
-              className="textButton"
-              onClick={() => setActiveModal('CONTACT')}
-            >
-              Inquire
-            </li>
-          </Links>
-        </div>
-      </TitleColumn>
-      <Images className={transitioning ? 'hidden' : ''}>
-        {images.map((image, i) => (
-          <Image
-            key={`image-${i}`}
-            src={image.asset?.url!}
-            alt="derp"
-            width={image.asset?.metadata?.dimensions?.width!}
-            height={image.asset?.metadata?.dimensions?.height!}
-          />
-        ))}
-      </Images>
-    </Wrapper>
+            </Links>
+          </div>
+        </TitleColumn>
+        <Images className={transitioning ? 'hidden' : ''}>
+          {images.map((image, i) => (
+            <Image
+              key={`image-${i}`}
+              src={image.asset?.url!}
+              alt="derp"
+              width={image.asset?.metadata?.dimensions?.width!}
+              height={image.asset?.metadata?.dimensions?.height!}
+            />
+          ))}
+        </Images>
+      </Wrapper>
+      {hasSpecs && (
+        <Specifications
+          {...rest}
+          metadata={metadata}
+          tearsheet={tearsheet}
+          className={
+            specsActive
+              ? 'active'
+              : init && !transitioning
+              ? 'initialized'
+              : undefined
+          }
+        />
+      )}
+    </>
   )
 }
 
@@ -119,7 +164,7 @@ const TitleColumn = styled.div`
   }
 `
 
-const Title = styled.h3`
+const Title = styled.h1`
   @media only screen and (min-width: 1024px) {
     margin-bottom: 1em;
   }

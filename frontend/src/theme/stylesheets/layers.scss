@@ -1,8 +1,9 @@
 :root {
   --layer-footer: 1;
   --layer-onionskin: 2;
-  --layer-about: 4;
-  --layer-project-index: 5;
+  --layer-about: 3;
+  --layer-project-index: 4;
+  --layer-specifications: 5;
   --layer-popout-onionskin: 6;
   --layer-popout: 7;
   --layer-header: 8;
@@ -17,8 +18,9 @@
     --layer-onionskin: 2;
     --layer-about: 3;
     --layer-project-index: 4;
-    --layer-popout-onionskin: 5;
-    --layer-popout: 6;
+    --layer-specifications: 5;
+    --layer-popout-onionskin: 6;
+    --layer-popout: 7;
     --layer-header: 8;
     --layer-splash: 9;
     --layer-modals: 10;

@@ -38,7 +38,7 @@ export const Contact = () => {
           Accept: 'application/json',
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ ...getValues(), subject }),
+        body: JSON.stringify({ ...getValues() }),
       })
       setSent(true)
     } catch (e) {
@@ -80,6 +80,15 @@ export const Contact = () => {
           })}
           message={errors?.email?.message}
           aria-invalid={errors.email ? 'true' : 'false'}
+        />
+        <StringControl
+          label="Subject"
+          placeholder="ex. Product"
+          type="string"
+          autoComplete="off"
+          {...register('subject')}
+          defaultValue={subject}
+          message={errors?.subject?.message}
         />
         <TextControl
           label="Message"

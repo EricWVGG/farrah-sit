@@ -40,6 +40,40 @@ export const project = defineType({
       name: 'tearsheet',
       type: 'file',
     }),
+
+    defineField({
+      name: 'variants',
+      type: 'array',
+      of: [{type: 'variant'}],
+    }),
+
+    defineField({
+      name: 'finishes',
+      type: 'array',
+      of: [{type: 'string'}],
+    }),
+
+    defineField({
+      name: 'leadTime',
+      type: 'string',
+    }),
+
+    defineField({
+      name: 'freeformData',
+      title: 'Misc. Data Items',
+      type: 'array',
+      of: [
+        {
+          type: 'labelWithRichText',
+        },
+      ],
+    }),
+
+    defineField({
+      name: 'notes',
+      title: 'notes',
+      type: 'richText',
+    }),
   ],
 
   preview: {
