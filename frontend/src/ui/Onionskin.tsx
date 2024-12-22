@@ -1,19 +1,35 @@
-import { styled } from '@linaria/react'
+'use client'
 
-export const Onionskin = styled.div`
+import { styled } from '@linaria/react'
+import { useLayout } from '@lib'
+import { useShallow } from 'zustand/react/shallow'
+
+export const Onionskin = () => {
+  const [setActiveModal, activeModal] = useLayout(
+    useShallow((state) => [state.setActiveModal, state.activeModal]),
+  )
+
+  return (
+    <Wrapper
+      onClick={() => setActiveModal(undefined)}
+      className={!!activeModal ? 'active' : ''}
+    />
+  )
+}
+
+const Wrapper = styled.div`
   position: fixed;
   z-index: var(--layer-onionskin);
   top: 0;
   left: 0;
   width: 100%;
   height: 100dvh;
+  transition: background-color 1s ease-in-out;
+  background-color: rgba(255, 255, 255, 0);
   pointer-events: none;
-  transition: opacity 1s ease-in-out;
-  opacity: 0;
-  background: white;
   &.active {
     z-index: var(--layer-popout-onionskin);
-    opacity: 0.25;
+    background-color: rgba(255, 255, 255, 0.65);
     pointer-events: all;
   }
 `

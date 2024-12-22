@@ -24,28 +24,23 @@ export const Modals = () => {
     } else {
       unlock()
     }
-  }, [activeModal, isClient])
+  }, [activeModal])
 
-  const closeModal = () => {
-    setActiveModal(undefined)
-  }
+  const closeModal = () => setActiveModal(undefined)
 
+  const active = activeModal === 'CONTACT'
   const bufferedActive = useBuffer(activeModal, 1)
 
   return (
     <Wrapper className={!!bufferedActive ? 'active' : ''}>
-      <Modal className={!!activeModal ? 'active' : ''}>
+      <Modal className={active ? 'active' : ''}>
         <Overflow className={bufferedActive} id="project-content">
           <Content>{bufferedActive === 'CONTACT' && <Contact />}</Content>
         </Overflow>
-        <ButtonWrapper className={!!activeModal ? 'active' : ''}>
+        <ButtonWrapper className={activeModal === 'CONTACT' ? 'active' : ''}>
           <CloseButton onClick={() => closeModal()} active={!!activeModal} />
         </ButtonWrapper>
       </Modal>
-      <Shroud
-        onClick={() => closeModal()}
-        className={!!activeModal ? 'active' : ''}
-      />
     </Wrapper>
   )
 }
@@ -68,33 +63,6 @@ export const Wrapper = styled.div`
 
   &.active {
     visibility: visible;
-    pointer-events: all;
-  }
-`
-
-export const Shroud = styled.div`
-  position: fixed;
-  z-index: -1;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  transform-origin: center bottom;
-  align-items: flex-start;
-  background-color: rgba(255, 255, 255, 0.85);
-  width: 100%;
-  height: 100%;
-  margin: auto;
-  opacity: 0;
-  transition: opacity 0.24s linear 0.64s;
-  pointer-events: none;
-
-  &.active {
-    transition: opacity 0.24s linear 0s;
-    opacity: 1;
-    pointer-events: all;
   }
 `
 
@@ -125,6 +93,7 @@ export const Modal = styled.div`
   }
 
   &.active {
+    pointer-events: all;
     opacity: 1;
     transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
     transition: opacity 0.48s linear 0.24s,

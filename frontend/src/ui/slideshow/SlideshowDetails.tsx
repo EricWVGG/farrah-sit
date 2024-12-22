@@ -54,8 +54,8 @@ const Wrapper = styled.div`
   gap: 30px;
   margin-top: 0.5em;
 
-  font-size: var(--typeSizeS);
-  line-height: var(--typeLineS);
+  font-size: var(--typeSizeXS);
+  line-height: var(--typeLineXS);
 
   a {
     color: var(--tundora);

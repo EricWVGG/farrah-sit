@@ -13,11 +13,11 @@ export const TypeL = styled.div`
 `
 
 export const TypeM = styled.div`
-  font-size: var(--typeSizeM);
-  line-height: var(--typeLineM);
+  font-size: var(--typeSizeS);
+  line-height: var(--typeLineS);
 `
 
 export const TypeS = styled.div`
-  font-size: var(--typeSizeS);
-  line-height: var(--typeLineS);
+  font-size: var(--typeSizeXS);
+  line-height: var(--typeLineXS);
 `

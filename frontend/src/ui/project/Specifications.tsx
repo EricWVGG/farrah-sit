@@ -24,12 +24,23 @@ export const Specifications = ({
       <Table>
         <tbody>
           {variants?.length === 1 && (
-            <tr>
-              <Label>Dimensions</Label>
-              <td>
-                {variants[0].width}w {variants[0].height}h {variants[0].depth}d
-              </td>
-            </tr>
+            <>
+              <tr>
+                <Label>Dimensions (imperial)</Label>
+                <td>
+                  {variants[0].width}&#34; wide, {variants[0].height}&#34; tall,{' '}
+                  {variants[0].depth}&#34; deep
+                </td>
+              </tr>
+              <tr>
+                <Label>Dimensions (metric)</Label>
+                <td>
+                  {Math.ceil(variants[0].width! * 25.4)}mm wide,{' '}
+                  {Math.ceil(variants[0].height! * 25.4)}mm tall,{' '}
+                  {Math.ceil(variants[0].depth! * 25.4)}mm deep
+                </td>
+              </tr>
+            </>
           )}
           {variants && variants.length > 1 && (
             <tr>
@@ -105,13 +116,13 @@ const Wrapper = styled.section`
   top: calc(var(--header-height) * 1.25);
   right: 0;
   width: 100%;
-  max-width: 400px;
+  max-width: 500px;
   overflow-y: auto;
 
   padding: 80px 80px;
 
   transition: transform 1.25s ease-in-out;
-  right: -400px;
+  right: -500px;
 
   &.initialized {
     transform: translateX(-40px);
@@ -121,7 +132,7 @@ const Wrapper = styled.section`
   }
   &.active {
     z-index: var(--layer-popout);
-    transform: translateX(-440px);
+    transform: translateX(-540px);
   }
 
   background: var(--alabaster);
@@ -138,10 +149,17 @@ const Table = styled.table`
   display: grid;
   grid-template-columns: repeat(2, auto);
   grid-template-rows: auto;
-  gap: 10px 20px;
+  gap: 15px 20px;
   tbody,
   tr {
     display: contents;
+  }
+  th,
+  td,
+  li,
+  p {
+    font-size: var(--typeSizeM);
+    line-height: var(--typeLineM);
   }
 `
 

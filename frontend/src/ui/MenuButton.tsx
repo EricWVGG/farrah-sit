@@ -1,17 +1,21 @@
 import { styled } from '@linaria/react'
+import { useLayout } from '@lib'
+import { useShallow } from 'zustand/react/shallow'
 
-export const MenuButton = ({
-  active,
-  ...rest
-}: {
-  active?: boolean
-  onClick: () => void
-}) => (
-  <Wrapper {...rest}>
-    <Line className={!active ? '' : 'active'} />
-    <Line className={!active ? '' : 'active'} />
-  </Wrapper>
-)
+export const MenuButton = () => {
+  const [toggle, activeModal] = useLayout(
+    useShallow((state) => [state.toggle, state.activeModal]),
+  )
+
+  const active = activeModal == 'NAV'
+
+  return (
+    <Wrapper onClick={() => toggle('NAV')}>
+      <Line className={active ? 'active' : ''} />
+      <Line className={active ? 'active' : ''} />
+    </Wrapper>
+  )
+}
 
 const Wrapper = styled.button`
   position: absolute;

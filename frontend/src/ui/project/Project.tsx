@@ -20,18 +20,18 @@ export const Project = ({
   const [
     transitioning,
     setTransitioning,
+    activeModal,
     setActiveModal,
     setSubject,
-    specsActive,
-    setSpecsActive,
+    toggle,
   ] = useLayout(
     useShallow((state) => [
       state.transitioning,
       state.setTransitioning,
+      state.activeModal,
       state.setActiveModal,
       state.setSubject,
-      state.specsActive,
-      state.setSpecsActive,
+      state.toggle,
     ]),
   )
 
@@ -45,7 +45,7 @@ export const Project = ({
     return () => {
       setSubject(undefined)
       setInit(false)
-      setSpecsActive(false)
+      setActiveModal(undefined)
     }
   }, [])
 
@@ -56,6 +56,8 @@ export const Project = ({
     !!rest.freeformData ||
     !!rest.notes
 
+  const active = activeModal === 'SPECS'
+
   return (
     <>
       <Wrapper>
@@ -65,10 +67,7 @@ export const Project = ({
             <RichText value={copy} />
             <Links>
               {hasSpecs && (
-                <li
-                  className="textButton"
-                  onClick={() => setSpecsActive(!specsActive)}
-                >
+                <li className="textButton" onClick={() => toggle('SPECS')}>
                   Specifications
                 </li>
               )}
@@ -106,7 +105,7 @@ export const Project = ({
           metadata={metadata}
           tearsheet={tearsheet}
           className={
-            specsActive
+            active
               ? 'active'
               : init && !transitioning
               ? 'initialized'
@@ -152,8 +151,8 @@ const TitleColumn = styled.div`
     }
   }
   p {
-    font-size: var(--typeSizeM);
-    line-height: var(--typeLineM);
+    font-size: var(--typeSizeS);
+    line-height: var(--typeLineS);
   }
 
   transition: transform 1.45s ease-in-out, opacity 1.4s ease-in-out;
@@ -180,8 +179,8 @@ const Images = styled.article`
   flex-direction: column;
   gap: 30px;
   p {
-    font-size: var(--typeSizeM);
-    line-height: var(--typeLineM);
+    font-size: var(--typeSizeS);
+    line-height: var(--typeLineS);
   }
   img {
     width: 100%;
@@ -203,7 +202,7 @@ const Links = styled.ul`
   gap: 20px;
   li {
     position: relative;
-    font-size: var(--typeSizeS);
-    line-height: var(--typeLineS);
+    font-size: var(--typeSizeXS);
+    line-height: var(--typeLineXS);
   }
 `

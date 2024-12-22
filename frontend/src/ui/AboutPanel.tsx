@@ -5,8 +5,6 @@ import { RichText, Onionskin } from '@ui'
 import Image from 'next/image'
 import { useShallow } from 'zustand/react/shallow'
 import { useLayout } from '@lib'
-import { useScrollLock } from 'usehooks-ts'
-import { useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 
 export const AboutPanel = ({
@@ -14,32 +12,20 @@ export const AboutPanel = ({
 }: {
   content: Sanity.PageQueryResult
 }) => {
-  const [aboutActive, setAboutActive] = useLayout(
-    useShallow((state) => [state.aboutActive, state.setAboutActive]),
+  const [activeModal, setActiveModal] = useLayout(
+    useShallow((state) => [state.activeModal, state.setActiveModal]),
   )
   const poster = content?.metadata?.poster?.asset
 
-  const { lock, unlock } = useScrollLock({
-    autoLock: false,
-    lockTarget:
-      typeof window !== 'undefined' ? document.documentElement : undefined,
-  })
-
-  useEffect(() => {
-    if (aboutActive) {
-      lock()
-    } else {
-      unlock()
-    }
-  }, [aboutActive])
-
   const pathname = usePathname()
+
+  const active = activeModal === 'ABOUT'
 
   return !content ? null : (
     <>
       <Wrapper
         className={`
-          ${aboutActive ? 'active' : ''}
+          ${active ? 'active' : ''}
           ${pathname !== '/' ? 'initialized' : ''}
         `}
       >
@@ -56,12 +42,9 @@ export const AboutPanel = ({
             />
           )}
         </Content>
-        <ToggleOn onClick={() => setAboutActive(!aboutActive)} />
+        <ToggleOn onClick={() => setActiveModal('ABOUT')} />
       </Wrapper>
-      <Onionskin
-        className={aboutActive ? 'active' : ''}
-        onClick={() => setAboutActive(false)}
-      />
+      <Onionskin />
     </>
   )
 }

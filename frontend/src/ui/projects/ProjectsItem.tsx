@@ -60,6 +60,8 @@ const Wrapper = styled.li`
   p {
     max-width: 500px;
   }
+
+  outline: 1px dashed magenta;
 `
 
 const TitleColumn = styled.div`
@@ -85,8 +87,8 @@ const Title = styled.h3`
 const Description = styled.article`
   grid-area: description;
   p {
-    font-size: var(--typeSizeM);
-    line-height: var(--typeLineM);
+    font-size: var(--typeSizeS);
+    line-height: var(--typeLineS);
   }
   a {
     color: var(--tundora);

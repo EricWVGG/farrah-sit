@@ -19,8 +19,8 @@ export const InputWrapper = styled.div<{
 
     border: 0px;
     outline: none;
-    font-size: var(--typeSizeM);
-    line-height: var(--typeLineM);
+    font-size: var(--typeSizeS);
+    line-height: var(--typeLineS);
     background: var(--mercury);
     box-shadow: var(--surface-light-shadow);
 

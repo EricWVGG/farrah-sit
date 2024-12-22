@@ -13,43 +13,28 @@ export const Header = ({
 }: {
   navigation: Sanity.NavigationQueryResult
 }) => {
-  const [toggleAbout, toggleIndex, navActive, toggleNav] = useLayout(
-    useShallow((state) => [
-      state.toggleAbout,
-      state.toggleIndex,
-      state.navActive,
-      state.toggleNav,
-    ]),
+  const [activeModal, toggle] = useLayout(
+    useShallow((state) => [state.activeModal, state.toggle]),
   )
-  // todo: siteName click should toggle nav if mobile
 
   const transit = useTransit()
 
   const pathname = usePathname()
   const pathParts = pathname.split('/')
 
-  // const router = useRouter()
-
-  // const aboutOrHome = () => {
-  //   if (pathname === '/') {
-  //     toggleAbout()
-  //   } else {
-  //     setTransitioning(true)
-  //     setTimeout(() => router.push('/'), 1500)
-  //   }
-  // }
-
   return (
     <Wrapper className={pathname === '/' ? 'initialized' : 'initialized'}>
-      <Sitename onClick={toggleAbout}>Farrah Sit</Sitename>
+      <Link href="/">
+        <Sitename>Farrah Sit</Sitename>
+      </Link>
       <Navigation
         className={`
           ${pathname === '/' ? 'hidden' : ''}
-          ${navActive ? 'active' : ''}
+          ${activeModal === 'NAV' ? 'active' : ''}
         `}
       >
         <ul>
-          <IndexButton onClick={toggleIndex}>
+          <IndexButton onClick={() => toggle('INDEX')}>
             <span className="textButton">Index</span>
           </IndexButton>
           {navigation?.links?.map((item) => (
@@ -67,12 +52,12 @@ export const Header = ({
               </Link>
             </li>
           ))}
-          {/* <li onClick={() => toggleAbout()}>
+          <li onClick={() => toggle('ABOUT')}>
             <span className="textButton">About</span>
-          </li> */}
+          </li>
         </ul>
       </Navigation>
-      <MenuButton onClick={toggleNav} active={navActive} />
+      <MenuButton />
     </Wrapper>
   )
 }
@@ -83,6 +68,7 @@ const Sitename = styled.div`
 
   font-size: var(--typeSizeXL);
   line-height: var(--typeLineXL);
+
   text-transform: uppercase;
   cursor: pointer;
 `
@@ -170,8 +156,8 @@ const Navigation = styled.nav`
         cursor: pointer;
       }
     }
-    font-size: var(--typeSizeM);
-    line-height: var(--typeLineM);
+    font-size: var(--typeSizeS);
+    line-height: var(--typeLineS);
   }
   text-transform: lowercase;
 

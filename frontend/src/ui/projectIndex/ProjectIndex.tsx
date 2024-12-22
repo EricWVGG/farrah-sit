@@ -5,8 +5,6 @@ import { Onionskin } from '@ui'
 import { useShallow } from 'zustand/react/shallow'
 import { useLayout } from '@lib'
 import Link from 'next/link'
-import { useEffect } from 'react'
-import { useScrollLock } from 'usehooks-ts'
 import { usePathname } from 'next/navigation'
 
 export const ProjectIndex = ({
@@ -14,23 +12,9 @@ export const ProjectIndex = ({
 }: {
   projects: Sanity.ProjectIndexQueryResult
 }) => {
-  const [indexActive, setIndexActive] = useLayout(
-    useShallow((state) => [state.indexActive, state.setIndexActive]),
+  const [activeModal, setActiveModal] = useLayout(
+    useShallow((state) => [state.activeModal, state.setActiveModal]),
   )
-
-  const { lock, unlock } = useScrollLock({
-    autoLock: false,
-    lockTarget:
-      typeof window !== 'undefined' ? document.documentElement : undefined,
-  })
-
-  useEffect(() => {
-    if (indexActive) {
-      lock()
-    } else {
-      unlock()
-    }
-  }, [indexActive])
 
   const sortedProjects = projects.reduce(
     (acc, project) => {
@@ -46,11 +30,13 @@ export const ProjectIndex = ({
 
   const pathname = usePathname()
 
+  const active = activeModal === 'INDEX'
+
   return !sortedProjects ? null : (
     <>
       <Wrapper
         className={`
-          ${indexActive ? 'active' : ''}
+          ${active ? 'active' : ''}
           ${pathname !== '/' ? 'initialized' : ''}
         `}
       >
@@ -77,12 +63,9 @@ export const ProjectIndex = ({
             </li>
           ))}
         </List>
-        <ToggleOn onClick={() => setIndexActive(!indexActive)} />
+        <ToggleOn onClick={() => setActiveModal('INDEX')} />
       </Wrapper>
-      <Onionskin
-        className={indexActive ? 'active' : ''}
-        onClick={() => setIndexActive(false)}
-      />
+      <Onionskin />
     </>
   )
 }

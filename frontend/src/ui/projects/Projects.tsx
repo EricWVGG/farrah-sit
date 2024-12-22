@@ -44,4 +44,6 @@ const Wrapper = styled.section`
     opacity: 0;
     transform: translateY(25vh);
   }
+
+  outline: 1px dashed blue;
 `
