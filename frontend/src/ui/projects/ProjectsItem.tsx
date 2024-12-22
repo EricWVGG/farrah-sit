@@ -2,7 +2,7 @@
 
 import { styled } from '@linaria/react'
 import Link from 'next/link'
-import { Slideshow } from '@ui'
+import Image from 'next/image'
 import { useTransit } from '@lib'
 
 export const ProjectsItem = ({
@@ -12,70 +12,45 @@ export const ProjectsItem = ({
 }) => {
   const transit = useTransit()
 
-  return !project ? null : (
+  return !project || project.images.length < 1 ? null : (
     <Wrapper>
-      <TitleColumn>
-        <Title>
-          <Link
-            onClick={transit}
-            href={`/${project.projectType}/${project.metadata.slug.current}`}
-          >
-            {project.metadata?.title}
-          </Link>
-        </Title>
-      </TitleColumn>
-      <Slideshow
-        images={project.images}
-        link={`/${project.projectType}/${project.metadata.slug.current}`}
-      />
-      <Description>
-        <p>
-          <Link
-            onClick={transit}
-            href={`/${project.projectType}/${project.metadata.slug.current}`}
-          >
-            {project.metadata?.description}
-          </Link>
-        </p>
-      </Description>
+      <Link
+        onClick={transit}
+        href={`/${project.projectType}/${project.metadata.slug.current}`}
+      >
+        <Image
+          src={project.images[0].asset?.url!}
+          alt={
+            project.images[0].asset?.metadata?.dimensions?.aspectRatio?.toString()!
+          }
+          width={project.images[0].asset?.metadata?.dimensions?.width!}
+          height={project.images[0].asset?.metadata?.dimensions?.height!}
+        />
+        <Row>
+          <Title>{project.metadata?.title}</Title>
+          <Details className="textButton">Details &gt;</Details>
+        </Row>
+        <Description>{project.metadata?.description}</Description>
+      </Link>
     </Wrapper>
   )
 }
 
 const Wrapper = styled.li`
-  display: grid;
-  grid-template-columns: 1;
-  grid-template-rows: auto;
-
-  grid-template-areas: 'slideshow' 'title' 'description';
-  gap: 30px;
-
-  @media only screen and (min-width: 1024px) {
-    gap: 15px 30px;
-    grid-template-columns: 1fr 45vw;
-    grid-template-rows: auto;
-    grid-template-areas: 'title slideshow' 'title description';
+  a {
+    display: contents;
+    &:after {
+      display: none !important;
+    }
   }
-
-  p {
-    max-width: 500px;
+  img {
+    max-width: 100%;
+    height: auto;
   }
-
-  outline: 1px dashed magenta;
-`
-
-const TitleColumn = styled.div`
-  grid-area: title;
-  position: relative;
 `
 
 const Title = styled.h3`
-  position: sticky;
-  top: var(--header-height);
-
-  @media only screen and (min-width: 1024px) {
-    text-align: right;
-  }
+  margin-top: 1em;
   font-size: var(--typeSizeL);
   line-height: var(--typeLineL);
 
@@ -84,12 +59,22 @@ const Title = styled.h3`
   }
 `
 
-const Description = styled.article`
-  grid-area: description;
-  p {
-    font-size: var(--typeSizeS);
-    line-height: var(--typeLineS);
-  }
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`
+
+const Details = styled.div`
+  margin-top: 0.75em;
+  font-size: var(--typeSizeXS);
+  line-height: var(--typeLineXS);
+`
+
+const Description = styled.p`
+  margin-top: 0.5em;
+  font-size: var(--typeSizeS);
+  line-height: var(--typeLineS);
   a {
     color: var(--tundora);
     &:hover:after {

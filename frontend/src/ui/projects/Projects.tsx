@@ -35,7 +35,8 @@ const Wrapper = styled.section`
   margin: 0 8vw 100px 8vw;
 
   @media only screen and (min-width: 1024px) {
-    margin: 0 15vw 15vw 15vw;
+    width: 45vw;
+    margin: 0 15vw 15vw auto;
   }
 
   transition: transform 1.45s ease-in-out, opacity 1.4s ease-in-out;
@@ -44,6 +45,4 @@ const Wrapper = styled.section`
     opacity: 0;
     transform: translateY(25vh);
   }
-
-  outline: 1px dashed blue;
 `

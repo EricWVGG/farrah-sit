@@ -12,8 +12,8 @@ export const AboutPanel = ({
 }: {
   content: Sanity.PageQueryResult
 }) => {
-  const [activeModal, setActiveModal] = useLayout(
-    useShallow((state) => [state.activeModal, state.setActiveModal]),
+  const [activeModal, toggle] = useLayout(
+    useShallow((state) => [state.activeModal, state.toggle]),
   )
   const poster = content?.metadata?.poster?.asset
 
@@ -42,7 +42,7 @@ export const AboutPanel = ({
             />
           )}
         </Content>
-        <ToggleOn onClick={() => setActiveModal('ABOUT')} />
+        <ToggleOn onClick={() => toggle('ABOUT')} />
       </Wrapper>
       <Onionskin />
     </>

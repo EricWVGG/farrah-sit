@@ -147,12 +147,16 @@ const TitleColumn = styled.div`
     @media only screen and (min-width: 1024px) {
       position: sticky;
       top: var(--header-height);
+      align-items: flex-end;
       text-align: right;
     }
   }
   p {
     font-size: var(--typeSizeS);
     line-height: var(--typeLineS);
+    @media only screen and (min-width: 1024px) {
+      max-width: 300px;
+    }
   }
 
   transition: transform 1.45s ease-in-out, opacity 1.4s ease-in-out;
@@ -197,9 +201,13 @@ const Images = styled.article`
 
 const Links = styled.ul`
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  gap: 20px;
+  flex-direction: column;
+  align-items: flex-start;
+  @media only screen and (min-width: 1024px) {
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  gap: 10px;
   li {
     position: relative;
     font-size: var(--typeSizeXS);

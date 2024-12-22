@@ -19,7 +19,7 @@ export const useTransit = (TIMEOUT: number = 550) => {
   const transit: MouseEventHandler<HTMLAnchorElement> = (e) => {
     e.preventDefault()
     unlock()
-    const destination = (e.target as HTMLAnchorElement).href
+    const destination = (e.currentTarget as HTMLAnchorElement).href
     setTransitioning(true)
     setTimeout(() => push(destination), TIMEOUT)
   }
