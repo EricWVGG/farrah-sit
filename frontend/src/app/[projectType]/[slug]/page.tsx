@@ -1,3 +1,5 @@
+export const dynamic = 'force-static'
+
 import { processMetadata } from '@lib'
 import { Project } from '@ui'
 import {

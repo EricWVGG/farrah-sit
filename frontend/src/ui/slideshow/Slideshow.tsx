@@ -3,14 +3,12 @@
 import { styled } from '@linaria/react'
 import { useState } from 'react'
 import { Slide } from './Slide'
-import { SlideshowDetails } from './SlideshowDetails'
+import { useInterval } from 'usehooks-ts'
+import { useSwipeable } from 'react-swipeable'
 
 export const Slideshow = ({
   images,
-  link,
-}: Partial<Member<NonNullable<Sanity.PageQueryResult>['projects']>> & {
-  link: string
-}) => {
+}: Partial<Member<NonNullable<Sanity.PageQueryResult>['projects']>>) => {
   const [active, setActive] = useState(0)
   const shiftAction = (direction: number) => {
     if (!images) return
@@ -30,8 +28,15 @@ export const Slideshow = ({
   const aspectRatio =
     minAspectRatio < 1 || minAspectRatio === 9999 ? 1 : minAspectRatio
 
+  useInterval(() => shiftAction(1), 5000 + Math.random() * 5000)
+
+  const handlers = useSwipeable({
+    onSwipedLeft: () => shiftAction(-1),
+    onSwipedRight: () => shiftAction(1),
+  })
+
   return !images ? null : (
-    <Wrapper>
+    <Wrapper {...handlers}>
       <Slides style={{ aspectRatio }}>
         {images.map((image, i) => (
           <Slide
@@ -41,20 +46,7 @@ export const Slideshow = ({
             loading={i === 0 ? 'eager' : 'lazy'}
           />
         ))}
-        {images.length > 1 && (
-          <>
-            <Shifter onClick={() => shiftAction(-1)} />
-            <Shifter onClick={() => shiftAction(1)} className="right" />
-          </>
-        )}
       </Slides>
-
-      {images.length > 1 && (
-        <SlideshowDetails
-          {...{ shiftAction, active, link }}
-          count={images.length}
-        />
-      )}
     </Wrapper>
   )
 }
@@ -75,17 +67,17 @@ const Slides = styled.ul`
   }
 `
 
-const Shifter = styled.button`
-  position: absolute;
-  z-index: 100;
-  left: 0;
-  display: block;
-  width: 50%;
-  height: 100%;
-  top: 0;
-  &.right {
-    left: auto;
-    right: 0;
-  }
-  cursor: pointer;
-`
+// const Shifter = styled.button`
+//   position: absolute;
+//   z-index: 100;
+//   left: 0;
+//   display: block;
+//   width: 50%;
+//   height: 100%;
+//   top: 0;
+//   &.right {
+//     left: auto;
+//     right: 0;
+//   }
+//   cursor: pointer;
+// `

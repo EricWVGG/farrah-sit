@@ -1,3 +1,5 @@
+export const dynamic = 'force-static'
+
 import { processMetadata } from '@lib'
 import { Splash } from '@ui'
 import { BASE_URL, DEFAULT_SITE_TITLE } from '@const'

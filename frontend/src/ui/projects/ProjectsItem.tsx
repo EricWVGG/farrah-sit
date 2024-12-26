@@ -2,8 +2,8 @@
 
 import { styled } from '@linaria/react'
 import Link from 'next/link'
-import Image from 'next/image'
 import { useTransit } from '@lib'
+import { Slideshow } from '@ui'
 
 export const ProjectsItem = ({
   project,
@@ -18,19 +18,14 @@ export const ProjectsItem = ({
         onClick={transit}
         href={`/${project.projectType}/${project.metadata.slug.current}`}
       >
-        <Image
-          src={project.images[0].asset?.url!}
-          alt={
-            project.images[0].asset?.metadata?.dimensions?.aspectRatio?.toString()!
-          }
-          width={project.images[0].asset?.metadata?.dimensions?.width!}
-          height={project.images[0].asset?.metadata?.dimensions?.height!}
-        />
+        <Slideshow images={project.images} />
         <Row>
           <Title>{project.metadata?.title}</Title>
-          <Details className="textButton">Details &gt;</Details>
+          {/* <Details className="textButton">Details &gt;</Details> */}
         </Row>
-        <Description>{project.metadata?.description}</Description>
+        <Description>
+          {project.metadata?.description} <em>more &gt;</em>
+        </Description>
       </Link>
     </Wrapper>
   )
@@ -65,11 +60,11 @@ const Row = styled.div`
   align-items: center;
 `
 
-const Details = styled.div`
-  margin-top: 0.75em;
-  font-size: var(--typeSizeXS);
-  line-height: var(--typeLineXS);
-`
+// const Details = styled.div`
+//   margin-top: 0.75em;
+//   font-size: var(--typeSizeXS) !important;
+//   line-height: var(--typeLineXS) !important;
+// `
 
 const Description = styled.p`
   margin-top: 0.5em;
