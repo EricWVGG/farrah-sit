@@ -20,7 +20,7 @@
     "@portabletext/to-html": "^2.0.13",
     "@sanity/client": "^6.24.1",
     "@uidotdev/usehooks": "^2.4.1",
-    "happy-dom": "^15.11.7",
+    "happy-dom": "^16.0.0",
     "next": "15.0.3",
     "next-with-linaria": "^0.7.0",
     "react": "^19",
