@@ -1,5 +1,5 @@
 import { styled } from '@linaria/react'
-import { PortableText } from 'next-sanity'
+import { PortableText } from '@portabletext/react'
 import { copyRenderers } from './'
 import { PortableTextBlock } from '@portabletext/types'
 

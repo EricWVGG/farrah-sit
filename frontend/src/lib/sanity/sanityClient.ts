@@ -1,4 +1,4 @@
-import { createClient } from 'next-sanity'
+import { createClient } from '@sanity/client'
 
 const dev =
   process.env.NODE_ENV === 'development' ||

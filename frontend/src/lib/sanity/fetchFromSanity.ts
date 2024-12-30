@@ -1,5 +1,5 @@
 import { sanityClient } from './'
-import type { QueryParams, ResponseQueryOptions } from 'next-sanity'
+import type { QueryParams, ResponseQueryOptions } from '@sanity/client'
 
 export const fetchFromSanity = <T = unknown>(
   query: string,
