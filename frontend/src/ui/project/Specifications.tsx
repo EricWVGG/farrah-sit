@@ -117,6 +117,7 @@ const Wrapper = styled.section`
   right: 0;
   width: 100%;
   max-width: 500px;
+  max-height: calc(100dvh - var(--header-height) * 1.25);
   overflow-y: auto;
 
   padding: 80px 80px;

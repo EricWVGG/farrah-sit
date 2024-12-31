@@ -10,6 +10,7 @@ export const projectQuery = defineQuery(`
     projectType,
     images[] ${imageFragment},
     tearsheet ${fileFragment},
+    outline ${fileFragment},
     variants[],
     finishes[],
     leadTime,

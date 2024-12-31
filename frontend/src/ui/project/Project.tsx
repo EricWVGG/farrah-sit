@@ -8,13 +8,14 @@ import { useLayout } from '@lib'
 import { useShallow } from 'zustand/react/shallow'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
-import { Specifications } from './'
+import { Outline, Specifications } from './'
 
 export const Project = ({
   metadata,
   images,
   copy,
   tearsheet,
+  outline,
   ...rest
 }: NonNullable<Sanity.ProjectQueryResult>) => {
   const [
@@ -104,6 +105,18 @@ export const Project = ({
           {...rest}
           metadata={metadata}
           tearsheet={tearsheet}
+          className={
+            active
+              ? 'active'
+              : init && !transitioning
+              ? 'initialized'
+              : undefined
+          }
+        />
+      )}
+      {outline && (
+        <Outline
+          outline={outline}
           className={
             active
               ? 'active'

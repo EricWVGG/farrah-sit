@@ -37,6 +37,12 @@ export const project = defineType({
     }),
 
     defineField({
+      name: 'outline',
+      description: 'SVG file outlining the shape of the product.',
+      type: 'file',
+    }),
+
+    defineField({
       name: 'tearsheet',
       type: 'file',
     }),
