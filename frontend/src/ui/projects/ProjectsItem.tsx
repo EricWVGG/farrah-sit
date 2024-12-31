@@ -23,9 +23,7 @@ export const ProjectsItem = ({
           <Title>{project.metadata?.title}</Title>
           {/* <Details className="textButton">Details &gt;</Details> */}
         </Row>
-        <Description>
-          {project.metadata?.description} <em>more &gt;</em>
-        </Description>
+        <Description>{project.metadata?.description} →</Description>
       </Link>
     </Wrapper>
   )

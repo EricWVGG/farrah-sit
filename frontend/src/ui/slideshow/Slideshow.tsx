@@ -10,6 +10,9 @@ export const Slideshow = ({
   images,
 }: Partial<Member<NonNullable<Sanity.PageQueryResult>['projects']>>) => {
   const [active, setActive] = useState(0)
+
+  const [autoShifting, setAutoShifting] = useState(true)
+
   const shiftAction = (direction: number) => {
     if (!images) return
     let activeSlide = active + direction
@@ -28,11 +31,19 @@ export const Slideshow = ({
   const aspectRatio =
     minAspectRatio < 1 || minAspectRatio === 9999 ? 1 : minAspectRatio
 
-  useInterval(() => shiftAction(1), 5000 + Math.random() * 5000)
+  useInterval(() => {
+    if (autoShifting) shiftAction(1)
+  }, 5000 + Math.random() * 5000)
 
   const handlers = useSwipeable({
-    onSwipedLeft: () => shiftAction(-1),
-    onSwipedRight: () => shiftAction(1),
+    onSwipedLeft: () => {
+      setAutoShifting(false)
+      shiftAction(-1)
+    },
+    onSwipedRight: () => {
+      setAutoShifting(false)
+      shiftAction(1)
+    },
   })
 
   return !images ? null : (
