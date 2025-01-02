@@ -31,7 +31,7 @@ declare global {
   type InputProps<T> = T & {
     label: string
     message?: string
-    setValue?: (props: any) => void
+    setValue?: (props: unknown) => void
   }
 }
 

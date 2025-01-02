@@ -1,7 +1,7 @@
 import { TypeXL, TypeL, TypeM, TypeS } from './Text'
 import { styled } from '@linaria/react'
-import type { PropsWithChildren } from 'react'
-import Link from 'next/link'
+import type { PropsWithChildren, ReactNode } from 'react'
+import Link, { LinkProps } from 'next/link'
 
 interface ICopyRenderers {
   text: string
@@ -37,7 +37,9 @@ export const copyRenderers = {
   },
 }
 
-const CopyLink = (props: any) => {
+const CopyLink = (
+  props: LinkProps & { children: ReactNode; className?: string },
+) => {
   return <Link {...props} />
 }
 

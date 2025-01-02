@@ -24,7 +24,7 @@ export const Modals = () => {
     } else {
       unlock()
     }
-  }, [activeModal])
+  }, [activeModal, lock, unlock])
 
   const closeModal = () => setActiveModal(undefined)
 

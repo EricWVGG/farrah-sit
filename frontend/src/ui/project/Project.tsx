@@ -48,7 +48,7 @@ export const Project = ({
       setInit(false)
       setActiveModal(undefined)
     }
-  }, [])
+  }, [metadata, setActiveModal, setSubject])
 
   const hasSpecs =
     !!rest.variants ||

@@ -1,11 +1,10 @@
 import { styled } from '@linaria/react'
 import {
-  cloneElement,
   forwardRef,
   memo,
+  type JSX,
   type ComponentProps,
   type ForwardedRef,
-  type ReactElement,
 } from 'react'
 
 export type IButton = ComponentProps<'button'> & {
@@ -14,8 +13,6 @@ export type IButton = ComponentProps<'button'> & {
   processing?: boolean
   circle?: boolean
   label?: string | null
-  leftIcon?: ReactElement
-  icon?: ReactElement
   href?: string
   target?: string
 }
@@ -26,8 +23,6 @@ export const CustomButton = (
     href,
     label,
     circle,
-    leftIcon,
-    icon,
     children,
     className,
     type,
@@ -47,16 +42,8 @@ export const CustomButton = (
       `}
     ref={forwardRef}
   >
-    {!!leftIcon &&
-      cloneElement(leftIcon, {
-        level: 3,
-      })}
     {label && <Label>{label}</Label>}
     {children}
-    {!!icon &&
-      cloneElement(icon, {
-        level: 3,
-      })}
   </Wrapper>
 )
 
