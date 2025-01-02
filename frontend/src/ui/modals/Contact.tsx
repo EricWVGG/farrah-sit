@@ -25,24 +25,35 @@ export const Contact = () => {
   })
 
   const [sent, setSent] = useState(false)
+  const [sending, setSending] = useState(false)
 
   const subject = useLayout((state) => state.subject)
 
   const onSubmit: SubmitHandler<ContactInputs> = async () => {
-    alert('coming soon')
-    return
     try {
-      await fetch('/api/contact', {
+      const referer = location.protocol + '//' + location.host
+      const MAILER_ADDRESS = process.env.NEXT_PUBLIC_MAILER_ADDRESS
+      const TOKEN = process.env.NEXT_PUBLIC_MAILER_TOKEN
+      if (!MAILER_ADDRESS || !TOKEN) throw new Error('Missing mailer address')
+      setSending(true)
+      await fetch(MAILER_ADDRESS, {
         method: 'post',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
+          Authorization: `Basic ${TOKEN}`,
         },
-        body: JSON.stringify({ ...getValues() }),
+        body: JSON.stringify({
+          ...getValues(),
+          subject,
+          referer,
+        }),
       })
       setSent(true)
+      setSending(false)
     } catch (e) {
-      alert(errors)
+      setSending(false)
+      console.log(errors)
       console.error('error sending message', e)
     }
   }
@@ -62,6 +73,7 @@ export const Contact = () => {
           })}
           message={errors?.name?.message}
           aria-invalid={errors.name ? 'true' : 'false'}
+          disabled={sending}
         />
         <StringControl
           label="Email"
@@ -80,6 +92,7 @@ export const Contact = () => {
           })}
           message={errors?.email?.message}
           aria-invalid={errors.email ? 'true' : 'false'}
+          disabled={sending}
         />
         <StringControl
           label="Subject"
@@ -89,6 +102,7 @@ export const Contact = () => {
           {...register('subject')}
           defaultValue={subject}
           message={errors?.subject?.message}
+          disabled={sending}
         />
         <TextControl
           label="Message"
@@ -102,9 +116,15 @@ export const Contact = () => {
           })}
           message={errors?.message?.message}
           aria-invalid={errors.message ? 'true' : 'false'}
+          disabled={sending}
         />
       </Inputs>
-      <Button label="send" invalid={!isValid} type="submit" />
+      <Button
+        label="send"
+        invalid={!isValid}
+        type="submit"
+        disabled={sending}
+      />
       <Sent className={sent ? 'active' : ''}>
         <Message>
           <Label>Message Sent!</Label>
