@@ -1,5 +1,6 @@
 import { styled } from '@linaria/react'
 import Image from 'next/image'
+import { imageKitLoader, BlurMask } from '@lib'
 
 export const Slide = ({
   image,
@@ -17,12 +18,15 @@ export const Slide = ({
 }) => {
   return !image ? null : (
     <Wrapper className={className}>
-      {/*<StyledBlurMask hash={image.asset?.metadata?.blurHash!} />*/}
+      {image.asset?.metadata?.blurHash && (
+        <BlurMask hash={image.asset?.metadata?.blurHash} />
+      )}
       <Image
         src={image.asset?.url!}
-        alt={image.asset?.metadata?.dimensions?.aspectRatio?.toString()!}
+        alt="artwork by Farrah Sit"
         width={image.asset?.metadata?.dimensions?.width!}
         height={image.asset?.metadata?.dimensions?.height!}
+        loader={imageKitLoader}
         style={{ aspectRatio: image.asset?.metadata?.dimensions?.aspectRatio }}
         loading={loading}
       />

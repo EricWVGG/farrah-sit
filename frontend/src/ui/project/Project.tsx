@@ -4,7 +4,7 @@ import { styled } from '@linaria/react'
 import Image from 'next/image'
 import { RichText } from '@ui'
 import { useTimeout } from 'usehooks-ts'
-import { useLayout } from '@lib'
+import { useLayout, imageKitLoader, BlurMask } from '@lib'
 import { useShallow } from 'zustand/react/shallow'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -90,13 +90,19 @@ export const Project = ({
         </TitleColumn>
         <Images className={transitioning ? 'hidden' : ''}>
           {images.map((image, i) => (
-            <Image
-              key={`image-${i}`}
-              src={image.asset?.url!}
-              alt="derp"
-              width={image.asset?.metadata?.dimensions?.width!}
-              height={image.asset?.metadata?.dimensions?.height!}
-            />
+            <ImageWrapper key={`image-${i}`}>
+              {image.asset?.metadata?.blurHash && (
+                <BlurMask hash={image.asset?.metadata?.blurHash} />
+              )}
+
+              <Image
+                src={image.asset?.url!}
+                alt={`image of ${metadata?.title}`}
+                width={image.asset?.metadata?.dimensions?.width!}
+                height={image.asset?.metadata?.dimensions?.height!}
+                loader={imageKitLoader}
+              />
+            </ImageWrapper>
           ))}
         </Images>
       </Wrapper>
@@ -209,6 +215,15 @@ const Images = styled.article`
     transition: transform 0.5s ease-in-out, opacity 0.45s ease-in-out;
     opacity: 0;
     transform: translateY(25vh);
+  }
+`
+
+const ImageWrapper = styled.div`
+  position: relative;
+  display: flex;
+  img {
+    position: relative;
+    z-index: 1;
   }
 `
 

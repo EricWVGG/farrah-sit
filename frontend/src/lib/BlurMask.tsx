@@ -5,6 +5,7 @@ import { Blurhash } from 'react-blurhash'
 
 export const BlurMask = styled(Blurhash)`
   position: absolute !important;
+  z-index: 0;
   top: 0;
   left: 0;
   width: 100% !important;
