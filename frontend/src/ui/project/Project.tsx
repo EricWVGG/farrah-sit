@@ -41,7 +41,7 @@ export const Project = ({
   const [init, setInit] = useState(false)
 
   useEffect(() => {
-    setSubject(`website inquiry: ${metadata.title}`)
+    setSubject(metadata.title)
     setInit(true)
     return () => {
       setSubject(undefined)
@@ -166,8 +166,8 @@ const TitleColumn = styled.div`
     @media only screen and (min-width: 1024px) {
       position: sticky;
       top: var(--header-height);
-      align-items: flex-end;
-      text-align: right;
+      align-items: flex-start;
+      text-align: left;
     }
   }
   p {
@@ -178,11 +178,10 @@ const TitleColumn = styled.div`
     }
   }
 
-  transition: transform 1.45s ease-in-out, opacity 1.4s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
   &.hidden {
-    transition: transform 0.5s ease-in-out, opacity 0.45s ease-in-out;
+    transition: opacity 0.3s ease-in-out;
     opacity: 0;
-    transform: translateX(-25vw);
   }
 `
 
@@ -210,11 +209,11 @@ const Images = styled.article`
     height: auto;
   }
 
-  transition: transform 1.45s ease-in-out, opacity 1.4s ease-in-out;
+  transition: transform 0.7s ease-in-out, opacity 0.5s ease-in-out;
   &.hidden {
-    transition: transform 0.5s ease-in-out, opacity 0.45s ease-in-out;
+    transition: transform 0.25s ease-in-out, opacity 0.22s ease-in-out;
     opacity: 0;
-    transform: translateY(25vh);
+    transform: translateY(12.5vh);
   }
 `
 
@@ -232,13 +231,16 @@ const Links = styled.ul`
   flex-direction: column;
   align-items: flex-start;
   @media only screen and (min-width: 1024px) {
-    justify-content: flex-end;
-    align-items: flex-end;
+    justify-content: flex-start;
+    align-items: flex-start;
   }
-  gap: 10px;
+  gap: 25px;
   li {
     position: relative;
-    font-size: var(--typeSizeXS);
-    line-height: var(--typeLineXS);
+    font-size: var(--typeSizeS);
+    line-height: 1em;
+  }
+  & .textButton:after {
+    opacity: 1;
   }
 `

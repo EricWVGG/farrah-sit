@@ -29,7 +29,6 @@ export default async function RootLayout({
         <Header navigation={navigation} />
         {children}
         <AboutPanel content={aboutContent} />
-        <ProjectIndex projects={projects} />
         <Modals />
       </body>
     </html>

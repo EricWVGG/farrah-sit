@@ -2,8 +2,6 @@
 
 import { useBuffer, useLayout } from '@lib'
 import { styled } from '@linaria/react'
-import { useEffect } from 'react'
-import { useIsClient, useScrollLock } from 'usehooks-ts'
 import { Contact, CloseButton } from './'
 import { useShallow } from 'zustand/react/shallow'
 
@@ -11,20 +9,6 @@ export const Modals = () => {
   const [setActiveModal, activeModal] = useLayout(
     useShallow((state) => [state.setActiveModal, state.activeModal]),
   )
-
-  const isClient = useIsClient()
-  const { lock, unlock } = useScrollLock({
-    autoLock: false,
-    lockTarget: isClient ? document.documentElement : undefined,
-  })
-
-  useEffect(() => {
-    if (!!activeModal) {
-      lock()
-    } else {
-      unlock()
-    }
-  }, [activeModal, lock, unlock])
 
   const closeModal = () => setActiveModal(undefined)
 
@@ -84,8 +68,7 @@ export const Modal = styled.div`
   opacity: 0;
   transform: scale3d(0.88, 0.88, 1) translate3d(0, 0, 0);
   transform-origin: center bottom;
-  transition: opacity 0.24s linear 0.24s,
-    transform 0.6s cubic-bezier(0.25, 1, 0.5, 1) 0.4s;
+  transition: opacity 0.15s linear 0.24s;
   will-change: opacity, transform;
 
   @-moz-document url-prefix() {
@@ -95,9 +78,7 @@ export const Modal = styled.div`
   &.active {
     pointer-events: all;
     opacity: 1;
-    transform: scale3d(1, 1, 1) translate3d(0, 0, 0);
-    transition: opacity 0.48s linear 0.24s,
-      transform 0.48s cubic-bezier(0.25, 1, 0.5, 1) 0.24s;
+    transition: opacity 0.25s linear 0.24s;
   }
 `
 
@@ -194,8 +175,8 @@ export const ButtonWrapper = styled.div`
   top: -24px;
   right: 0px;
   @media only screen and (min-width: 744px) {
-    top: 24px;
-    right: 24px;
+    top: 20px;
+    right: 20px;
   }
 
   display: block;

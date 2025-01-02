@@ -34,9 +34,6 @@ export const Header = ({
         `}
       >
         <ul>
-          <IndexButton onClick={() => toggle('INDEX')}>
-            <span className="textButton">Index</span>
-          </IndexButton>
           {navigation?.links?.map((item) => (
             <li key={item._key}>
               <Link
@@ -151,7 +148,7 @@ const Navigation = styled.nav`
     ul {
       display: flex;
       flex-direction: row;
-      gap: 2vw;
+      gap: 3.75vw;
       li {
         cursor: pointer;
       }

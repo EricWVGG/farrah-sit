@@ -64,7 +64,7 @@ export const Contact = () => {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} className={sent ? 'sent' : ''}>
-      <TypeL as="h1">Inquiry</TypeL>
+      <TypeL as="h1">Inquire</TypeL>
       <Inputs>
         <StringControl
           label="Subject"
@@ -152,7 +152,7 @@ const Form = styled.form`
   &.sent ${InputWrapper}, &.sent button {
     opacity: 0.2;
   }
-  background: var(--soft-peach);
+  background: var(--alabaster);
   padding: 20px;
   box-shadow: 20px 20px 0 rgb(225, 225, 225);
 `

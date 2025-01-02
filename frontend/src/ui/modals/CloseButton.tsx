@@ -71,7 +71,7 @@ const Cross = styled.div`
     content: ' ';
     position: absolute;
     width: 24px;
-    height: 2px;
+    height: 1px;
     transition: transform 0.24s 0s ease;
     transform-origin: center center;
     background-color: var(--tundora);

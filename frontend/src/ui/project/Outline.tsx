@@ -28,7 +28,7 @@ const Wrapper = styled.section`
 
     padding: 80px 80px;
 
-    transition: transform 2s ease-in-out;
+    transition: transform 0.35s ease-in-out;
     left: -500px;
 
     &.initialized {

@@ -20,24 +20,23 @@ export const Specifications = ({
 
   return (
     <Wrapper className={className}>
-      <Header>Specifications</Header>
       <Table>
         <tbody>
           {variants?.length === 1 && (
             <>
               <tr>
-                <Label>Dimensions (imperial)</Label>
+                <Label>Dimensions</Label>
                 <td>
-                  {variants[0].width}&#34; wide, {variants[0].height}&#34; tall,{' '}
-                  {variants[0].depth}&#34; deep
+                  {variants[0].width}&#34; w, {variants[0].height}&#34; h,{' '}
+                  {variants[0].depth}&#34; d
                 </td>
               </tr>
               <tr>
-                <Label>Dimensions (metric)</Label>
+                <Label>Metric</Label>
                 <td>
-                  {Math.ceil(variants[0].width! * 25.4)}mm wide,{' '}
-                  {Math.ceil(variants[0].height! * 25.4)}mm tall,{' '}
-                  {Math.ceil(variants[0].depth! * 25.4)}mm deep
+                  {Math.ceil(variants[0].width! * 25.4)}mm w,{' '}
+                  {Math.ceil(variants[0].height! * 25.4)}mm h,{' '}
+                  {Math.ceil(variants[0].depth! * 25.4)}mm d
                 </td>
               </tr>
             </>
@@ -91,21 +90,36 @@ export const Specifications = ({
               ),
             )}
         </tbody>
+        <tfoot>
+          {notes && (
+            <tr>
+              <th></th>
+              <td>
+                <RichText value={notes} />
+              </td>
+            </tr>
+          )}
+          {tearsheet?.asset?.url && (
+            <tr>
+              <th></th>
+              <td>
+                <a href={tearsheet.asset.url}>Tearsheet</a>
+              </td>
+            </tr>
+          )}
+          <tr>
+            <th></th>
+            <td>
+              <span
+                className="textButton"
+                onClick={() => setActiveModal('CONTACT')}
+              >
+                Inquire
+              </span>
+            </td>
+          </tr>
+        </tfoot>
       </Table>
-
-      {notes && <RichText value={notes} />}
-
-      {tearsheet?.asset?.url && (
-        <BottomLink>
-          <a href={tearsheet.asset.url}>Download Tearsheet</a>
-        </BottomLink>
-      )}
-
-      <BottomLink className="textButton">
-        <span onClick={() => setActiveModal('CONTACT')}>
-          Inquire for more information
-        </span>
-      </BottomLink>
     </Wrapper>
   )
 }
@@ -122,7 +136,7 @@ const Wrapper = styled.section`
 
   padding: 80px 80px;
 
-  transition: transform 1.25s ease-in-out;
+  transition: transform 0.35s ease-in-out;
   right: -500px;
 
   &.initialized {
@@ -140,18 +154,13 @@ const Wrapper = styled.section`
   box-shadow: 20px 20px 0 rgb(225, 225, 225);
 `
 
-const Header = styled.h2`
-  font-size: var(--typeSizeXL);
-  line-height: var(--typeLineXL);
-  margin-bottom: 1em;
-`
-
 const Table = styled.table`
   display: grid;
   grid-template-columns: repeat(2, auto);
   grid-template-rows: auto;
   gap: 15px 20px;
   tbody,
+  tfoot,
   tr {
     display: contents;
   }
@@ -159,16 +168,12 @@ const Table = styled.table`
   td,
   li,
   p {
-    font-size: var(--typeSizeM);
-    line-height: var(--typeLineM);
+    font-size: var(--typeSizeS);
+    line-height: var(--typeLineS);
   }
 `
 
 const Label = styled.th`
   font-weight: normal;
   text-align: right;
-`
-
-const BottomLink = styled.p`
-  margin-top: 2em;
 `

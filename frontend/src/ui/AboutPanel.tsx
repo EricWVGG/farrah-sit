@@ -62,7 +62,7 @@ const Wrapper = styled.section`
 
   box-shadow: 20px 20px 0 rgb(225, 225, 225);
 
-  transition: transform 1.25s ease-in-out;
+  transition: transform 0.35s ease-in-out;
   left: -620px;
   &.initialized {
     transform: translateX(100px);

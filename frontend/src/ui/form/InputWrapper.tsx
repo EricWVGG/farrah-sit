@@ -21,8 +21,9 @@ export const InputWrapper = styled.div<{
     outline: none;
     font-size: var(--typeSizeS);
     line-height: var(--typeLineS);
-    background: var(--white);
     box-shadow: var(--surface-light-shadow);
+    border: 0.5px solid var(--mercury);
+    background-color: var(--pearl);
 
     transform: translate3d(0, 0, 0);
     transition: background-color 0.25s linear;

@@ -39,10 +39,10 @@ const Wrapper = styled.section`
     margin: 0 15vw 15vw auto;
   }
 
-  transition: transform 1.45s ease-in-out, opacity 1.4s ease-in-out;
+  transition: transform 0.7s ease-in-out, opacity 0.3s ease-in-out;
   &.hidden {
-    transition: transform 0.5s ease-in-out, opacity 0.3s ease-in-out;
+    transition: transform 0.25s ease-in-out, opacity 0.15s ease-in-out;
     opacity: 0;
-    transform: translateY(25vh);
+    transform: translateY(12vh);
   }
 `

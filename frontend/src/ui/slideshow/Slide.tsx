@@ -18,9 +18,9 @@ export const Slide = ({
 }) => {
   return !image ? null : (
     <Wrapper className={className}>
-      {image.asset?.metadata?.blurHash && (
+      {/*image.asset?.metadata?.blurHash && (
         <BlurMask hash={image.asset?.metadata?.blurHash} />
-      )}
+      )*/}
       <Image
         src={image.asset?.url!}
         alt="artwork by Farrah Sit"

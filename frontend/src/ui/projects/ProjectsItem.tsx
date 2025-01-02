@@ -22,8 +22,8 @@ export const ProjectsItem = ({
         <Row>
           <Title>{project.metadata?.title}</Title>
           {/* <Details className="textButton">Details &gt;</Details> */}
+          <Description>{project.metadata?.description}</Description>
         </Row>
-        <Description>{project.metadata?.description} →</Description>
       </Link>
     </Wrapper>
   )
@@ -45,8 +45,8 @@ const Wrapper = styled.li`
 const Title = styled.h3`
   margin-top: 1em;
   font-size: var(--typeSizeL);
-  line-height: var(--typeLineL);
-
+  line-height: 1em;
+  text-transform: uppercase;
   a {
     color: var(--tundora);
   }
@@ -54,8 +54,10 @@ const Title = styled.h3`
 
 const Row = styled.div`
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+  gap: 20px;
 `
 
 // const Details = styled.div`
@@ -67,7 +69,7 @@ const Row = styled.div`
 const Description = styled.p`
   margin-top: 0.5em;
   font-size: var(--typeSizeS);
-  line-height: var(--typeLineS);
+  line-height: 1.2em;
   a {
     color: var(--tundora);
     &:hover:after {
