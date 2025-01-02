@@ -1,11 +1,11 @@
 'use client'
 
 import { styled } from '@linaria/react'
-import { Button, StringControl, TextControl, TypeL } from '@ui'
+import { InputWrapper, Button, StringControl, TextControl, TypeL } from '@ui'
 import { useState } from 'react'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useLayout } from '@lib'
-// import { useShallow } from 'zustand/react/shallow'
+import { useShallow } from 'zustand/react/shallow'
 
 type ContactInputs = {
   name: string
@@ -19,6 +19,7 @@ export const Contact = () => {
     register,
     handleSubmit,
     getValues,
+    reset,
     formState: { errors, isValid },
   } = useForm<ContactInputs>({
     mode: 'onTouched',
@@ -27,7 +28,9 @@ export const Contact = () => {
   const [sent, setSent] = useState(false)
   const [sending, setSending] = useState(false)
 
-  const subject = useLayout((state) => state.subject)
+  const [subject, setActiveModal] = useLayout(
+    useShallow((state) => [state.subject, state.setActiveModal]),
+  )
 
   const onSubmit: SubmitHandler<ContactInputs> = async () => {
     try {
@@ -51,6 +54,7 @@ export const Contact = () => {
       })
       setSent(true)
       setSending(false)
+      reset()
     } catch (e) {
       setSending(false)
       console.log(errors)
@@ -59,9 +63,19 @@ export const Contact = () => {
   }
 
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)} className={sent ? 'sent' : ''}>
       <TypeL as="h1">Inquiry</TypeL>
       <Inputs>
+        <StringControl
+          label="Subject"
+          placeholder="ex. Product"
+          type="string"
+          autoComplete="off"
+          {...register('subject')}
+          defaultValue={subject}
+          message={errors?.subject?.message}
+          disabled={sending}
+        />
         <StringControl
           label="Your Name"
           placeholder="ex. Johnny Appleseed"
@@ -94,16 +108,6 @@ export const Contact = () => {
           aria-invalid={errors.email ? 'true' : 'false'}
           disabled={sending}
         />
-        <StringControl
-          label="Subject"
-          placeholder="ex. Product"
-          type="string"
-          autoComplete="off"
-          {...register('subject')}
-          defaultValue={subject}
-          message={errors?.subject?.message}
-          disabled={sending}
-        />
         <TextControl
           label="Message"
           placeholder="Type your message here."
@@ -120,12 +124,15 @@ export const Contact = () => {
         />
       </Inputs>
       <Button
-        label="send"
+        label={sending ? 'sending…' : sent ? 'sent' : 'send'}
         invalid={!isValid}
         type="submit"
         disabled={sending}
       />
-      <Sent className={sent ? 'active' : ''}>
+      <Sent
+        className={sent ? 'active' : ''}
+        onClick={() => setActiveModal(undefined)}
+      >
         <Message>
           <Label>Message Sent!</Label>
         </Message>
@@ -142,6 +149,12 @@ const Form = styled.form`
   gap: 20px;
   width: 100vw;
   max-width: 100%;
+  &.sent ${InputWrapper}, &.sent button {
+    opacity: 0.2;
+  }
+  background: var(--soft-peach);
+  padding: 20px;
+  box-shadow: 20px 20px 0 rgb(225, 225, 225);
 `
 
 const Inputs = styled.div`
@@ -179,6 +192,7 @@ const Message = styled.div`
   justify-content: center;
   align-items: center;
   gap: var(--l2);
+  cursor: pointer;
 `
 
 const Label = styled.div`

@@ -162,11 +162,11 @@ const Wrapper = styled.button<{ noLabel: boolean }>`
 
   /* Normal */
 
-  background-color: var(--concrete);
+  background-color: var(--white);
   color: var(--tundora);
 
   &:hover {
-    background-color: var(--soft-peach);
+    background-color: var(--mercury);
   }
 
   /* Focus */
@@ -181,6 +181,10 @@ const Wrapper = styled.button<{ noLabel: boolean }>`
     &::after {
       opacity: 1;
     }
+  }
+
+  &:disabled {
+    cursor: not-allowed;
   }
 `
 

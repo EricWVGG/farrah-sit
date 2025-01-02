@@ -21,7 +21,7 @@ export const InputWrapper = styled.div<{
     outline: none;
     font-size: var(--typeSizeS);
     line-height: var(--typeLineS);
-    background: var(--mercury);
+    background: var(--white);
     box-shadow: var(--surface-light-shadow);
 
     transform: translate3d(0, 0, 0);
@@ -54,12 +54,6 @@ export const InputWrapper = styled.div<{
 
   textarea,
   input {
-    &:hover {
-    }
-    &:focus {
-      background: var(--soft-peach);
-    }
-
     &::placeholder {
       opacity: 0;
     }

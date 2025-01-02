@@ -194,7 +194,8 @@ export const ButtonWrapper = styled.div`
   top: -24px;
   right: 0px;
   @media only screen and (min-width: 744px) {
-    right: -24px;
+    top: 24px;
+    right: 24px;
   }
 
   display: block;
