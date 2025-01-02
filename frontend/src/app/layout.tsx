@@ -7,8 +7,8 @@ import '@theme/stylesheets/pageMargin.scss'
 import '@theme/stylesheets/main.scss'
 import '@theme/stylesheets/typography.scss'
 import { robinson } from '@theme'
-import { Header, AboutPanel, ProjectIndex, Modals } from '@ui'
-import { getPage, getProjectIndex, getNavigation } from '@query'
+import { Header, AboutPanel, Modals } from '@ui'
+import { getPage, getNavigation } from '@query'
 
 export const metadata: Metadata = {
   title: 'Farrah Sit',
@@ -21,7 +21,6 @@ export default async function RootLayout({
   children: React.ReactNode
 }>) {
   const aboutContent = await getPage({ slug: 'about' })
-  const projects = await getProjectIndex()
   const navigation = await getNavigation({ name: 'Header' })
   return (
     <html lang="en">

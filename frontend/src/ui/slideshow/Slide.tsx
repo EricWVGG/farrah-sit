@@ -1,6 +1,6 @@
 import { styled } from '@linaria/react'
 import Image from 'next/image'
-import { imageKitLoader, BlurMask } from '@lib'
+import { imageKitLoader } from '@lib'
 
 export const Slide = ({
   image,

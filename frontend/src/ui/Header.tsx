@@ -163,10 +163,3 @@ const Navigation = styled.nav`
     opacity: 0;
   }
 `
-
-const IndexButton = styled.li`
-  display: none;
-  @media only screen and (min-width: 744px) {
-    display: block;
-  }
-`
