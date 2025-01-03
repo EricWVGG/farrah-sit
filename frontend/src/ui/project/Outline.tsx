@@ -20,10 +20,11 @@ const Wrapper = styled.section`
     display: block;
     position: fixed;
     z-index: var(--layer-specifications);
-    bottom: calc(var(--header-height) * 1.25);
+    bottom: 10vh;
     right: left;
     width: 100%;
-    max-width: 500px;
+    max-width: 400px;
+    max-height: calc(90vh - var(--header-height));
     overflow-y: auto;
 
     padding: 80px 80px;
@@ -38,5 +39,12 @@ const Wrapper = styled.section`
 
     background: var(--pearl);
     box-shadow: 20px 20px 0 rgb(225, 225, 225);
+
+    img {
+      max-width: 100%;
+      width: auto;
+      height: 100%;
+      max-height: 100%;
+    }
   }
 `
