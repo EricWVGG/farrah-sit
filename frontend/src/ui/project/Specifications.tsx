@@ -34,9 +34,9 @@ export const Specifications = ({
               <tr>
                 <Label>Metric</Label>
                 <td>
-                  {Math.ceil(variants[0].width! * 25.4)}mm w,{' '}
-                  {Math.ceil(variants[0].height! * 25.4)}mm h,{' '}
-                  {Math.ceil(variants[0].depth! * 25.4)}mm d
+                  {Math.ceil(variants[0].width! * 2.54)}cm w,{' '}
+                  {Math.ceil(variants[0].height! * 2.54)}cm h,{' '}
+                  {Math.ceil(variants[0].depth! * 2.54)}cm d
                 </td>
               </tr>
             </>

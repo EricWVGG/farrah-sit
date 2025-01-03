@@ -122,8 +122,6 @@ const Navigation = styled.nav`
       justify-content: center;
       align-items: center;
       gap: 50px;
-      transition: transform 0.5s ease-in-out;
-      transform: scale(1.2);
     }
 
     transition: opacity 0.3s 0.1s ease-in-out;
@@ -133,9 +131,6 @@ const Navigation = styled.nav`
       transition: opacity 0.3s ease-in-out;
       opacity: 1;
       pointer-events: all;
-      ul {
-        transform: scale(1);
-      }
     }
   }
   @media only screen and (min-width: 744px) {
