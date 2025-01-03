@@ -15,7 +15,7 @@ export const navigationQuery = defineQuery(`
           }
         }
       },
-      images[] ${imageFragment}
+      image ${imageFragment}
     }
   }
 `)

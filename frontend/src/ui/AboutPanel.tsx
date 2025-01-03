@@ -30,9 +30,9 @@ export const AboutPanel = ({
         `}
       >
         <Content>
-          <div>
+          <Copy>
             <RichText value={content.copy} />
-          </div>
+          </Copy>
           {poster && (
             <Image
               src={poster.url!}
@@ -83,13 +83,13 @@ const Wrapper = styled.section`
     }
   }
   @media only screen and (min-width: 1024px) {
-    max-width: 940px;
-    left: -960px;
+    max-width: 85vw;
+    left: calc(-85vw - 20px);
     &.initialized {
       transform: translateX(90px);
     }
     &.active {
-      transform: translateX(960px);
+      transform: translateX(calc(85vw + 20px));
     }
   }
 
@@ -115,8 +115,8 @@ const Content = styled.article`
   @media only screen and (min-width: 1024px) {
     padding: 80px 80px;
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
     align-items: flex-start;
     gap: 80px;
     > * {
@@ -136,4 +136,8 @@ const Content = styled.article`
       margin-top: 0;
     }
   }
+`
+
+const Copy = styled.div`
+  max-width: 500px;
 `

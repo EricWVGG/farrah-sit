@@ -127,7 +127,10 @@ export const Specifications = ({
 const Wrapper = styled.section`
   position: fixed;
   z-index: var(--layer-specifications);
-  top: calc(var(--header-height) * 1.25);
+  top: var(--header-height);
+  @media only screen and (min-width: 744px) {
+    top: calc(var(--header-height) * 1.25);
+  }
   right: 0;
   width: 100%;
   max-width: 500px;
@@ -139,12 +142,6 @@ const Wrapper = styled.section`
   transition: transform 0.35s ease-in-out;
   right: -500px;
 
-  &.initialized {
-    transform: translateX(-40px);
-    @media only screen and (min-width: 1024px) {
-      transform: translateX(-40px);
-    }
-  }
   &.active {
     z-index: var(--layer-popout);
     transform: translateX(-540px);

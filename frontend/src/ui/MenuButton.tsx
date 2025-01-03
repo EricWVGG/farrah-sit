@@ -7,7 +7,7 @@ export const MenuButton = () => {
     useShallow((state) => [state.toggle, state.activeModal]),
   )
 
-  const active = activeModal == 'NAV'
+  const active = !!activeModal
 
   return (
     <Wrapper onClick={() => toggle('NAV')}>
@@ -37,7 +37,7 @@ const Line = styled.div`
   position: absolute;
   left: 0;
   background-color: black;
-  height: 1.5px;
+  height: 1px;
   width: 100%;
   border-radius: 0 1px 1px 0;
   transform: rotate3d(0, 0, 1, 0deg);

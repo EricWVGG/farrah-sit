@@ -2,9 +2,8 @@
 
 import { styled } from '@linaria/react'
 import { PropsWithChildren } from 'react'
-import { KenBurnsSet } from './KenBurnsSet'
-import Link from 'next/link'
-import { useLayout, useTransit } from '@lib'
+import { Slideshow } from './Slideshow'
+import { useLayout } from '@lib'
 import { useShallow } from 'zustand/react/shallow'
 import { useTimeout } from 'usehooks-ts'
 
@@ -21,79 +20,24 @@ export const Splash = ({ navigation, ...props }: PageProps) => {
 
   useTimeout(() => setTransitioning(false), 500)
 
-  const transit = useTransit(1200)
-
   return (
     <Wrapper {...props}>
-      <TextNav
-        style={{ transform: transitioning ? 'translateX(-25vw)' : 'none' }}
-      >
-        <ul>
-          {navigation?.links?.map((link) => (
-            <li key={link._key}>
-              <Link
-                onClick={transit}
-                href={`/${link.destination?.metadata.slug.current}`}
-              >
-                {link.label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </TextNav>
-      {navigation?.links?.map((link, i) => (
-        <KenBurnsSet
-          key={link._key}
-          {...link}
-          order={i}
-          className={transitioning ? '' : 'active'}
-        />
-      ))}
+      <Slideshow navigation={navigation} />
     </Wrapper>
   )
 }
 
 const Wrapper = styled.main`
   position: fixed;
-  z-index: var(--layer-splash);
+  z-index: 1;
   left: 0;
-  top: var(--header-height);
+  top: 0;
 
   width: 100%;
-  height: calc(100dvh - var(--header-height));
-  gap: 20px 30px;
-  padding: 15px 30px 60px 30px;
+  height: 100dvh;
 
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(3, 1fr);
-
-  @media only screen and (min-width: 501px) {
-    top: 0;
-    height: 100dvh;
-    max-width: calc(100vh + 180px);
-    gap: 30px;
-    padding: 50px 75px;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-  }
-`
-
-const TextNav = styled.div`
-  display: none;
-  @media only screen and (min-width: 501px) {
-    padding-top: 100px;
-    display: flex;
-    flex-direction: column;
-    ul {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
-    transition: transform 1.45s ease-in-out;
-  }
-
-  a {
-    color: black;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
 `

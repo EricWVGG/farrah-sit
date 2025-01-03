@@ -57,19 +57,18 @@ export const Modal = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 84vw;
+  width: calc(100vw - 60px);
   max-height: 100dvh;
 
   @media only screen and (min-width: 744px) {
+    width: 84vw;
     max-width: 600px;
     max-height: 90dvh;
   }
 
   opacity: 0;
-  transform: scale3d(0.88, 0.88, 1) translate3d(0, 0, 0);
-  transform-origin: center bottom;
   transition: opacity 0.15s linear 0.24s;
-  will-change: opacity, transform;
+  will-change: opacity;
 
   @-moz-document url-prefix() {
     height: fit-content;
@@ -172,14 +171,12 @@ export const ButtonWrapper = styled.div`
   position: absolute;
   z-index: var(--modal-close-button);
 
-  top: -24px;
-  right: 0px;
+  display: none;
   @media only screen and (min-width: 744px) {
+    display: block;
     top: 20px;
     right: 20px;
   }
-
-  display: block;
 
   opacity: 0;
   transition: opacity 0.24s linear;

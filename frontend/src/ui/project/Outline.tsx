@@ -29,14 +29,8 @@ const Wrapper = styled.section`
     padding: 80px 80px;
 
     transition: transform 0.35s ease-in-out;
-    left: -500px;
+    left: -540px;
 
-    &.initialized {
-      transform: translateX(40px);
-      @media only screen and (min-width: 1024px) {
-        transform: translateX(20px);
-      }
-    }
     &.active {
       z-index: var(--layer-popout);
       transform: translateX(540px);

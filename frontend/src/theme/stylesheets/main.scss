@@ -69,7 +69,6 @@ a,
   font: inherit;
   text-decoration: none;
   text-underline-offset: 0.2em;
-  transition: color 0.15s ease-in-out;
   color: black;
   &:after {
     content: ' ';
@@ -77,11 +76,22 @@ a,
     height: 3px;
     width: 100%;
     position: absolute;
-    bottom: -10px;
+    bottom: -7px;
     left: 0px;
     background-image: url('/squiggle.svg');
     background-repeat: repeat-x;
     background-size: auto 2px;
+  }
+}
+
+a.inverted,
+.textButton.inverted {
+  &:after {
+    transition: opacity 0.15s ease-in-out;
+    opacity: 0;
+  }
+  &:hover:after {
+    opacity: 1;
   }
 }
 

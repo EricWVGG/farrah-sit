@@ -47,9 +47,8 @@ export const navigationLink = defineType({
     }),
 
     defineField({
-      name: 'images',
-      type: 'array',
-      of: [{type: 'image'}],
+      name: 'image',
+      type: 'image',
       hidden: ({document}) => document?.name !== 'Splash',
     }),
   ],

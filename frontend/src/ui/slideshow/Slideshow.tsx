@@ -8,7 +8,10 @@ import { useSwipeable } from 'react-swipeable'
 
 export const Slideshow = ({
   images,
-}: Partial<Member<NonNullable<Sanity.PageQueryResult>['projects']>>) => {
+  className,
+}: Partial<Member<NonNullable<Sanity.PageQueryResult>['projects']>> & {
+  className?: string
+}) => {
   const [active, setActive] = useState(0)
 
   const [autoShifting, setAutoShifting] = useState(true)
@@ -47,7 +50,7 @@ export const Slideshow = ({
   })
 
   return !images ? null : (
-    <Wrapper {...handlers}>
+    <Wrapper {...handlers} className={className}>
       <Slides style={{ aspectRatio }}>
         {images.map((image, i) => (
           <Slide

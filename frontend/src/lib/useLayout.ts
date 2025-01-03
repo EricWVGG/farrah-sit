@@ -12,9 +12,6 @@ interface LayoutState {
   transitioning: boolean
   setTransitioning: (b: boolean) => void
 
-  specsActive: boolean
-  setSpecsActive: (a?: boolean) => void
-
   toggle: (m: ModalType) => void
 }
 
@@ -25,15 +22,11 @@ const createNavState: StateCreator<LayoutState> = (set) => ({
   setActiveModal: (activeModal) => set({ activeModal }),
 
   transitioning: true,
-  setTransitioning: (transitioning: boolean) =>
-    set({ transitioning, specsActive: false }),
-
-  specsActive: false,
-  setSpecsActive: (specsActive) => set({ specsActive }),
+  setTransitioning: (transitioning: boolean) => set({ transitioning }),
 
   toggle: (modal) =>
     set((state) => ({
-      activeModal: state.activeModal === modal ? undefined : modal,
+      activeModal: !!state.activeModal ? undefined : modal,
     })),
 })
 

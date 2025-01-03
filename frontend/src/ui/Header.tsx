@@ -2,7 +2,6 @@
 
 import { styled } from '@linaria/react'
 import { usePathname } from 'next/navigation'
-// import { useRouter } from 'next/navigation'
 import { useShallow } from 'zustand/react/shallow'
 import { useLayout, useTransit } from '@lib'
 import { MenuButton } from '@ui'
@@ -24,15 +23,10 @@ export const Header = ({
 
   return (
     <Wrapper className={pathname === '/' ? 'initialized' : 'initialized'}>
-      <Link href="/">
+      <Link href="/" className="inverted">
         <Sitename>Farrah Sit</Sitename>
       </Link>
-      <Navigation
-        className={`
-          ${pathname === '/' ? 'hidden' : ''}
-          ${activeModal === 'NAV' ? 'active' : ''}
-        `}
-      >
+      <Navigation className={activeModal === 'NAV' ? 'active' : ''}>
         <ul>
           {navigation?.links?.map((item) => (
             <li key={item._key}>
@@ -42,7 +36,7 @@ export const Header = ({
                 className={
                   pathParts[1] === item.destination?.metadata.slug.current
                     ? 'active'
-                    : ''
+                    : 'inverted'
                 }
               >
                 {item.label}
@@ -50,7 +44,7 @@ export const Header = ({
             </li>
           ))}
           <li onClick={() => toggle('ABOUT')}>
-            <span className="textButton">About</span>
+            <span className="textButton inverted">About</span>
           </li>
         </ul>
       </Navigation>
