@@ -6,7 +6,7 @@ import { useLayout } from '@lib'
 import { useRouter } from 'next/navigation'
 import { useIsClient, useScrollLock } from 'usehooks-ts'
 
-export const useTransit = (TIMEOUT: number = 550) => {
+export const useTransit = (TIMEOUT: number = 250) => {
   const { push } = useRouter()
   const setTransitioning = useLayout((state) => state.setTransitioning)
 
