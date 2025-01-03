@@ -1,10 +1,8 @@
 'use client'
 
 import { styled } from '@linaria/react'
-import { useState } from 'react'
 import { Slide } from './Slide'
 import { useInterval } from 'usehooks-ts'
-import { useSwipeable } from 'react-swipeable'
 import { useTransit, useIncrement } from '@lib'
 import Link from 'next/link'
 

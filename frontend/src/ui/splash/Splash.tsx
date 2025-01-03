@@ -14,8 +14,8 @@ interface PageProps extends PropsWithChildren {
 }
 
 export const Splash = ({ navigation, ...props }: PageProps) => {
-  const [transitioning, setTransitioning] = useLayout(
-    useShallow((state) => [state.transitioning, state.setTransitioning]),
+  const [setTransitioning] = useLayout(
+    useShallow((state) => [state.setTransitioning]),
   )
 
   useTimeout(() => setTransitioning(false), 500)
