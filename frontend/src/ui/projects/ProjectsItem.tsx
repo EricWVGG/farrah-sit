@@ -14,11 +14,11 @@ export const ProjectsItem = ({
 
   return !project || project.images.length < 1 ? null : (
     <Wrapper>
+      <Slideshow images={project.images} />
       <Link
         onClick={transit}
         href={`/${project.projectType}/${project.metadata.slug.current}`}
       >
-        <Slideshow images={project.images} />
         <Row>
           <Title>{project.metadata?.title}</Title>
           {/* <Details className="textButton">Details &gt;</Details> */}

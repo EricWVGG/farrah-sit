@@ -56,7 +56,7 @@ export const Slideshow = ({
 
   return !images ? null : (
     <>
-      <Wrapper {...handlers} className={className}>
+      <Wrapper {...handlers} className={className} onClick={onClick}>
         <Slides style={{ aspectRatio }}>
           {images.map((image, i) => (
             <Slide
@@ -68,9 +68,6 @@ export const Slideshow = ({
           ))}
         </Slides>
       </Wrapper>
-      <button onClick={onClick} type="button">
-        (dev) next image
-      </button>
     </>
   )
 }
