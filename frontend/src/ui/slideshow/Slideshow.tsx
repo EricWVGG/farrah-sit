@@ -38,6 +38,11 @@ export const Slideshow = ({
     if (autoShifting) shiftAction(1)
   }, 5000 + Math.random() * 5000)
 
+  const onClick = () => {
+    setAutoShifting(false)
+    shiftAction(1)
+  }
+
   const handlers = useSwipeable({
     onSwipedLeft: () => {
       setAutoShifting(false)
@@ -50,7 +55,7 @@ export const Slideshow = ({
   })
 
   return !images ? null : (
-    <Wrapper {...handlers} className={className}>
+    <Wrapper {...handlers} className={className} onClick={onClick}>
       <Slides style={{ aspectRatio }}>
         {images.map((image, i) => (
           <Slide
