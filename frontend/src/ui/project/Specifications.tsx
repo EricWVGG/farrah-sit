@@ -59,7 +59,7 @@ export const Specifications = ({
 
           {finishes && finishes?.length > 0 && (
             <tr>
-              <Label>Finishes</Label>
+              <Label>Materials</Label>
               <td>
                 <ul>
                   {finishes.map((finish, i) => (

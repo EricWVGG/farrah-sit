@@ -55,6 +55,7 @@ export const project = defineType({
 
     defineField({
       name: 'finishes',
+      title: 'Materials',
       type: 'array',
       of: [{type: 'string'}],
     }),
