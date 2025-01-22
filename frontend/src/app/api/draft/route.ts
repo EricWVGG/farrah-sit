@@ -1,7 +1,7 @@
 import { draftMode } from 'next/headers'
 import { NextResponse } from 'next/server'
 
-export async function GET(req: Request) {
+export async function GET() {
   try {
     const drafts = await draftMode()
     drafts.enable()
@@ -13,7 +13,7 @@ export async function GET(req: Request) {
       },
     })
   } catch (e) {
-    console.log('error starting draft mode')
+    console.log('error starting draft mode', e)
     return new NextResponse('Not found', { status: 404 })
   }
 }
