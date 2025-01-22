@@ -1,4 +1,4 @@
-export const dynamic = 'force-static'
+// export const dynamic = 'force-static'
 
 import { processMetadata } from '@lib'
 import { Page } from '@ui'

@@ -7,12 +7,15 @@ interface PageProps extends PropsWithChildren {
   className?: string
 }
 
-export const Page = ({ page, ...props }: PageProps) =>
-  !page ? null : (
+export const Page = ({ page, ...props }: PageProps) => {
+  console.log('page', page)
+
+  return !page ? null : (
     <Wrapper {...props}>
       {page.copy && <RichText value={page.copy} />}
       {page.projects && <Projects projects={page.projects} />}
     </Wrapper>
   )
+}
 
 const Wrapper = styled.main``

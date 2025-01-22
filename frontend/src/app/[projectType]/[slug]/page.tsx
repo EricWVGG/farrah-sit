@@ -1,4 +1,4 @@
-export const dynamic = 'force-static'
+// export const dynamic = 'force-static'
 
 import { processMetadata } from '@lib'
 import { Project } from '@ui'
@@ -17,7 +17,7 @@ export default async function ProjectPage(props: {
   const { slug, projectType } = await props.params
   const project = await getProject({ slug })
   if (!project || project.projectType !== projectType) return notFound()
-  return <Project {...project} />
+  return <Project project={project} />
 }
 
 export async function generateMetadata(props: {

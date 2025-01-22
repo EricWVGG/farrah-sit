@@ -19,13 +19,6 @@ export const PagePreview = ({
   ...props
 }: IPreviewPage) => {
   const [page, loading] = useLiveQuery(initialData, pageQuery, params)
-  return loading ? (
-    <>Loading…</>
-  ) : (
-    <>
-      <Page page={page} {...props} className={className}>
-        {children}
-      </Page>
-    </>
-  )
+  console.log('loading', loading)
+  return <Page page={page} {...props} className={className} />
 }

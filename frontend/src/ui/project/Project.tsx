@@ -11,13 +11,11 @@ import { useEffect, useState } from 'react'
 import { Outline, Specifications } from './'
 
 export const Project = ({
-  metadata,
-  images,
-  copy,
-  tearsheet,
-  outline,
-  ...rest
-}: NonNullable<Sanity.ProjectQueryResult>) => {
+  project,
+}: {
+  project: NonNullable<Sanity.ProjectQueryResult>
+}) => {
+  const { metadata, images, copy, tearsheet, outline, ...rest } = project
   const [
     transitioning,
     setTransitioning,
