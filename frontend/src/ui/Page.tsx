@@ -8,8 +8,6 @@ interface PageProps extends PropsWithChildren {
 }
 
 export const Page = ({ page, ...props }: PageProps) => {
-  console.log('page', page)
-
   return !page ? null : (
     <Wrapper {...props}>
       {page.copy && <RichText value={page.copy} />}

@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic'
 
 import { draftMode } from 'next/headers'
-import { getPage } from '@query'
+import { getPage, getNavigation } from '@query'
 import { Suspense } from 'react'
 import { redirect } from 'next/navigation'
 import { PreviewProvider } from '@lib'
@@ -18,13 +18,18 @@ export default async function Home() {
     redirect('/')
   }
   const page = await getPage({ slug: SLUG }, true)
+  const navigation = await getNavigation({ name: 'Splash' })
   if (!page) {
     throw new Error('page not found')
   }
   return (
     <Suspense fallback={<p>Loading live preview…</p>}>
       <PreviewProvider>
-        <PagePreview page={page} params={{ slug: SLUG }} />
+        <PagePreview
+          page={page}
+          navigation={navigation}
+          params={{ slug: SLUG }}
+        />
       </PreviewProvider>
     </Suspense>
   )

@@ -21,7 +21,6 @@ export default async function ProjectIndexPreview(props: {
   if (!drafts.isEnabled) {
     redirect('/')
   }
-  console.log('projectType', projectType)
   const page = await getPage({ slug: projectType }, true)
   if (!page) throw new Error(`Page not found: ${projectType}`)
   return (
