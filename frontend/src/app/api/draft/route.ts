@@ -24,7 +24,7 @@ export async function GET(req: Request) {
       },
     })
   } catch (e) {
-    console.log('error starting draft mode')
+    console.log('error starting draft mode', e)
     return new NextResponse('Not found', { status: 404 })
   }
 }
