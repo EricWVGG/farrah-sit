@@ -12,8 +12,8 @@ export const Header = ({
 }: {
   navigation: Sanity.NavigationQueryResult
 }) => {
-  const [activeModal, toggle] = useLayout(
-    useShallow((state) => [state.activeModal, state.toggle]),
+  const [activeModal, setActiveModal] = useLayout(
+    useShallow((state) => [state.activeModal, state.setActiveModal]),
   )
 
   const transit = useTransit()
@@ -43,7 +43,7 @@ export const Header = ({
               </Link>
             </li>
           ))}
-          <li onClick={() => toggle('ABOUT')}>
+          <li onClick={() => setActiveModal('ABOUT')}>
             <span className="textButton inverted">About</span>
           </li>
         </ul>

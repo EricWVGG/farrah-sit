@@ -112,6 +112,10 @@ const ToggleOn = styled.div`
 `
 
 const Content = styled.article`
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+
   padding: 40px;
   img {
     max-width: 100%;
@@ -120,12 +124,12 @@ const Content = styled.article`
   }
 
   @media only screen and (min-width: 1024px) {
-    padding: 80px 80px;
     display: flex;
     flex-direction: row-reverse;
     justify-content: flex-end;
     align-items: flex-start;
     gap: 80px;
+    padding: 80px 80px;
     > * {
       flex: 1;
     }
