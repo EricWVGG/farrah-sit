@@ -62,8 +62,8 @@ const Slides = styled.ul`
   width: 100%;
   max-width: calc(100vw - 40px);
   @media only screen and (min-width: 744px) {
-    max-width: 40vw;
-    max-heignt: 60vh;
+    max-width: 60vw;
+    max-heignt: 80vh;
   }
 
   img {

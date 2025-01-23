@@ -13,7 +13,10 @@ export const Projects = ({
     useShallow((state) => [state.transitioning, state.setTransitioning]),
   )
 
-  useTimeout(() => setTransitioning(false), 500)
+  useTimeout(() => {
+    setTransitioning(false)
+    console.log('arrived')
+  }, 500)
 
   return (
     <Wrapper className={transitioning ? 'hidden' : ''}>

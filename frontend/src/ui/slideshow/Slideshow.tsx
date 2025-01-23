@@ -72,9 +72,7 @@ export const Slideshow = ({
   )
 }
 
-const Wrapper = styled.article`
-  grid-area: slideshow;
-`
+const Wrapper = styled.article``
 
 const Slides = styled.ul`
   position: relative;

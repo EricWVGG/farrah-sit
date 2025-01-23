@@ -20,8 +20,13 @@ export const useTransit = (TIMEOUT: number = 250) => {
     e.preventDefault()
     unlock()
     const destination = (e.currentTarget as HTMLAnchorElement).href
+    if (destination == document.location.toString()) {
+      return
+    }
     setTransitioning(true)
-    setTimeout(() => push(destination), TIMEOUT)
+    setTimeout(() => {
+      push(destination)
+    }, TIMEOUT)
   }
   return transit
 }
