@@ -22,7 +22,8 @@ const createNavState: StateCreator<LayoutState> = (set) => ({
   setActiveModal: (activeModal) => set({ activeModal }),
 
   transitioning: true,
-  setTransitioning: (transitioning: boolean) => set({ transitioning }),
+  setTransitioning: (transitioning: boolean) =>
+    set({ transitioning, activeModal: undefined }),
 
   toggle: (modal) =>
     set((state) => ({

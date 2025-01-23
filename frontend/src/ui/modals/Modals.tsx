@@ -2,7 +2,8 @@
 
 import { useBuffer, useLayout } from '@lib'
 import { styled } from '@linaria/react'
-import { Contact, CloseButton } from './'
+import { Contact } from './'
+import { CloseButton } from '@ui'
 import { useShallow } from 'zustand/react/shallow'
 
 export const Modals = () => {
@@ -81,25 +82,6 @@ export const Modal = styled.div`
   }
 `
 
-/*
-  @media only screen and (min-width: ${breakpoints.tablet}px) {
-  max-width: 600px;
-}
-
-@media only screen and (min-width: ${breakpoints.netbook}px) {
-  transform: scale3d(0.64, 0.56, 1) translate3d(0, 0, 0);
-  transform-origin: center center;
-}
-
-@media only screen and (min-width: ${breakpoints.laptop}px) {
-  max-width: 684px;
-}
-
-@media only screen and (min-width: ${breakpoints.desktop}px) {
-  max-width: 800px;
-}
-*/
-
 export const Overflow = styled.div`
   position: relative;
   display: flex;
@@ -150,14 +132,6 @@ export const Overflow = styled.div`
   }
 `
 
-/*
-  @media only screen and (min-width: ${breakpoints.tablet}px) {
-  height: auto;
-  max-height: calc(100dvh - var(--l1));
-  padding: var(--l1);
-}
-*/
-
 export const Content = styled.article`
   display: flex;
   flex-direction: column;
@@ -167,7 +141,7 @@ export const Content = styled.article`
   margin: auto;
 `
 
-export const ButtonWrapper = styled.div`
+const ButtonWrapper = styled.div`
   position: absolute;
   z-index: var(--modal-close-button);
 
@@ -185,22 +159,3 @@ export const ButtonWrapper = styled.div`
     opacity: 1;
   }
 `
-
-/*
-@media only screen and (min-width: ${breakpoints.tablet}px) {
-  top: -24px;
-  left: auto;
-  right: -24px;
-  bottom: auto;
-}
-
-@media only screen and (min-width: ${breakpoints.laptop}px) {
-  top: -28px;
-  right: -28px;
-}
-
-@media only screen and (min-width: ${breakpoints.desktop}px) {
-  top: -32px;
-  right: -32px;
-}
-*/

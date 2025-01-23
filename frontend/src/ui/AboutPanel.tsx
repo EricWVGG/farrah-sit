@@ -1,10 +1,10 @@
 'use client'
 
 import { styled } from '@linaria/react'
-import { RichText, Onionskin } from '@ui'
+import { RichText, Onionskin, CloseButton } from '@ui'
 import Image from 'next/image'
 import { useShallow } from 'zustand/react/shallow'
-import { useLayout } from '@lib'
+import { useLayout, useBuffer } from '@lib'
 import { usePathname } from 'next/navigation'
 
 export const AboutPanel = ({
@@ -20,6 +20,7 @@ export const AboutPanel = ({
   const pathname = usePathname()
 
   const active = activeModal === 'ABOUT'
+  const bufferedActive = useBuffer(active, 0.01)
 
   return !content ? null : (
     <>
@@ -43,6 +44,12 @@ export const AboutPanel = ({
           )}
         </Content>
         <ToggleOn onClick={() => toggle('ABOUT')} />
+        <ButtonWrapper className={active ? 'active' : ''}>
+          <CloseButton
+            onClick={() => toggle('ABOUT')}
+            active={!!bufferedActive}
+          />
+        </ButtonWrapper>
       </Wrapper>
       <Onionskin />
     </>
@@ -140,4 +147,23 @@ const Content = styled.article`
 
 const Copy = styled.div`
   max-width: 500px;
+`
+
+export const ButtonWrapper = styled.div`
+  position: absolute;
+  z-index: var(--modal-close-button);
+
+  display: none;
+  @media only screen and (min-width: 744px) {
+    display: block;
+    top: 20px;
+    right: 20px;
+  }
+
+  opacity: 0;
+  transition: opacity 0.05s linear;
+
+  &.active {
+    opacity: 1;
+  }
 `
