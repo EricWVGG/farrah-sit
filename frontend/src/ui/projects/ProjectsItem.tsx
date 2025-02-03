@@ -3,7 +3,7 @@
 import { styled } from '@linaria/react'
 import Link from 'next/link'
 import { useTransit } from '@lib'
-import { Slideshow } from '@ui'
+import { ProjectsItemImage } from './ProjectsItemImage'
 
 export const ProjectsItem = ({
   project,
@@ -14,7 +14,7 @@ export const ProjectsItem = ({
 
   return !project || project.images.length < 1 ? null : (
     <Wrapper>
-      <Slideshow images={project.images} />
+      <ProjectsItemImage image={project.images[0]} />
       <Link
         onClick={transit}
         href={`/${project.projectType}/${project.metadata.slug.current}`}
