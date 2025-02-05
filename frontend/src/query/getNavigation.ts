@@ -13,7 +13,8 @@ export const navigationQuery = defineQuery(`
           slug {
             current
           }
-        }
+        },
+        projectType
       },
       image ${imageFragment}
     }

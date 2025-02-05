@@ -465,20 +465,31 @@ export type MetadataQueryResult = {
 
 // Source: ../frontend/src/query/getNavigation.ts
 // Variable: navigationQuery
-// Query: *[_type == 'navigation' && name == $name][0]{    links[] {      ...,      label,      externalUrl,      destination -> {        metadata {          slug {            current          }        }      },      image {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }}    }  }
+// Query: *[_type == 'navigation' && name == $name][0]{    links[] {      ...,      label,      externalUrl,      destination -> {        metadata {          slug {            current          }        },        projectType      },      image {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }}    }  }
 export type NavigationQueryResult = {
   links: Array<{
     _key: string
     _type: 'navigationLink'
     label: string | null
     linkType?: 'external' | 'internal'
-    destination: {
-      metadata: {
-        slug: {
-          current: string
+    destination:
+      | {
+          metadata: {
+            slug: {
+              current: string
+            }
+          }
+          projectType: null
         }
-      }
-    } | null
+      | {
+          metadata: {
+            slug: {
+              current: string
+            }
+          }
+          projectType: 'collaborations' | 'lighting' | 'objects'
+        }
+      | null
     externalUrl: string | null
     image: {
       asset: {
@@ -703,7 +714,7 @@ declare module '@sanity/client' {
   interface SanityQueries {
     "\n  *[_type == 'page' || _type == 'project']{\n    _id,\n    _type,\n    projectType,\n    metadata {\n      slug {\n        current\n      }\n    }\n  }\n": AllContentIndexQueryResult
     "\n  *[(_type == 'page' || _type == 'project') && metadata.slug.current == $slug][0]{\n    metadata {\n      ...,\n      poster \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    }\n  }\n": MetadataQueryResult
-    "\n  *[_type == 'navigation' && name == $name][0]{\n    links[] {\n      ...,\n      label,\n      externalUrl,\n      destination -> {\n        metadata {\n          slug {\n            current\n          }\n        }\n      },\n      image \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    }\n  }\n": NavigationQueryResult
+    "\n  *[_type == 'navigation' && name == $name][0]{\n    links[] {\n      ...,\n      label,\n      externalUrl,\n      destination -> {\n        metadata {\n          slug {\n            current\n          }\n        },\n        projectType\n      },\n      image \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    }\n  }\n": NavigationQueryResult
     "\n  *[_type == 'page' && metadata.slug.current == $slug][0]{\n    metadata {\n      ...,\n      poster \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    },\n    copy,\n    projects[] -> {\n      _id,\n      projectType,\n      images[] \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n      metadata {\n        title,\n        description,\n        slug {\n          current\n        }\n      }\n    },\n  }\n": PageQueryResult
     "\n  *[_type == 'page']{\n    _id,\n    metadata {\n      title,\n      description,\n      slug {\n        current\n      }\n    }\n  }\n": PageIndexQueryResult
     "\n  *[_type == 'project' && metadata.slug.current == $slug][0]{\n    metadata,\n    copy,\n    projectType,\n    images[] \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n    tearsheet \n{\n  ...,\n  asset-> {\n    url\n  }\n}\n,\n    outline \n{\n  ...,\n  asset-> {\n    url\n  }\n}\n,\n    variants[],\n    finishes[],\n    leadTime,\n    freeformData[],\n    notes\n  }\n": ProjectQueryResult

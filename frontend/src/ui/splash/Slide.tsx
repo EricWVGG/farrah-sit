@@ -52,7 +52,9 @@ const Wrapper = styled.li`
 
   transition: opacity 0.3s ease-in-out;
   opacity: 0;
+  pointer-events: none;
   &.active {
     opacity: 1;
+    pointer-events: all;
   }
 `
