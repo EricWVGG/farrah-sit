@@ -34,7 +34,7 @@ export const Slideshow = ({
     <Wrapper className={className}>
       <Slides style={{ aspectRatio }}>
         {navigation?.links.map((link, i) =>
-          !link.image ? null : (
+          !link.image || !link.destination ? null : (
             <Link
               key={link._key}
               href={link.destination?.metadata.slug.current!}
