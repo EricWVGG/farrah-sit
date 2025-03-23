@@ -29,7 +29,6 @@ export const Slideshow = ({
     minAspectRatio < 1 || minAspectRatio === 9999 ? 1 : minAspectRatio
 
   const transit = useTransit()
-  console.log(navigation?.links)
   return !navigation?.links ? null : (
     <Wrapper className={className}>
       <Slides style={{ aspectRatio }}>
