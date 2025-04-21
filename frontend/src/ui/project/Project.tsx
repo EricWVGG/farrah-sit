@@ -77,9 +77,11 @@ export const Project = ({
                   </Link>
                 </li>
               )}
+              {/*
               <li className="textButton" onClick={() => alert('COMING SOON')}>
                 Catalog
               </li>
+              */}
               <li
                 className="textButton"
                 onClick={() => setActiveModal('CONTACT')}
