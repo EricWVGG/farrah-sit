@@ -1,7 +1,7 @@
 'use client'
 
 import { styled } from '@linaria/react'
-import { InputWrapper, Button, StringControl, TextControl, TypeL } from '@ui'
+import { InputWrapper, Button, StringControl, TextControl } from '@ui'
 import { useState } from 'react'
 import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useLayout } from '@lib'
@@ -176,28 +176,5 @@ const Sent = styled.div`
   &.active {
     opacity: 1;
     pointer-events: all;
-  }
-`
-
-const Message = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: var(--l2);
-  cursor: pointer;
-`
-
-const Label = styled.div`
-  text-transform: uppercase;
-  text-align: center;
-  color: rgb(var(--text-secondary));
-  opacity: 0;
-  transform: scale3d(0.48, 0.48, 1) translateY(24px);
-  transition: opacity 0.4s linear 0.4s, transform 0.6s ease 0.4s;
-
-  ${Sent}.active & {
-    opacity: 1;
-    transform: translateY(0) scale3d(1, 1, 1);
   }
 `
