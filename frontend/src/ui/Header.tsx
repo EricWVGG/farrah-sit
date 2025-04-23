@@ -43,7 +43,11 @@ export const Header = ({
               </Link>
             </li>
           ))}
-          <li onClick={() => setActiveModal('ABOUT')}>
+          <li
+            onClick={() =>
+              setActiveModal(activeModal === 'ABOUT' ? undefined : 'ABOUT')
+            }
+          >
             <span className="textButton inverted">About</span>
           </li>
         </ul>

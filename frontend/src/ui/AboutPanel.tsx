@@ -22,12 +22,15 @@ export const AboutPanel = ({
   const active = activeModal === 'ABOUT'
   const bufferedActive = useBuffer(active, 0.01)
 
+  const isProjectPage = pathname.split('/').length > 2
+
   return !content ? null : (
     <>
       <Wrapper
         className={`
           ${active ? 'active' : ''}
           ${pathname !== '/' ? 'initialized' : ''}
+          ${isProjectPage ? 'hidden' : ''}
         `}
       >
         <Content>
@@ -77,6 +80,9 @@ const Wrapper = styled.section`
   &.active {
     z-index: var(--layer-popout);
     transform: translateX(620px);
+  }
+  &.hidden {
+    transform: translateX(0) !important;
   }
 
   @media only screen and (min-width: 744px) {
