@@ -19,6 +19,7 @@ export const InputWrapper = styled.div<{
 
     border: 0px;
     outline: none;
+    font-family: var(--robinson);
     font-size: var(--typeSizeS);
     line-height: var(--typeLineS);
     box-shadow: var(--surface-light-shadow);

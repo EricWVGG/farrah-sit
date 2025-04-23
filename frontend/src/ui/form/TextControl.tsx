@@ -49,7 +49,8 @@ const StyledLabel = styled(Label)`
   textarea:not(:placeholder-shown) ~ &,
   textarea:required:valid ~ &,
   &.valid {
-    transform: translate3d(0, -11px, 0) scale3d(0.8, 0.8, 1);
+    transform: translate3d(0, -10px, 0) scale3d(0.7, 0.7, 1);
+    color: color(from #666666 display-p3 0.35 0.35 0.35);
   }
 `
 
@@ -57,6 +58,7 @@ const TextareaWrapper = styled(InputWrapper)`
   position: relative;
   textarea {
     height: 120px;
+    line-height: 1.4em;
   }
 `
 

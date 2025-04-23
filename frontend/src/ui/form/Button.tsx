@@ -55,6 +55,7 @@ const Label = styled.span`
   white-space: pre-line;
   transition: opacity 0.15s ease-in-out;
   color: inherit;
+  font-size: 14px;
 `
 
 const Wrapper = styled.button<{ noLabel: boolean }>`

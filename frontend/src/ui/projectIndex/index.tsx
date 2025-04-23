@@ -1,1 +1,0 @@
-export { ProjectIndex } from './ProjectIndex'

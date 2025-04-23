@@ -6,8 +6,9 @@ import { RichText } from '@ui'
 import { useTimeout } from 'usehooks-ts'
 import { useLayout, imageKitLoader, BlurMask } from '@lib'
 import { useShallow } from 'zustand/react/shallow'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import { Outline, Specifications } from './'
+import { useWindowSize } from 'usehooks-ts'
 
 export const Project = ({
   project,
@@ -58,11 +59,18 @@ export const Project = ({
 
   const active = activeModal === 'SPECS'
 
+  const { height } = useWindowSize()
+
+  const stickyRef = useRef<HTMLDivElement>(null)
+  const sticky =
+    !!stickyRef.current &&
+    stickyRef.current.getBoundingClientRect().height < height - 120
+
   return (
     <>
       <Wrapper>
         <TitleColumn className={transitioning ? 'hidden' : ''}>
-          <div>
+          <StickyContent ref={stickyRef} className={sticky ? 'sticky' : ''}>
             <Title>{metadata?.title}</Title>
             <RichText value={copy} />
             <Links>
@@ -89,7 +97,7 @@ export const Project = ({
                 Inquire
               </li>
             </Links>
-          </div>
+          </StickyContent>
         </TitleColumn>
         <Images className={transitioning ? 'hidden' : ''}>
           {images.map((image, i) => (
@@ -163,17 +171,6 @@ const TitleColumn = styled.div`
   position: relative;
   flex: 1;
 
-  > div {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    @media only screen and (min-width: 1024px) {
-      position: sticky;
-      top: var(--header-height);
-      align-items: flex-start;
-      text-align: left;
-    }
-  }
   p {
     font-size: var(--typeSizeS);
     line-height: var(--typeLineS);
@@ -186,6 +183,20 @@ const TitleColumn = styled.div`
   &.hidden {
     transition: opacity 0.3s ease-in-out;
     opacity: 0;
+  }
+`
+
+const StickyContent = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  @media only screen and (min-width: 1024px) {
+    top: var(--header-height);
+    align-items: flex-start;
+    text-align: left;
+    &.sticky {
+      position: sticky;
+    }
   }
 `
 

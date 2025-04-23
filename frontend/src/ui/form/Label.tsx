@@ -18,9 +18,12 @@ const LabelStyle = styled.label`
   height: 100%;
   padding: 5px 0;
   overflow: hidden;
+  color: color(from #666666 display-p3 0.35 0.35 0.35);
+  font-size: 14px;
+
   transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
   transform-origin: center left;
-  transition: color 0.25s linear, transform 0.4s ease-in-out;
+  transition: transform 0.4s ease-in-out;
   will-change: transform;
   pointer-events: none;
   white-space: nowrap;
@@ -37,6 +40,6 @@ const LabelStyle = styled.label`
   textarea:not(:placeholder-shown) ~ &,
   textarea:required:valid ~ &,
   &.valid {
-    transform: translate3d(0, -9px, 0) scale3d(0.8, 0.8, 1);
+    transform: translate3d(0, -12px, 0) scale3d(0.7, 0.7, 1);
   }
 `

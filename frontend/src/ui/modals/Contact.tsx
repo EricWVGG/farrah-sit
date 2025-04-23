@@ -64,7 +64,6 @@ export const Contact = () => {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)} className={sent ? 'sent' : ''}>
-      <TypeL as="h1">Inquire</TypeL>
       <Inputs>
         <StringControl
           label="Subject"
@@ -74,10 +73,10 @@ export const Contact = () => {
           {...register('subject')}
           defaultValue={subject}
           message={errors?.subject?.message}
-          disabled={sending}
+          disabled={sending || sent}
         />
         <StringControl
-          label="Your Name"
+          label="Name"
           placeholder="ex. Johnny Appleseed"
           autoComplete="name"
           type="string"
@@ -87,7 +86,7 @@ export const Contact = () => {
           })}
           message={errors?.name?.message}
           aria-invalid={errors.name ? 'true' : 'false'}
-          disabled={sending}
+          disabled={sending || sent}
         />
         <StringControl
           label="Email"
@@ -106,7 +105,7 @@ export const Contact = () => {
           })}
           message={errors?.email?.message}
           aria-invalid={errors.email ? 'true' : 'false'}
-          disabled={sending}
+          disabled={sending || sent}
         />
         <TextControl
           label="Message"
@@ -120,23 +119,19 @@ export const Contact = () => {
           })}
           message={errors?.message?.message}
           aria-invalid={errors.message ? 'true' : 'false'}
-          disabled={sending}
+          disabled={sending || sent}
         />
       </Inputs>
       <Button
-        label={sending ? 'sending…' : sent ? 'sent' : 'send'}
+        label={sending ? 'sending…' : sent ? 'message sent' : 'send'}
         invalid={!isValid}
         type="submit"
-        disabled={sending}
+        disabled={sending || sent}
       />
       <Sent
         className={sent ? 'active' : ''}
         onClick={() => setActiveModal(undefined)}
-      >
-        <Message>
-          <Label>Message Sent!</Label>
-        </Message>
-      </Sent>
+      />
     </Form>
   )
 }
@@ -153,7 +148,7 @@ const Form = styled.form`
     opacity: 0.2;
   }
   background: var(--alabaster);
-  padding: 20px;
+  padding: 65px 20px 20px 20px;
   box-shadow: 20px 20px 0 rgb(225, 225, 225);
 `
 
@@ -172,10 +167,8 @@ const Sent = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: rgb(var(--surface-primary));
   width: 100%;
   height: 100%;
-  box-shadow: 0 0 0 2px rgb(var(--surface-primary));
   opacity: 0;
   transition: opacity 0.24s linear;
   pointer-events: none;

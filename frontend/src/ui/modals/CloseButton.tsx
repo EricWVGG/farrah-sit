@@ -20,8 +20,8 @@ const Wrapper = styled.button`
   justify-content: center;
   align-items: center;
 
-  width: 25px;
-  height: 25px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
 
   cursor: pointer;
@@ -63,14 +63,14 @@ const Cross = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 16px;
-  height: 16px;
+  width: 9px;
+  height: 9px;
 
   &::before,
   &::after {
     content: ' ';
     position: absolute;
-    width: 24px;
+    width: 13px;
     height: 1px;
     transition: transform 0.24s 0s ease;
     transform-origin: center center;

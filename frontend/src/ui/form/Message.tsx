@@ -48,6 +48,7 @@ const Wrapper = styled.div<IWrapper>`
   max-height: 0;
   opacity: 0;
   transform: translate3d(0, -100%, 0);
+  font-size: 12px;
   transform-origin: top;
   transition: max-height 0.5s ease-in-out, color 0.25s linear,
     transform 0.5s ease-in-out, opacity 0.35s ease-in-out;

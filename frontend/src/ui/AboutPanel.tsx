@@ -100,7 +100,7 @@ const Wrapper = styled.section`
     }
   }
 
-  background: var(--soft-peach);
+  background: var(--alabaster);
 `
 
 const ToggleOn = styled.div`
