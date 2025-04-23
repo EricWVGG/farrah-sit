@@ -6,16 +6,17 @@ import { RichText } from '@ui'
 import { useTimeout } from 'usehooks-ts'
 import { useLayout, imageKitLoader, BlurMask } from '@lib'
 import { useShallow } from 'zustand/react/shallow'
-import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { Outline, Specifications } from './'
 
 export const Project = ({
   project,
+  catalogLink,
 }: {
   project: NonNullable<Sanity.ProjectQueryResult>
+  catalogLink?: string
 }) => {
-  const { metadata, images, copy, tearsheet, outline, ...rest } = project
+  const { metadata, images, copy, documents, outline, ...rest } = project
   const [
     transitioning,
     setTransitioning,
@@ -70,18 +71,17 @@ export const Project = ({
                   Specifications
                 </li>
               )}
-              {tearsheet?.asset && (
-                <li>
-                  <Link href={tearsheet.asset.url!} target="_blank">
-                    Tearsheet
-                  </Link>
+              {documents?.map((document) => (
+                <li key={document._id}>
+                  {document._type === 'documentWithFile' ? (
+                    <a href={document.document?.asset?.url!}>
+                      {document.label}
+                    </a>
+                  ) : (
+                    <a href={catalogLink}>Catalog</a>
+                  )}
                 </li>
-              )}
-              {/*
-              <li className="textButton" onClick={() => alert('COMING SOON')}>
-                Catalog
-              </li>
-              */}
+              ))}
               <li
                 className="textButton"
                 onClick={() => setActiveModal('CONTACT')}
@@ -113,7 +113,8 @@ export const Project = ({
         <Specifications
           {...rest}
           metadata={metadata}
-          tearsheet={tearsheet}
+          documents={documents}
+          catalogLink={catalogLink}
           className={
             active
               ? 'active'

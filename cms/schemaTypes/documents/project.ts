@@ -4,12 +4,19 @@ export const project = defineType({
   name: 'project',
   title: 'Project',
   type: 'document',
+  groups: [
+    {name: 'overview', default: true},
+    {name: 'description'},
+    {name: 'media'},
+    {name: 'data'},
+  ],
 
   fields: [
     defineField({
       name: 'metadata',
       type: 'metadata',
       validation: (rule) => rule.required(),
+      group: 'overview',
     }),
 
     defineField({
@@ -20,6 +27,7 @@ export const project = defineType({
         layout: 'radio',
       },
       validation: (rule) => rule.required(),
+      group: 'description',
     }),
 
     defineField({
@@ -27,6 +35,7 @@ export const project = defineType({
       title: 'Description',
       type: 'richText',
       validation: (rule) => rule.required(),
+      group: 'description',
     }),
 
     defineField({
@@ -34,23 +43,28 @@ export const project = defineType({
       type: 'array',
       of: [{type: 'image'}],
       validation: (rule) => rule.required(),
+      group: 'media',
     }),
 
     defineField({
       name: 'outline',
       description: 'SVG file outlining the shape of the product.',
       type: 'file',
+      group: 'media',
     }),
 
     defineField({
-      name: 'tearsheet',
-      type: 'file',
+      name: 'documents',
+      type: 'array',
+      of: [{type: 'documentWithFile'}, {type: 'catalogReference'}],
+      group: 'media',
     }),
 
     defineField({
       name: 'variants',
       type: 'array',
       of: [{type: 'variant'}],
+      group: 'data',
     }),
 
     defineField({
@@ -58,11 +72,13 @@ export const project = defineType({
       title: 'Materials',
       type: 'array',
       of: [{type: 'string'}],
+      group: 'data',
     }),
 
     defineField({
       name: 'leadTime',
       type: 'string',
+      group: 'data',
     }),
 
     defineField({
@@ -74,12 +90,14 @@ export const project = defineType({
           type: 'labelWithRichText',
         },
       ],
+      group: 'data',
     }),
 
     defineField({
       name: 'notes',
       title: 'notes',
       type: 'richText',
+      group: 'overview',
     }),
   ],
 

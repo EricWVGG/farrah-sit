@@ -1,10 +1,10 @@
-import { defineType, defineField } from 'sanity'
+import {defineType, defineField} from 'sanity'
 
 export const siteSettings = defineType({
   name: 'siteSettings',
   type: 'document',
   title: 'Site settings',
-  groups: [{ name: 'overview', default: true }, { name: 'content' }],
+  groups: [{name: 'overview', default: true}, {name: 'content'}],
   fields: [
     defineField({
       name: 'title',
@@ -30,6 +30,12 @@ export const siteSettings = defineType({
       type: 'image',
       group: 'overview',
       description: '1600x900 pixels',
+    }),
+
+    defineField({
+      name: 'catalog',
+      type: 'file',
+      group: 'overview',
     }),
   ],
 })

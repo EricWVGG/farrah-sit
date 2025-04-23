@@ -46,6 +46,26 @@ export type Geopoint = {
   alt?: number
 }
 
+export type CatalogReference = {
+  _type: 'catalogReference'
+  label?: string
+}
+
+export type DocumentWithFile = {
+  _type: 'documentWithFile'
+  label: string
+  document: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+    }
+    media?: unknown
+    _type: 'file'
+  }
+}
+
 export type LabelWithRichText = {
   _type: 'labelWithRichText'
   title: string
@@ -93,9 +113,20 @@ export type SiteSettings = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
+  }
+  catalog?: {
+    asset?: {
+      _ref: string
+      _type: 'reference'
+      _weak?: boolean
+      [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
+    }
+    media?: unknown
+    _type: 'file'
   }
 }
 
@@ -138,6 +169,7 @@ export type NavigationLink = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
@@ -177,6 +209,7 @@ export type Project = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
@@ -189,17 +222,17 @@ export type Project = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
     }
+    media?: unknown
     _type: 'file'
   }
-  tearsheet?: {
-    asset?: {
-      _ref: string
-      _type: 'reference'
-      _weak?: boolean
-      [internalGroqTypeReferenceTo]?: 'sanity.fileAsset'
-    }
-    _type: 'file'
-  }
+  documents?: Array<
+    | ({
+        _key: string
+      } & DocumentWithFile)
+    | ({
+        _key: string
+      } & CatalogReference)
+  >
   variants?: Array<
     {
       _key: string
@@ -300,6 +333,7 @@ export type Metadata = {
       _weak?: boolean
       [internalGroqTypeReferenceTo]?: 'sanity.imageAsset'
     }
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
@@ -394,6 +428,8 @@ export type AllSanitySchemaTypes =
   | SanityImagePalette
   | SanityImageDimensions
   | Geopoint
+  | CatalogReference
+  | DocumentWithFile
   | LabelWithRichText
   | Variant
   | SiteSettings
@@ -455,6 +491,7 @@ export type MetadataQueryResult = {
         } | null
         url: string | null
       } | null
+      media?: unknown
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       _type: 'image'
@@ -500,6 +537,7 @@ export type NavigationQueryResult = {
         } | null
         url: string | null
       } | null
+      media?: unknown
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       _type: 'image'
@@ -525,6 +563,7 @@ export type PageQueryResult = {
         } | null
         url: string | null
       } | null
+      media?: unknown
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       _type: 'image'
@@ -561,6 +600,7 @@ export type PageQueryResult = {
         } | null
         url: string | null
       } | null
+      media?: unknown
       hotspot?: SanityImageHotspot
       crop?: SanityImageCrop
       _type: 'image'
@@ -592,7 +632,7 @@ export type PageIndexQueryResult = Array<{
 
 // Source: ../frontend/src/query/getProject.ts
 // Variable: projectQuery
-// Query: *[_type == 'project' && metadata.slug.current == $slug][0]{    metadata,    copy,    projectType,    images[] {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }},    tearsheet {  ...,  asset-> {    url  }},    outline {  ...,  asset-> {    url  }},    variants[],    finishes[],    leadTime,    freeformData[],    notes  }
+// Query: *[_type == 'project' && metadata.slug.current == $slug][0]{    metadata,    copy,    projectType,    images[] {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }},    documents[] {      _id,      _type,      label,      document {  ...,  asset-> {    url  }}    },    outline {  ...,  asset-> {    url  }},    variants[],    finishes[],    leadTime,    freeformData[],    notes  }
 export type ProjectQueryResult = {
   metadata: Metadata
   copy: Array<{
@@ -623,21 +663,37 @@ export type ProjectQueryResult = {
       } | null
       url: string | null
     } | null
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
     _key: string
   }>
-  tearsheet: {
-    asset: {
-      url: string | null
-    } | null
-    _type: 'file'
-  } | null
+  documents: Array<
+    | {
+        _id: null
+        _type: 'catalogReference'
+        label: string | null
+        document: null
+      }
+    | {
+        _id: null
+        _type: 'documentWithFile'
+        label: string
+        document: {
+          asset: {
+            url: string | null
+          } | null
+          media?: unknown
+          _type: 'file'
+        }
+      }
+  > | null
   outline: {
     asset: {
       url: string | null
     } | null
+    media?: unknown
     _type: 'file'
   } | null
   variants: Array<
@@ -689,7 +745,7 @@ export type ProjectIndexQueryResult = Array<{
 
 // Source: ../frontend/src/query/getSiteSettings.ts
 // Variable: siteSettingsQuery
-// Query: *[_type == 'siteSettings' && title == 'Farrah Sit'][0]{    title,    description,    shareImage {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }}  }
+// Query: *[_type == 'siteSettings' && title == 'Farrah Sit'][0]{    title,    description,    shareImage {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }},    catalog {  ...,  asset-> {    url  }}  }
 export type SiteSettingsQueryResult = {
   title: string | null
   description: string | null
@@ -702,9 +758,17 @@ export type SiteSettingsQueryResult = {
       } | null
       url: string | null
     } | null
+    media?: unknown
     hotspot?: SanityImageHotspot
     crop?: SanityImageCrop
     _type: 'image'
+  } | null
+  catalog: {
+    asset: {
+      url: string | null
+    } | null
+    media?: unknown
+    _type: 'file'
   } | null
 } | null
 
@@ -717,8 +781,8 @@ declare module '@sanity/client' {
     "\n  *[_type == 'navigation' && name == $name][0]{\n    links[] {\n      ...,\n      label,\n      externalUrl,\n      destination -> {\n        metadata {\n          slug {\n            current\n          }\n        },\n        projectType\n      },\n      image \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    }\n  }\n": NavigationQueryResult
     "\n  *[_type == 'page' && metadata.slug.current == $slug][0]{\n    metadata {\n      ...,\n      poster \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    },\n    copy,\n    projects[] -> {\n      _id,\n      projectType,\n      images[] \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n      metadata {\n        title,\n        description,\n        slug {\n          current\n        }\n      }\n    },\n  }\n": PageQueryResult
     "\n  *[_type == 'page']{\n    _id,\n    metadata {\n      title,\n      description,\n      slug {\n        current\n      }\n    }\n  }\n": PageIndexQueryResult
-    "\n  *[_type == 'project' && metadata.slug.current == $slug][0]{\n    metadata,\n    copy,\n    projectType,\n    images[] \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n    tearsheet \n{\n  ...,\n  asset-> {\n    url\n  }\n}\n,\n    outline \n{\n  ...,\n  asset-> {\n    url\n  }\n}\n,\n    variants[],\n    finishes[],\n    leadTime,\n    freeformData[],\n    notes\n  }\n": ProjectQueryResult
+    "\n  *[_type == 'project' && metadata.slug.current == $slug][0]{\n    metadata,\n    copy,\n    projectType,\n    images[] \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n    documents[] {\n      _id,\n      _type,\n      label,\n      document \n{\n  ...,\n  asset-> {\n    url\n  }\n}\n\n    },\n    outline \n{\n  ...,\n  asset-> {\n    url\n  }\n}\n,\n    variants[],\n    finishes[],\n    leadTime,\n    freeformData[],\n    notes\n  }\n": ProjectQueryResult
     "\n  *[_type == 'project']{\n    _id,\n    projectType,\n    metadata {\n      title,\n      description,\n      slug {\n        current\n      }\n    }\n  }\n": ProjectIndexQueryResult
-    "\n  *[_type == 'siteSettings' && title == 'Farrah Sit'][0]{\n    title,\n    description,\n    shareImage \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n  }\n": SiteSettingsQueryResult
+    "\n  *[_type == 'siteSettings' && title == 'Farrah Sit'][0]{\n    title,\n    description,\n    shareImage \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n    catalog \n{\n  ...,\n  asset-> {\n    url\n  }\n}\n\n  }\n": SiteSettingsQueryResult
   }
 }

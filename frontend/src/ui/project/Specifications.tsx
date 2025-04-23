@@ -11,11 +11,13 @@ export const Specifications = ({
   leadTime,
   freeformData,
   notes,
-  tearsheet,
+  documents,
   className,
-}: { className?: string } & Partial<
-  NonNullable<Sanity.ProjectQueryResult>
->) => {
+  catalogLink,
+}: {
+  className?: string
+  catalogLink?: string
+} & Partial<NonNullable<Sanity.ProjectQueryResult>>) => {
   const setActiveModal = useLayout(useShallow((state) => state.setActiveModal))
 
   return (
@@ -99,14 +101,20 @@ export const Specifications = ({
               </td>
             </tr>
           )}
-          {tearsheet?.asset?.url && (
-            <tr>
+
+          {documents?.map((document) => (
+            <tr key={document._id}>
               <th></th>
               <td>
-                <a href={tearsheet.asset.url}>Tearsheet</a>
+                {document._type === 'documentWithFile' ? (
+                  <a href={document.document?.asset?.url!}>{document.label}</a>
+                ) : (
+                  <a href={catalogLink}>Catalog</a>
+                )}
               </td>
             </tr>
-          )}
+          ))}
+
           <tr>
             <th></th>
             <td>

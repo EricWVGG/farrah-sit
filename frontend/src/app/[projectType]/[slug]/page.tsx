@@ -17,7 +17,13 @@ export default async function ProjectPage(props: {
   const { slug, projectType } = await props.params
   const project = await getProject({ slug })
   if (!project || project.projectType !== projectType) return notFound()
-  return <Project project={project} />
+  const siteSettings = await getSiteSettings()
+  return (
+    <Project
+      project={project}
+      catalogLink={siteSettings?.catalog?.asset?.url ?? undefined}
+    />
+  )
 }
 
 export async function generateMetadata(props: {
