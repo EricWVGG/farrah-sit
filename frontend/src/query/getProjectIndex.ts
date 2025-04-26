@@ -4,6 +4,7 @@ import { fetchFromSanity } from '@lib'
 export const projectIndexQuery = defineQuery(`
   *[_type == 'project']{
     _id,
+    _updatedAt,
     projectType,
     metadata {
       title,

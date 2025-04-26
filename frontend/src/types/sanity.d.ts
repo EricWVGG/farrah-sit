@@ -618,9 +618,10 @@ export type PageQueryResult = {
 
 // Source: ../frontend/src/query/getPageIndex.ts
 // Variable: pageIndexQuery
-// Query: *[_type == 'page']{    _id,    metadata {      title,      description,      slug {        current      }    }  }
+// Query: *[_type == 'page']{    _id,    _updatedAt,    metadata {      title,      description,      slug {        current      }    }  }
 export type PageIndexQueryResult = Array<{
   _id: string
+  _updatedAt: string
   metadata: {
     title: string
     description: string | null
@@ -730,9 +731,10 @@ export type ProjectQueryResult = {
 
 // Source: ../frontend/src/query/getProjectIndex.ts
 // Variable: projectIndexQuery
-// Query: *[_type == 'project']{    _id,    projectType,    metadata {      title,      description,      slug {        current      }    }  }
+// Query: *[_type == 'project']{    _id,    _updatedAt,    projectType,    metadata {      title,      description,      slug {        current      }    }  }
 export type ProjectIndexQueryResult = Array<{
   _id: string
+  _updatedAt: string
   projectType: 'collaborations' | 'lighting' | 'objects'
   metadata: {
     title: string
@@ -780,9 +782,9 @@ declare module '@sanity/client' {
     "\n  *[(_type == 'page' || _type == 'project') && metadata.slug.current == $slug][0]{\n    metadata {\n      ...,\n      poster \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    }\n  }\n": MetadataQueryResult
     "\n  *[_type == 'navigation' && name == $name][0]{\n    links[] {\n      ...,\n      label,\n      externalUrl,\n      destination -> {\n        metadata {\n          slug {\n            current\n          }\n        },\n        projectType\n      },\n      image \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    }\n  }\n": NavigationQueryResult
     "\n  *[_type == 'page' && metadata.slug.current == $slug][0]{\n    metadata {\n      ...,\n      poster \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    },\n    copy,\n    projects[] -> {\n      _id,\n      projectType,\n      images[] \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n      metadata {\n        title,\n        description,\n        slug {\n          current\n        }\n      }\n    },\n  }\n": PageQueryResult
-    "\n  *[_type == 'page']{\n    _id,\n    metadata {\n      title,\n      description,\n      slug {\n        current\n      }\n    }\n  }\n": PageIndexQueryResult
+    "\n  *[_type == 'page']{\n    _id,\n    _updatedAt,\n    metadata {\n      title,\n      description,\n      slug {\n        current\n      }\n    }\n  }\n": PageIndexQueryResult
     "\n  *[_type == 'project' && metadata.slug.current == $slug][0]{\n    metadata,\n    copy,\n    projectType,\n    images[] \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n    documents[] {\n      _id,\n      _type,\n      label,\n      document \n{\n  ...,\n  asset-> {\n    url\n  }\n}\n\n    },\n    outline \n{\n  ...,\n  asset-> {\n    url\n  }\n}\n,\n    variants[],\n    finishes[],\n    leadTime,\n    freeformData[],\n    notes\n  }\n": ProjectQueryResult
-    "\n  *[_type == 'project']{\n    _id,\n    projectType,\n    metadata {\n      title,\n      description,\n      slug {\n        current\n      }\n    }\n  }\n": ProjectIndexQueryResult
+    "\n  *[_type == 'project']{\n    _id,\n    _updatedAt,\n    projectType,\n    metadata {\n      title,\n      description,\n      slug {\n        current\n      }\n    }\n  }\n": ProjectIndexQueryResult
     "\n  *[_type == 'siteSettings' && title == 'Farrah Sit'][0]{\n    title,\n    description,\n    shareImage \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n    catalog \n{\n  ...,\n  asset-> {\n    url\n  }\n}\n\n  }\n": SiteSettingsQueryResult
   }
 }
