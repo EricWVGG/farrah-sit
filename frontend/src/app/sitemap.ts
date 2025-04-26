@@ -6,7 +6,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const allProjects = await getProjectIndex()
   const parsedProjects = allProjects.map((p) => ({
     url: `${BASE_URL}/${p.projectType}/${p.metadata.slug.current}`,
-    lastModified: p._updatedAt,
+    lastModified: p._updatedAt.substring(0, 10),
     priority: 0.7,
   }))
 
@@ -16,7 +16,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       p.metadata.slug.current === 'home'
         ? BASE_URL
         : `${BASE_URL}/${p.metadata.slug.current}`,
-    lastModified: p._updatedAt,
+    lastModified: p._updatedAt.substring(0, 10),
     priority:
       p.metadata.slug.current === 'home'
         ? 1
