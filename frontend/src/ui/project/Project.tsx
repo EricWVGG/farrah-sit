@@ -79,8 +79,8 @@ export const Project = ({
                   Specifications
                 </li>
               )}
-              {documents?.map((document) => (
-                <li key={document._id}>
+              {documents?.map((document, i) => (
+                <li key={`project-document-${i}`}>
                   {document._type === 'documentWithFile' ? (
                     <a href={document.document?.asset?.url!}>
                       {document.label}

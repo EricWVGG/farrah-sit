@@ -28,9 +28,9 @@ export const AboutPanel = ({
     <>
       <Wrapper
         className={`
+          ${isProjectPage ? 'hidden' : ''}
           ${active ? 'active' : ''}
           ${pathname !== '/' ? 'initialized' : ''}
-          ${isProjectPage ? 'hidden' : ''}
         `}
       >
         <Content>
@@ -77,12 +77,13 @@ const Wrapper = styled.section`
   &.initialized {
     transform: translateX(100px);
   }
+  &.hidden {
+    transform: translateX(0);
+  }
+
   &.active {
     z-index: var(--layer-popout);
     transform: translateX(620px);
-  }
-  &.hidden {
-    transform: translateX(0) !important;
   }
 
   @media only screen and (min-width: 744px) {

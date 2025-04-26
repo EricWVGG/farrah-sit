@@ -48,8 +48,8 @@ export const Specifications = ({
               <Label>Dimensions</Label>
               <td>
                 <ul>
-                  {variants.map((variant) => (
-                    <li key={variant._key}>
+                  {variants.map((variant, i) => (
+                    <li key={`variant-${i}`}>
                       {variant.title}: {variant.width}w {variant.height}h{' '}
                       {variant.depth}d
                     </li>
@@ -81,9 +81,9 @@ export const Specifications = ({
 
           {freeformData &&
             freeformData.length > 0 &&
-            freeformData.map((item) =>
+            freeformData.map((item, i) =>
               !item.value ? null : (
-                <tr key={item._key}>
+                <tr key={`freeform-${i}`}>
                   <Label>{item.title}</Label>
                   <td>
                     <RichText value={item.value} />
@@ -102,8 +102,8 @@ export const Specifications = ({
             </tr>
           )}
 
-          {documents?.map((document) => (
-            <tr key={document._id}>
+          {documents?.map((document, i) => (
+            <tr key={`document-${i}`}>
               <th></th>
               <td>
                 {document._type === 'documentWithFile' ? (
