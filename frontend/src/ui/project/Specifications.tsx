@@ -2,7 +2,7 @@
 
 import { styled } from '@linaria/react'
 import { RichText } from '@ui'
-import { useLayout } from '@lib'
+import { useLayout, cdnUrl } from '@lib'
 import { useShallow } from 'zustand/react/shallow'
 
 export const Specifications = ({
@@ -107,11 +107,16 @@ export const Specifications = ({
               <th></th>
               <td>
                 {document._type === 'documentWithFile' ? (
-                  <a href={document.document?.asset?.url!} target="_blank">
+                  <a
+                    href={cdnUrl(document.document?.asset?.url!)}
+                    target="_blank"
+                  >
                     {document.label}
                   </a>
                 ) : (
-                  <a href={catalogLink}>Catalog</a>
+                  <a href={cdnUrl(catalogLink)} target="_blank">
+                    Catalog
+                  </a>
                 )}
               </td>
             </tr>

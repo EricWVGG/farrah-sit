@@ -4,7 +4,7 @@ import { styled } from '@linaria/react'
 import Image from 'next/image'
 import { RichText } from '@ui'
 import { useTimeout } from 'usehooks-ts'
-import { useLayout, imageKitLoader, BlurMask } from '@lib'
+import { useLayout, imageKitLoader, BlurMask, cdnUrl } from '@lib'
 import { useShallow } from 'zustand/react/shallow'
 import { useEffect, useState, useRef } from 'react'
 import { Outline, Specifications } from './'
@@ -82,11 +82,16 @@ export const Project = ({
               {documents?.map((document, i) => (
                 <li key={`project-document-${i}`}>
                   {document._type === 'documentWithFile' ? (
-                    <a href={document.document?.asset?.url!} target="_blank">
+                    <a
+                      href={cdnUrl(document.document?.asset?.url!)}
+                      target="_blank"
+                    >
                       {document.label}
                     </a>
                   ) : (
-                    <a href={catalogLink}>Catalog</a>
+                    <a href={cdnUrl(catalogLink)} target="_blank">
+                      Catalog
+                    </a>
                   )}
                 </li>
               ))}

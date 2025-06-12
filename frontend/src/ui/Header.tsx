@@ -30,17 +30,24 @@ export const Header = ({
         <ul>
           {navigation?.links?.map((item) => (
             <li key={item._key}>
-              <Link
-                onClick={transit}
-                href={`/${item.destination?.metadata.slug.current}`}
-                className={
-                  pathParts[1] === item.destination?.metadata.slug.current
-                    ? 'active'
-                    : 'inverted'
-                }
-              >
-                {item.label}
-              </Link>
+              {!item.externalUrl && (
+                <Link
+                  onClick={transit}
+                  href={`/${item.destination?.metadata.slug.current}`}
+                  className={
+                    pathParts[1] === item.destination?.metadata.slug.current
+                      ? 'active'
+                      : 'inverted'
+                  }
+                >
+                  {item.label}
+                </Link>
+              )}
+              {item.externalUrl && (
+                <a href={item.externalUrl} target="_blank" className="inverted">
+                  {item.label}
+                </a>
+              )}
             </li>
           ))}
           <li
