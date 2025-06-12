@@ -82,7 +82,7 @@ export const Project = ({
               {documents?.map((document, i) => (
                 <li key={`project-document-${i}`}>
                   {document._type === 'documentWithFile' ? (
-                    <a href={document.document?.asset?.url!}>
+                    <a href={document.document?.asset?.url!} target="_blank">
                       {document.label}
                     </a>
                   ) : (

@@ -107,7 +107,9 @@ export const Specifications = ({
               <th></th>
               <td>
                 {document._type === 'documentWithFile' ? (
-                  <a href={document.document?.asset?.url!}>{document.label}</a>
+                  <a href={document.document?.asset?.url!} target="_blank">
+                    {document.label}
+                  </a>
                 ) : (
                   <a href={catalogLink}>Catalog</a>
                 )}
