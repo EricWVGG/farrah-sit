@@ -44,7 +44,7 @@ export const Header = ({
                 </Link>
               )}
               {item.externalUrl && (
-                <a href={item.externalUrl} target="_blank" className="inverted">
+                <a href={item.externalUrl} className="inverted">
                   {item.label}
                 </a>
               )}

@@ -30,7 +30,7 @@ export const processMetadata = (
       description:
         metadata?.description || siteSettings?.description || undefined,
       images: imageUrl
-        ? cdnUrl(imageUrl)?.replace('{{transforms}}/', '')
+        ? cdnUrl(imageUrl!).toString().replace('{{transforms}}/', '')
         : undefined,
     },
     robots: {

@@ -475,7 +475,7 @@ export type AllContentIndexQueryResult = Array<
 
 // Source: ../frontend/src/query/getMetadata.ts
 // Variable: metadataQuery
-// Query: *[(_type == 'page' || _type == 'project') && metadata.slug.current == $slug][0]{    metadata {      ...,      poster {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }}    }  }
+// Query: *[(_type == 'page' || _type == 'project') && metadata.slug.current == $slug][0]{    metadata {      ...,      poster {  ...,  asset-> {    originalFilename,    metadata {      lqip,      blurHash,      dimensions    },    url  }}    }  }
 export type MetadataQueryResult = {
   metadata: {
     _type: 'metadata'
@@ -484,6 +484,7 @@ export type MetadataQueryResult = {
     description?: string
     poster: {
       asset: {
+        originalFilename: string | null
         metadata: {
           lqip: string | null
           blurHash: string | null
@@ -502,7 +503,7 @@ export type MetadataQueryResult = {
 
 // Source: ../frontend/src/query/getNavigation.ts
 // Variable: navigationQuery
-// Query: *[_type == 'navigation' && name == $name][0]{    links[] {      ...,      label,      externalUrl,      destination -> {        metadata {          slug {            current          }        },        projectType      },      image {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }}    }  }
+// Query: *[_type == 'navigation' && name == $name][0]{    links[] {      ...,      label,      externalUrl,      destination -> {        metadata {          slug {            current          }        },        projectType      },      image {  ...,  asset-> {    originalFilename,    metadata {      lqip,      blurHash,      dimensions    },    url  }}    }  }
 export type NavigationQueryResult = {
   links: Array<{
     _key: string
@@ -530,6 +531,7 @@ export type NavigationQueryResult = {
     externalUrl: string | null
     image: {
       asset: {
+        originalFilename: string | null
         metadata: {
           lqip: string | null
           blurHash: string | null
@@ -547,7 +549,7 @@ export type NavigationQueryResult = {
 
 // Source: ../frontend/src/query/getPage.ts
 // Variable: pageQuery
-// Query: *[_type == 'page' && metadata.slug.current == $slug][0]{    metadata {      ...,      poster {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }}    },    copy,    projects[] -> {      _id,      projectType,      images[] {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }},      metadata {        title,        description,        slug {          current        }      }    },  }
+// Query: *[_type == 'page' && metadata.slug.current == $slug][0]{    metadata {      ...,      poster {  ...,  asset-> {    originalFilename,    metadata {      lqip,      blurHash,      dimensions    },    url  }}    },    copy,    projects[] -> {      _id,      projectType,      images[] {  ...,  asset-> {    originalFilename,    metadata {      lqip,      blurHash,      dimensions    },    url  }},      metadata {        title,        description,        slug {          current        }      }    },  }
 export type PageQueryResult = {
   metadata: {
     _type: 'metadata'
@@ -556,6 +558,7 @@ export type PageQueryResult = {
     description?: string
     poster: {
       asset: {
+        originalFilename: string | null
         metadata: {
           lqip: string | null
           blurHash: string | null
@@ -593,6 +596,7 @@ export type PageQueryResult = {
     projectType: 'collaborations' | 'lighting' | 'objects'
     images: Array<{
       asset: {
+        originalFilename: string | null
         metadata: {
           lqip: string | null
           blurHash: string | null
@@ -633,7 +637,7 @@ export type PageIndexQueryResult = Array<{
 
 // Source: ../frontend/src/query/getProject.ts
 // Variable: projectQuery
-// Query: *[_type == 'project' && metadata.slug.current == $slug][0]{    metadata,    copy,    projectType,    images[] {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }},    documents[] {      _id,      _type,      label,      document {  ...,  asset-> {    url  }}    },    outline {  ...,  asset-> {    url  }},    variants[],    finishes[],    leadTime,    freeformData[],    notes  }
+// Query: *[_type == 'project' && metadata.slug.current == $slug][0]{    metadata,    copy,    projectType,    images[] {  ...,  asset-> {    originalFilename,    metadata {      lqip,      blurHash,      dimensions    },    url  }},    documents[] {      _id,      _type,      label,      document {  ...,  asset-> {    originalFilename,    url  }}    },    outline {  ...,  asset-> {    originalFilename,    url  }},    variants[],    finishes[],    leadTime,    freeformData[],    notes  }
 export type ProjectQueryResult = {
   metadata: Metadata
   copy: Array<{
@@ -657,6 +661,7 @@ export type ProjectQueryResult = {
   projectType: 'collaborations' | 'lighting' | 'objects'
   images: Array<{
     asset: {
+      originalFilename: string | null
       metadata: {
         lqip: string | null
         blurHash: string | null
@@ -683,6 +688,7 @@ export type ProjectQueryResult = {
         label: string
         document: {
           asset: {
+            originalFilename: string | null
             url: string | null
           } | null
           media?: unknown
@@ -692,6 +698,7 @@ export type ProjectQueryResult = {
   > | null
   outline: {
     asset: {
+      originalFilename: string | null
       url: string | null
     } | null
     media?: unknown
@@ -747,12 +754,13 @@ export type ProjectIndexQueryResult = Array<{
 
 // Source: ../frontend/src/query/getSiteSettings.ts
 // Variable: siteSettingsQuery
-// Query: *[_type == 'siteSettings' && title == 'Farrah Sit'][0]{    title,    description,    shareImage {  ...,  asset-> {    metadata {      lqip,      blurHash,      dimensions    },    url  }},    catalog {  ...,  asset-> {    url  }}  }
+// Query: *[_type == 'siteSettings' && title == 'Farrah Sit'][0]{    title,    description,    shareImage {  ...,  asset-> {    originalFilename,    metadata {      lqip,      blurHash,      dimensions    },    url  }},    catalog {  ...,  asset-> {    originalFilename,    url  }}  }
 export type SiteSettingsQueryResult = {
   title: string | null
   description: string | null
   shareImage: {
     asset: {
+      originalFilename: string | null
       metadata: {
         lqip: string | null
         blurHash: string | null
@@ -767,6 +775,7 @@ export type SiteSettingsQueryResult = {
   } | null
   catalog: {
     asset: {
+      originalFilename: string | null
       url: string | null
     } | null
     media?: unknown
@@ -779,12 +788,12 @@ import '@sanity/client'
 declare module '@sanity/client' {
   interface SanityQueries {
     "\n  *[_type == 'page' || _type == 'project']{\n    _id,\n    _type,\n    projectType,\n    metadata {\n      slug {\n        current\n      }\n    }\n  }\n": AllContentIndexQueryResult
-    "\n  *[(_type == 'page' || _type == 'project') && metadata.slug.current == $slug][0]{\n    metadata {\n      ...,\n      poster \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    }\n  }\n": MetadataQueryResult
-    "\n  *[_type == 'navigation' && name == $name][0]{\n    links[] {\n      ...,\n      label,\n      externalUrl,\n      destination -> {\n        metadata {\n          slug {\n            current\n          }\n        },\n        projectType\n      },\n      image \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    }\n  }\n": NavigationQueryResult
-    "\n  *[_type == 'page' && metadata.slug.current == $slug][0]{\n    metadata {\n      ...,\n      poster \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    },\n    copy,\n    projects[] -> {\n      _id,\n      projectType,\n      images[] \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n      metadata {\n        title,\n        description,\n        slug {\n          current\n        }\n      }\n    },\n  }\n": PageQueryResult
+    "\n  *[(_type == 'page' || _type == 'project') && metadata.slug.current == $slug][0]{\n    metadata {\n      ...,\n      poster \n{\n  ...,\n  asset-> {\n    originalFilename,\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    }\n  }\n": MetadataQueryResult
+    "\n  *[_type == 'navigation' && name == $name][0]{\n    links[] {\n      ...,\n      label,\n      externalUrl,\n      destination -> {\n        metadata {\n          slug {\n            current\n          }\n        },\n        projectType\n      },\n      image \n{\n  ...,\n  asset-> {\n    originalFilename,\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    }\n  }\n": NavigationQueryResult
+    "\n  *[_type == 'page' && metadata.slug.current == $slug][0]{\n    metadata {\n      ...,\n      poster \n{\n  ...,\n  asset-> {\n    originalFilename,\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n\n    },\n    copy,\n    projects[] -> {\n      _id,\n      projectType,\n      images[] \n{\n  ...,\n  asset-> {\n    originalFilename,\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n      metadata {\n        title,\n        description,\n        slug {\n          current\n        }\n      }\n    },\n  }\n": PageQueryResult
     "\n  *[_type == 'page']{\n    _id,\n    _updatedAt,\n    metadata {\n      title,\n      description,\n      slug {\n        current\n      }\n    }\n  }\n": PageIndexQueryResult
-    "\n  *[_type == 'project' && metadata.slug.current == $slug][0]{\n    metadata,\n    copy,\n    projectType,\n    images[] \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n    documents[] {\n      _id,\n      _type,\n      label,\n      document \n{\n  ...,\n  asset-> {\n    url\n  }\n}\n\n    },\n    outline \n{\n  ...,\n  asset-> {\n    url\n  }\n}\n,\n    variants[],\n    finishes[],\n    leadTime,\n    freeformData[],\n    notes\n  }\n": ProjectQueryResult
+    "\n  *[_type == 'project' && metadata.slug.current == $slug][0]{\n    metadata,\n    copy,\n    projectType,\n    images[] \n{\n  ...,\n  asset-> {\n    originalFilename,\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n    documents[] {\n      _id,\n      _type,\n      label,\n      document \n{\n  ...,\n  asset-> {\n    originalFilename,\n    url\n  }\n}\n\n    },\n    outline \n{\n  ...,\n  asset-> {\n    originalFilename,\n    url\n  }\n}\n,\n    variants[],\n    finishes[],\n    leadTime,\n    freeformData[],\n    notes\n  }\n": ProjectQueryResult
     "\n  *[_type == 'project']{\n    _id,\n    _updatedAt,\n    projectType,\n    metadata {\n      title,\n      description,\n      slug {\n        current\n      }\n    }\n  }\n": ProjectIndexQueryResult
-    "\n  *[_type == 'siteSettings' && title == 'Farrah Sit'][0]{\n    title,\n    description,\n    shareImage \n{\n  ...,\n  asset-> {\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n    catalog \n{\n  ...,\n  asset-> {\n    url\n  }\n}\n\n  }\n": SiteSettingsQueryResult
+    "\n  *[_type == 'siteSettings' && title == 'Farrah Sit'][0]{\n    title,\n    description,\n    shareImage \n{\n  ...,\n  asset-> {\n    originalFilename,\n    metadata {\n      lqip,\n      blurHash,\n      dimensions\n    },\n    url\n  }\n}\n,\n    catalog \n{\n  ...,\n  asset-> {\n    originalFilename,\n    url\n  }\n}\n\n  }\n": SiteSettingsQueryResult
   }
 }

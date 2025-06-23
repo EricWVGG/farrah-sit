@@ -22,7 +22,7 @@ export const Slide = ({
         <BlurMask hash={image.asset?.metadata?.blurHash} />
       )*/}
       <Image
-        src={image.asset?.url!}
+        src={`${image.asset?.url!}?dl=${image.asset?.originalFilename}`}
         alt="artwork by Farrah Sit"
         width={image.asset?.metadata?.dimensions?.width!}
         height={image.asset?.metadata?.dimensions?.height!}

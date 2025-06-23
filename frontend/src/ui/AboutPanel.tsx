@@ -39,7 +39,7 @@ export const AboutPanel = ({
           </Copy>
           {poster && (
             <Image
-              src={poster.url!}
+              src={`${poster.url!}?dl=${poster.originalFilename}`}
               width={poster.metadata?.dimensions?.width}
               height={poster.metadata?.dimensions?.height}
               alt={content?.metadata?.title}

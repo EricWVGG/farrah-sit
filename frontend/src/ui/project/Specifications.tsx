@@ -108,13 +108,22 @@ export const Specifications = ({
               <td>
                 {document._type === 'documentWithFile' ? (
                   <a
-                    href={cdnUrl(document.document?.asset?.url!)}
-                    target="_blank"
+                    href={cdnUrl(
+                      `${document.document?.asset?.url!}/${
+                        document.document?.asset?.originalFilename
+                      }?ik-attachment=true`,
+                    ).toString()}
+                    download={document.document?.asset?.originalFilename}
                   >
                     {document.label}
                   </a>
                 ) : (
-                  <a href={cdnUrl(catalogLink)} target="_blank">
+                  <a
+                    href={cdnUrl(
+                      `${catalogLink}/farrah-sit-catalog.pdf?ik-attachment=true`,
+                    ).toString()}
+                    download="farrah-sit-catalog.pdf"
+                  >
                     Catalog
                   </a>
                 )}

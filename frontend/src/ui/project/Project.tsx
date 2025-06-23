@@ -83,13 +83,22 @@ export const Project = ({
                 <li key={`project-document-${i}`}>
                   {document._type === 'documentWithFile' ? (
                     <a
-                      href={cdnUrl(document.document?.asset?.url!)}
-                      target="_blank"
+                      href={cdnUrl(
+                        `${document.document?.asset?.url!}/${
+                          document.document?.asset?.originalFilename
+                        }?ik-attachment=true`,
+                      ).toString()}
+                      download={document.document?.asset?.originalFilename}
                     >
                       {document.label}
                     </a>
                   ) : (
-                    <a href={cdnUrl(catalogLink)} target="_blank">
+                    <a
+                      href={cdnUrl(
+                        `${catalogLink}/farrah-sit-catalog.pdf?ik-attachment=true`,
+                      ).toString()}
+                      download="farrah-sit-catalog.pdf"
+                    >
                       Catalog
                     </a>
                   )}
@@ -112,7 +121,7 @@ export const Project = ({
               )}
 
               <Image
-                src={image.asset?.url!}
+                src={`${image.asset?.url!}?dl=${image.asset?.originalFilename}`}
                 alt={`image of ${metadata?.title}`}
                 width={image.asset?.metadata?.dimensions?.width!}
                 height={image.asset?.metadata?.dimensions?.height!}

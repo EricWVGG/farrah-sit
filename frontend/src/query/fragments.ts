@@ -2,6 +2,7 @@ export const imageFragment = `
 {
   ...,
   asset-> {
+    originalFilename,
     metadata {
       lqip,
       blurHash,
@@ -16,6 +17,7 @@ export const fileFragment = `
 {
   ...,
   asset-> {
+    originalFilename,
     url
   }
 }
