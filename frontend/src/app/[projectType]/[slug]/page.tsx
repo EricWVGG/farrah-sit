@@ -17,7 +17,7 @@ export default async function ProjectPage(props: {
   const { slug, projectType } = await props.params
   const project = await getProject({ slug })
   if (!project || project.projectType !== projectType) return notFound()
-  const siteSettings = await getSiteSettings()
+  // const siteSettings = await getSiteSettings()
   return (
     <Project
       project={project}

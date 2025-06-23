@@ -24,7 +24,7 @@ export const imageKitLoader = ({ src, width, quality }: IImageKitLoader) => {
   const seoFilename = fixedFilename.searchParams.get('dl')
   if (!!seoFilename) {
     fixedFilename.searchParams.delete('dl')
-    const [filename, _] = seoFilename.split('.')
+    const [filename] = seoFilename.split('.')
     fixedFilename = new URL(`${fixedFilename}/${filename}.webp`)
   }
 
