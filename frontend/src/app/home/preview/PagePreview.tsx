@@ -20,7 +20,9 @@ export const PagePreview = ({
   ...props
 }: IPreviewPage) => {
   const [page, loading] = useLiveQuery(initialData, pageQuery, params)
-  const [navigation] = useLiveQuery(initialNavData, navigationQuery, params)
+  const [navigation] = useLiveQuery(initialNavData, navigationQuery, {
+    name: 'Splash',
+  })
   return loading ? (
     <div>Loading…</div>
   ) : (

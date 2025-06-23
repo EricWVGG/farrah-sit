@@ -19,7 +19,7 @@ export default async function Home() {
   }
   const page = await getPage({ slug: SLUG }, true)
   const navigation = await getNavigation({ name: 'Splash' })
-  if (!page) {
+  if (!page || !navigation) {
     throw new Error('page not found')
   }
   return (
