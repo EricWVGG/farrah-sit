@@ -118,12 +118,7 @@ export const Specifications = ({
                     {document.label}
                   </a>
                 ) : (
-                  <a
-                    href={cdnUrl(
-                      `${catalogLink}/farrah-sit-catalog.pdf?ik-attachment=true`,
-                    ).toString()}
-                    download="farrah-sit-catalog.pdf"
-                  >
+                  <a href={catalogLink} download="farrah-sit-catalog.pdf">
                     Catalog
                   </a>
                 )}

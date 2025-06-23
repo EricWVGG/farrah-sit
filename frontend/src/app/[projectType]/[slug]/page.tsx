@@ -21,7 +21,7 @@ export default async function ProjectPage(props: {
   return (
     <Project
       project={project}
-      catalogLink={siteSettings?.catalog?.asset?.url ?? undefined}
+      catalogLink="https://ik.imagekit.io/vpmkkvxmw/files/00c7bf9c9024530127dbb677e4a58cb6c915c0da.pdf/farrah-sit-catalog.pdf?ik-attachment=true"
     />
   )
 }
