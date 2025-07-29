@@ -3,14 +3,16 @@
 import { styled } from '@linaria/react'
 import { usePathname } from 'next/navigation'
 import { useShallow } from 'zustand/react/shallow'
-import { useLayout, useTransit } from '@lib'
+import { useLayout, useTransit, cdnUrl } from '@lib'
 import { MenuButton } from '@ui'
 import Link from 'next/link'
 
 export const Header = ({
   navigation,
+  siteSettings,
 }: {
   navigation: Sanity.NavigationQueryResult
+  siteSettings: Sanity.SiteSettingsQueryResult
 }) => {
   const [activeModal, setActiveModal] = useLayout(
     useShallow((state) => [state.activeModal, state.setActiveModal]),
@@ -20,6 +22,9 @@ export const Header = ({
 
   const pathname = usePathname()
   const pathParts = pathname.split('/')
+
+  const catalogLink = siteSettings?.catalog?.asset?.url
+  const originalFilename = siteSettings?.catalog?.asset?.originalFilename
 
   return (
     <Wrapper className={pathname === '/' ? 'initialized' : 'initialized'}>
@@ -50,6 +55,18 @@ export const Header = ({
               )}
             </li>
           ))}
+          {catalogLink && (
+            <li>
+              <a
+                href={cdnUrl(`${catalogLink}/${originalFilename}`).toString()}
+                download
+                target="_blank"
+                className="inverted"
+              >
+                catalog
+              </a>
+            </li>
+          )}
           <li
             onClick={() =>
               setActiveModal(activeModal === 'ABOUT' ? undefined : 'ABOUT')
