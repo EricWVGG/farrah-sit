@@ -81,24 +81,31 @@ export const Project = ({
               )}
               {documents?.map((document, i) => (
                 <li key={`project-document-${i}`}>
-                  {document._type === 'documentWithFile' ? (
-                    <a
-                      href={cdnUrl(
-                        `${document.document?.asset?.url!}/${
-                          document.document?.asset?.originalFilename
-                        }?ik-attachment=true`,
-                      ).toString()}
-                      download={document.document?.asset?.originalFilename}
-                    >
-                      {document.label}
-                    </a>
-                  ) : (
-                    <a href={catalogLink} download="farrah-sit-catalog.pdf">
-                      Catalog
-                    </a>
-                  )}
+                  <a
+                    href={cdnUrl(
+                      `${document.document?.asset?.url!}/${
+                        document.document?.asset?.originalFilename
+                      }?ik-attachment=true`,
+                    ).toString()}
+                    download={document.document?.asset?.originalFilename}
+                  >
+                    {document.label}
+                  </a>
                 </li>
               ))}
+
+              {catalogLink && (
+                <li>
+                  <a
+                    href={catalogLink}
+                    download="farrah-sit-catalog.pdf"
+                    target="_blank"
+                  >
+                    catalog
+                  </a>
+                </li>
+              )}
+
               <li
                 className="textButton"
                 onClick={() => setActiveModal('CONTACT')}

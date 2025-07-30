@@ -1,6 +1,6 @@
 // export const dynamic = 'force-static'
 
-import { processMetadata } from '@lib'
+import { processMetadata, getCatalogLink } from '@lib'
 import { Project } from '@ui'
 import {
   getProject,
@@ -18,12 +18,11 @@ export default async function ProjectPage(props: {
   const project = await getProject({ slug })
   if (!project || project.projectType !== projectType) return notFound()
   // const siteSettings = await getSiteSettings()
-  return (
-    <Project
-      project={project}
-      catalogLink="https://ik.imagekit.io/vpmkkvxmw/files/00c7bf9c9024530127dbb677e4a58cb6c915c0da.pdf/farrah-sit-catalog.pdf?ik-attachment=true"
-    />
-  )
+
+  const siteSettings = await getSiteSettings()
+  const catalogLink = getCatalogLink(siteSettings)
+
+  return <Project project={project} catalogLink={catalogLink} />
 }
 
 export async function generateMetadata(props: {

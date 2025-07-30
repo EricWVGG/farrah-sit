@@ -3,7 +3,7 @@
 import { styled } from '@linaria/react'
 import { usePathname } from 'next/navigation'
 import { useShallow } from 'zustand/react/shallow'
-import { useLayout, useTransit, cdnUrl } from '@lib'
+import { useLayout, useTransit, getCatalogLink } from '@lib'
 import { MenuButton } from '@ui'
 import Link from 'next/link'
 
@@ -23,8 +23,7 @@ export const Header = ({
   const pathname = usePathname()
   const pathParts = pathname.split('/')
 
-  const catalogLink = siteSettings?.catalog?.asset?.url
-  const originalFilename = siteSettings?.catalog?.asset?.originalFilename
+  const catalogLink = getCatalogLink(siteSettings)
 
   return (
     <Wrapper className={pathname === '/' ? 'initialized' : 'initialized'}>
@@ -58,7 +57,7 @@ export const Header = ({
           {catalogLink && (
             <li>
               <a
-                href={cdnUrl(`${catalogLink}/${originalFilename}`).toString()}
+                href={catalogLink}
                 download
                 target="_blank"
                 className="inverted"
