@@ -101,7 +101,7 @@ export const Project = ({
                     download="farrah-sit-catalog.pdf"
                     target="_blank"
                   >
-                    catalog
+                    Catalog
                   </a>
                 </li>
               )}
