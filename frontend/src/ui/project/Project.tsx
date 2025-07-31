@@ -79,20 +79,21 @@ export const Project = ({
                   Specifications
                 </li>
               )}
-              {documents?.map((document, i) => (
-                <li key={`project-document-${i}`}>
-                  <a
-                    href={cdnUrl(
-                      `${document.document?.asset?.url!}/${
-                        document.document?.asset?.originalFilename
-                      }?ik-attachment=true`,
-                    ).toString()}
-                    download={document.document?.asset?.originalFilename}
-                  >
-                    {document.label}
-                  </a>
-                </li>
-              ))}
+              {documents?.map((document, i) =>
+                !document.document?.asset?.url ? null : (
+                  <li key={`project-document-${i}`}>
+                    <a
+                      href={cdnUrl(
+                        `${document.document?.asset?.url!}/${
+                          document.document?.asset?.originalFilename
+                        }?ik-attachment=true`,
+                      ).toString()}
+                    >
+                      {document.label}
+                    </a>
+                  </li>
+                ),
+              )}
 
               {catalogLink && (
                 <li>
