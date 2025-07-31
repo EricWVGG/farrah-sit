@@ -80,7 +80,7 @@ export const Project = ({
                 </li>
               )}
               {documents?.map((document, i) =>
-                !document.document?.asset?.url ? null : (
+                document.document?.asset?.url ? (
                   <li key={`project-document-${i}`}>
                     <a
                       href={cdnUrl(
@@ -92,19 +92,13 @@ export const Project = ({
                       {document.label}
                     </a>
                   </li>
-                ),
-              )}
-
-              {catalogLink && (
-                <li>
-                  <a
-                    href={catalogLink}
-                    download="farrah-sit-catalog.pdf"
-                    target="_blank"
-                  >
-                    Catalog
-                  </a>
-                </li>
+                ) : catalogLink ? (
+                  <li>
+                    <a href={catalogLink} target="_blank">
+                      Catalog
+                    </a>
+                  </li>
+                ) : null,
               )}
 
               <li
