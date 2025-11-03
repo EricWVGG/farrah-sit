@@ -4,6 +4,7 @@ import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
 import previewPopAction from './src/previewPopAction'
 import {deployAction} from './src/deployAction'
+import {media} from 'sanity-plugin-media'
 
 const singletonTypes = ['site']
 
@@ -14,7 +15,7 @@ export default defineConfig({
   projectId: '1hgdeiss',
   dataset: 'production',
 
-  plugins: [structureTool(), visionTool()],
+  plugins: [structureTool(), media(), visionTool()],
 
   schema: {
     types: schemaTypes,
