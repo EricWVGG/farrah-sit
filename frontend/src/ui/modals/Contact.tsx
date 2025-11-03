@@ -7,7 +7,7 @@ import { useForm, type SubmitHandler } from 'react-hook-form'
 import { useLayout } from '@lib'
 import { useShallow } from 'zustand/react/shallow'
 
-type ContactInputs = {
+export type ContactInputs = {
   name: string
   email: string
   subject?: string
@@ -19,7 +19,6 @@ export const Contact = () => {
     register,
     handleSubmit,
     getValues,
-    reset,
     formState: { errors, isValid },
   } = useForm<ContactInputs>({
     mode: 'onTouched',
@@ -34,27 +33,19 @@ export const Contact = () => {
 
   const onSubmit: SubmitHandler<ContactInputs> = async () => {
     try {
-      const referer = location.protocol + '//' + location.host
-      const MAILER_ADDRESS = process.env.NEXT_PUBLIC_MAILER_ADDRESS
-      const TOKEN = process.env.NEXT_PUBLIC_MAILER_TOKEN
-      if (!MAILER_ADDRESS || !TOKEN) throw new Error('Missing mailer address')
       setSending(true)
-      await fetch(MAILER_ADDRESS, {
+      await fetch('/api/contact', {
         method: 'post',
         headers: {
           Accept: 'application/json',
           'Content-Type': 'application/json',
-          Authorization: `Basic ${TOKEN}`,
         },
         body: JSON.stringify({
           ...getValues(),
-          subject,
-          referer,
         }),
       })
       setSent(true)
       setSending(false)
-      reset()
     } catch (e) {
       setSending(false)
       console.log(errors)
