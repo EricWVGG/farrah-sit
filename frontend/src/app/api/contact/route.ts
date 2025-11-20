@@ -53,7 +53,7 @@ export async function POST(req: NextRequest) {
             (key) =>
               `<dt>${key}</dt><dd>${body[key as keyof ContactInputs]}</dd>`,
           )
-          .join()}
+          .join('')}
         </dl>`,
     })
 
