@@ -42,7 +42,8 @@ export async function POST(req: NextRequest) {
     })
 
     const response = await transporter.sendMail({
-      from: `"${body.name}" <${smtp_user}>`,
+      from: `"website contact form" <${smtp_user}>`,
+      replyTo: `"${body.name}" <${body.email}>`,
       to: recipient,
       subject: 'Contact Form submission',
       text: JSON.stringify(body, null, 2),
