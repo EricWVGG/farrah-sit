@@ -18,7 +18,7 @@ export default defineConfig({
     visionTool(),
     sanityPluginNextjsDoDeploy({
       estimatedDeploymentDurationMessage: 'Est. 5 minutes',
-      apiEndpoint: 'http://localhost:3000/api/deploy',
+      apiEndpoint: process.env.SANITY_STUDIO_DEPLOYMENT_HOOK,
       debug: true,
     }),
   ],
