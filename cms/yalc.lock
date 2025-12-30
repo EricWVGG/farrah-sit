@@ -1,0 +1,8 @@
+{
+  "version": "v1",
+  "packages": {
+    "sanity-plugin-nextjs-do-deploy": {
+      "signature": "12dc60e30fb577307bcfd03d99ef2aac"
+    }
+  }
+}

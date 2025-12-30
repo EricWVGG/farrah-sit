@@ -2,11 +2,8 @@ import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {visionTool} from '@sanity/vision'
 import {schemaTypes} from './schemaTypes'
-import previewPopAction from './src/previewPopAction'
-import {deployAction} from './src/deployAction'
 import {media} from 'sanity-plugin-media'
-
-const singletonTypes = ['site']
+import {sanityPluginNextjsDoDeploy} from 'sanity-plugin-nextjs-do-deploy/sanity'
 
 export default defineConfig({
   name: 'default',
@@ -15,27 +12,18 @@ export default defineConfig({
   projectId: '1hgdeiss',
   dataset: 'production',
 
-  plugins: [structureTool(), media(), visionTool()],
+  plugins: [
+    structureTool(),
+    media(),
+    visionTool(),
+    sanityPluginNextjsDoDeploy({
+      estimatedDeploymentDurationMessage: 'Est. 5 minutes',
+      apiEndpoint: 'http://localhost:3000/api/deploy',
+      debug: true,
+    }),
+  ],
 
   schema: {
     types: schemaTypes,
-  },
-
-  document: {
-    actions: (input, context) => {
-      const inputs = ['page', 'project'].includes(context.schemaType)
-        ? [...input, previewPopAction(context)]
-        : singletonTypes.includes(context.schemaType)
-        ? input.filter(
-            ({action}) => action && ['publish', 'discardChanges', 'restore'].includes(action)
-          )
-        : input
-
-      if (process.env.SANITY_STUDIO_DEPLOYMENT_HOOK) {
-        inputs.push(deployAction(context))
-      }
-
-      return inputs
-    },
   },
 })
