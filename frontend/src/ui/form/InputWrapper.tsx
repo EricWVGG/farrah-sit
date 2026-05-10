@@ -84,7 +84,7 @@ export const InputWrapper = styled.div<{
     &:-moz-selection {
       text-shadow: none;
     }
-    &:selection {
+    &::selection {
       text-shadow: none;
     }
   }
