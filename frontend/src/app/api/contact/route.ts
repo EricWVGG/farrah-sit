@@ -24,22 +24,22 @@ function isValidBody<T extends Record<string, unknown>>(
   )
 }
 
+const transporter = nodemailer.createTransport({
+  host: smtp_server,
+  port: smtp_port,
+  secure: smtp_secure,
+  auth: {
+    user: smtp_user,
+    pass: smtp_password,
+  },
+})
+
 export async function POST(req: NextRequest) {
   try {
     const body: ContactInputs = await req.json()
     if (!isValidBody<ContactInputs>(req.body, ['name', 'email', 'message'])) {
       return NextResponse.json({ message: 'Missing input' }, { status: 401 })
     }
-
-    const transporter = nodemailer.createTransport({
-      host: smtp_server,
-      port: smtp_port,
-      secure: smtp_secure,
-      auth: {
-        user: smtp_user,
-        pass: smtp_password,
-      },
-    })
 
     const response = await transporter.sendMail({
       from: `"website contact form" <${smtp_user}>`,
