@@ -37,8 +37,18 @@ const transporter = nodemailer.createTransport({
 export async function POST(req: NextRequest) {
   try {
     const body: ContactInputs = await req.json()
-    if (!isValidBody<ContactInputs>(req.body, ['name', 'email', 'message'])) {
+    if (
+      !isValidBody<ContactInputs>(req.body, [
+        'herp',
+        'name',
+        'email',
+        'message',
+      ])
+    ) {
       return NextResponse.json({ message: 'Missing input' }, { status: 401 })
+    }
+    if (req.body.herp !== 'derp') {
+      return NextResponse.json({ message: 'success', status: 200 })
     }
 
     const response = await transporter.sendMail({

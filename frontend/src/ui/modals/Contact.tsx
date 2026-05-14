@@ -12,6 +12,7 @@ export type ContactInputs = {
   email: string
   subject?: string
   message: string
+  herp?: string
 }
 
 export const Contact = () => {
@@ -34,7 +35,7 @@ export const Contact = () => {
   const onSubmit: SubmitHandler<ContactInputs> = async () => {
     try {
       setSending(true)
-      await fetch('/api/contact', {
+      await fetch('/api/contactForm', {
         method: 'post',
         headers: {
           Accept: 'application/json',
@@ -42,6 +43,7 @@ export const Contact = () => {
         },
         body: JSON.stringify({
           ...getValues(),
+          herp: 'derp',
         }),
       })
       setSent(true)
